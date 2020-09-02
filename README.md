@@ -31,8 +31,11 @@ pip3 install -r requirements.txt
 # create instance of the bot
 bot = TinderBot()
 
-# you need a verified email to login like this, login using other approaches are not (yet) implemented
+# you need a verified email to login like this
 bot.loginUsingGoogle(email, password) 
+
+# alternatively you can use login using Facebook
+bot.loginUsingFacebook(email, password)
 
 # this will (dis/super)like x amount of people in a row -> is spammable if you higher the amount
 bot.like(amount=10) 
