@@ -25,9 +25,13 @@ if __name__ == "__main__":
     # login
     bot.loginUsingGoogle(email=email, password=password)
 
+    bot.getMatches()
+
+    '''
     # spam likes
     bot.like(amount=3)
     # spam dislikes
     bot.dislike(amount=1)
     # spam superlikes
     bot.superlike(amount=2)
+    '''

@@ -34,6 +34,10 @@ class TinderBot:
         helper = LoginHelper(browser=self.browser)
         helper.loginByGoogle(email, password)
 
+    def loginUsingFacebook(self, email, password):
+        helper = LoginHelper(browser=self.browser)
+        helper.loginByFacebook(email, password)
+
     def like(self, amount=1):
         like_button = self.browser.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[4]/button')
 
@@ -69,6 +73,22 @@ class TinderBot:
         for _ in range(amount):
             superlike_button.click()
             time.sleep(1)
+
+
+    def getMatches(self):
+
+        div = self.browser.find_element_by_id('matchListNoMessages')
+
+        list_refs = div.find_elements_by_class_name('matchListItem')
+        list_names = div.find_elements_by_class_name('Ell')
+
+        if len(list_refs) < len(list_names): length = len(list_refs)
+        else: length = len(list_names)
+
+        for index in range(length):
+            ref = list_refs[index].get_attribute('href')
+            name = list_names[index+1].text
+            print(name, ref)
 
     def logToScreen(self, text, isBanner=False):
         if isBanner:

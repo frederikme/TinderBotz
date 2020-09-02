@@ -73,6 +73,58 @@ class LoginHelper:
         except Exception as e:
             print("def login(self): 4: %s" % str(e))
 
+        self.acceptLocationNotification()
+        self.denyOverlayedNotifications()
+        self.acceptCookies()
+
+
+    def loginByFacebook(self, email, password):
+        if self.isLoggedIn(): return;
+
+        # wait for facebook button to appear
+        try:
+            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+                (By.XPATH, '//*[@id="modal-manager"]/div/div/div[1]/div/div[3]/span/div[2]/button')))
+
+            btn = self.browser.find_element_by_xpath(
+                '//*[@id="modal-manager"]/div/div/div[1]/div/div[3]/span/div[2]/button')
+
+            btn.send_keys(Keys.ENTER)
+            print("Sleeping 3 seconds for pop up to come through")
+            time.sleep(3)
+        except TimeoutException:
+            print("Loading took too much time! Let's try again.")
+        except Exception as e:
+            print("def login(self): 2: %s" % str(e))
+
+
+        if not self.changeFocusToPopUp():
+            print("FAILED TO CHANGE FOCUS TO POPUP")
+        try:
+            WebDriverWait(self.browser, self.delay).until(
+                EC.presence_of_element_located((By.ID, "email")))
+
+            emailfield = self.browser.find_element_by_id("email")
+            emailfield.send_keys(email)
+
+            pwdfield = self.browser.find_element_by_id("pass")
+            pwdfield.send_keys(password)
+            pwdfield.send_keys(Keys.ENTER)
+
+            self.changeFocusToMainWindow()
+
+            print("Sleeping 3 seconds before returning to main view")
+            time.sleep(3)
+        except TimeoutException:
+            print("PASSWORD: Loading took too much time! Let's try again.")
+        except Exception as e:
+            print("def login(self): 4: %s" % str(e))
+
+        self.acceptLocationNotification()
+        self.denyOverlayedNotifications()
+        self.acceptCookies()
+
+    def acceptLocationNotification(self):
         try:
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, '//*[@id="modal-manager"]/div/div/div/div/div[3]/button[1]')))
@@ -89,6 +141,7 @@ class LoginHelper:
         except Exception as e:
             print("def login(self): 5: %s" % str(e))
 
+    def denyOverlayedNotifications(self):
         try:
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, '//*[@id="modal-manager"]/div/div/div/div/div[3]/button[2]')))
@@ -105,6 +158,7 @@ class LoginHelper:
         except Exception as e:
             print("def login(self): 6: %s" % str(e))
 
+    def acceptCookies(self):
         try:
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, '//*[@id="content"]/div/div[2]/div/div/div[1]/button')))
