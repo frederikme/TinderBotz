@@ -23,7 +23,11 @@ if __name__ == "__main__":
     bot = TinderBot()
 
     # login
-    bot.loginGoogle(email=email, password=password)
+    bot.loginUsingGoogle(email=email, password=password)
 
     # spam likes
-    bot.like(amount=5)
+    bot.like(amount=3)
+    # spam dislikes
+    bot.dislike(amount=1)
+    # spam superlikes
+    bot.superlike(amount=2)
