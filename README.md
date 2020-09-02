@@ -34,7 +34,7 @@ bot = TinderBot()
 # you need a verified email to login like this
 bot.loginUsingGoogle(email, password) 
 
-# alternatively you can use login using Facebook
+# alternatively you can login using Facebook
 bot.loginUsingFacebook(email, password)
 
 # this will (dis/super)like x amount of people in a row -> is spammable if you higher the amount
