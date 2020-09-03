@@ -50,4 +50,9 @@ messaged_matches = bot.getChattedMatches()
 
 # - or simply get all matches (new+chatted)
 matches = bot.getAllMatches()
+
+# opening a chat can be done by 3 different parameters
+bot.openChat(match=matches[0])
+bot.openChat(id=matches[1].getID())
+bot.openChat(mref=matches[2].getMRef())
 ```
