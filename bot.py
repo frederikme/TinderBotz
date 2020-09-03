@@ -11,6 +11,7 @@ import pyfiglet
 import os
 import time
 from helpers.login_helper import LoginHelper
+from helpers.match import Match
 
 class TinderBot:
 
@@ -76,19 +77,38 @@ class TinderBot:
 
 
     def getMatches(self):
+        try:
+            div = self.browser.find_element_by_id('matchListNoMessages')
 
-        div = self.browser.find_element_by_id('matchListNoMessages')
+            list_refs = div.find_elements_by_class_name('matchListItem')
+            list_names = div.find_elements_by_class_name('Ell')
 
-        list_refs = div.find_elements_by_class_name('matchListItem')
-        list_names = div.find_elements_by_class_name('Ell')
+            if len(list_refs) < len(list_names): length = len(list_refs)
+            else: length = len(list_names)
 
-        if len(list_refs) < len(list_names): length = len(list_refs)
-        else: length = len(list_names)
+            needed_minus_one_in_name_index = False
 
-        for index in range(length):
-            ref = list_refs[index].get_attribute('href')
-            name = list_names[index+1].text
-            print(name, ref)
+            matches = []
+
+            for index in range(length):
+                ref = list_refs[index].get_attribute('href')
+                if index == 0 and ref == "https://tinder.com/app/likes-you":
+                    needed_minus_one_in_name_index = True
+                    continue
+                else:
+                    if needed_minus_one_in_name_index:
+                        name = list_names[index-1].text
+                    else:
+                        name = list_names[index].text
+
+
+                matches.append(Match(name=name, mref=ref))
+
+            return matches
+
+        except Exception as e:
+            print("getMatches FAILED for reason:\n%s" % str(e))
+            return []
 
     def logToScreen(self, text, isBanner=False):
         if isBanner:

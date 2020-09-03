@@ -19,7 +19,6 @@ class LoginHelper:
     def __init__(self, browser):
         self.browser = browser
 
-
     def loginByGoogle(self, email, password):
         if self.isLoggedIn(): return;
 
@@ -217,7 +216,6 @@ class LoginHelper:
 
     def isLoggedIn(self):
         self.browser.get("http://www.tinder.com")
-
         # check if there is a login button, if there is, that means user is not logged in yet
         try:
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(

@@ -22,10 +22,15 @@ if __name__ == "__main__":
     # creates instance of bot
     bot = TinderBot()
 
-    # login
+    # login using your google account
     bot.loginUsingGoogle(email=email, password=password)
 
-    bot.getMatches()
+    # alternatively you can use
+    # bot.loginUsingFacebook(email=email, password=password)
+
+    matches = bot.getMatches()
+    for match in matches:
+        print(match.getName(), match.getID())
 
     '''
     # spam likes
