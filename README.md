@@ -41,4 +41,10 @@ bot.loginUsingFacebook(email, password)
 bot.like(amount=10) 
 bot.dislike(amount=3)
 bot.superlike(amount=1)
+
+# this will return you your matches as objects of helperclass Match
+matches = bot.getMatches()
+# you can easily iterate through your matches by using a for loop
+for match in matches:
+    print(match.getName(), match.getID())
 ```
