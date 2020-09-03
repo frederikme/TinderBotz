@@ -13,6 +13,7 @@ import time
 from helpers.login_helper import LoginHelper
 from helpers.match import Match
 
+
 class TinderBot:
 
     delay = 5
@@ -25,6 +26,7 @@ class TinderBot:
         self.logToScreen("Getting ChromeDriver ...")
         self.browser = webdriver.Chrome(ChromeDriverManager().install())
 
+        self.loadPage("https://www.tinder.com")
 
     def loadPage(self, url):
         self.logToScreen("Loading page %s" % str(url))
@@ -32,12 +34,14 @@ class TinderBot:
         # optionally add storage and readability of cookies with pickle
 
     def loginUsingGoogle(self, email, password):
-        helper = LoginHelper(browser=self.browser)
-        helper.loginByGoogle(email, password)
+        if not self.isLoggedIn():
+            helper = LoginHelper(browser=self.browser)
+            helper.loginByGoogle(email, password)
 
     def loginUsingFacebook(self, email, password):
-        helper = LoginHelper(browser=self.browser)
-        helper.loginByFacebook(email, password)
+        if not self.isLoggedIn():
+            helper = LoginHelper(browser=self.browser)
+            helper.loginByFacebook(email, password)
 
     def like(self, amount=1):
         like_button = self.browser.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[4]/button')
@@ -69,14 +73,22 @@ class TinderBot:
 
     def superlike(self, amount=1):
         superlike_button = self.browser.find_element_by_xpath(
-            '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[3]/button')
+            '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[3]/div/div/div/button')
 
         for _ in range(amount):
             superlike_button.click()
             time.sleep(1)
 
+    def getAllMatches(self):
+        new_matches = self.getNewMatches()
+        changed_matches = self.getChattedMatches()
 
-    def getMatches(self):
+        return new_matches+changed_matches
+
+    def getNewMatches(self):
+        newMatchesTab = self.browser.find_element_by_id("match-tab")
+        newMatchesTab.click()
+        time.sleep(1)
         try:
             div = self.browser.find_element_by_id('matchListNoMessages')
 
@@ -101,7 +113,6 @@ class TinderBot:
                     else:
                         name = list_names[index].text
 
-
                 matches.append(Match(name=name, mref=ref))
 
             return matches
@@ -109,6 +120,44 @@ class TinderBot:
         except Exception as e:
             print("getMatches FAILED for reason:\n%s" % str(e))
             return []
+
+    def getChattedMatches(self):
+        messagesTab = self.browser.find_element_by_id("messages-tab")
+        messagesTab.click()
+        time.sleep(1)
+
+        try:
+            div = self.browser.find_element_by_class_name('messageList')
+
+            list_refs = div.find_elements_by_class_name('messageListItem')
+            list_names = div.find_elements_by_class_name('messageListItem__name')
+
+            # above should be equally sized
+            print(len(list_refs), len(list_names))
+
+            if len(list_refs) < len(list_names):
+                length = len(list_refs)
+            else:
+                length = len(list_names)
+
+            matches = []
+
+            for index in range(length):
+                ref = list_refs[index].get_attribute('href')
+                name = list_names[index].text
+                matches.append(Match(name=name, mref=ref))
+
+            return matches
+
+        except Exception as e:
+            print("getMatches FAILED for reason:\n%s" % str(e))
+            return []
+
+    def isLoggedIn(self):
+        if "/app/" in self.browser.current_url:
+            return True
+        else:
+            return False
 
     def logToScreen(self, text, isBanner=False):
         if isBanner:

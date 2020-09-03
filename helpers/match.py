@@ -1,3 +1,5 @@
+from enum import Enum
+
 class Match:
 
     def __init__(self, name, mref):
@@ -21,8 +23,8 @@ class Match:
         message = Message(self, "hahaha")
         return [message]
 
-
 class Message:
     def __init__(self, sender, message):
         self.sender = sender
         self.message = message
+

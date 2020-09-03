@@ -10,7 +10,7 @@ from selenium.webdriver.chrome.options import Options
 import pyfiglet
 import os
 import time
-import pickle
+
 
 class LoginHelper:
 
@@ -19,8 +19,25 @@ class LoginHelper:
     def __init__(self, browser):
         self.browser = browser
 
+    def clickLoginButton(self):
+        # check if there is a login button, if there is, that means user is not logged in yet
+        try:
+            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+                (By.XPATH, '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/header/div[1]/div[2]/div/button')))
+
+            btn = self.browser.find_element_by_xpath(
+                '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/header/div[1]/div[2]/div/button')
+
+            btn.click()
+
+            time.sleep(3)
+
+        except Exception as e:
+            # probably cuz user isn't logged in yet
+            print(e)
+
     def loginByGoogle(self, email, password):
-        if self.isLoggedIn(): return;
+        self.clickLoginButton()
 
         # wait for google button to appear
         try:
@@ -78,7 +95,7 @@ class LoginHelper:
 
 
     def loginByFacebook(self, email, password):
-        if self.isLoggedIn(): return;
+        self.clickLoginButton()
 
         # wait for facebook button to appear
         try:
@@ -95,7 +112,6 @@ class LoginHelper:
             print("Loading took too much time! Let's try again.")
         except Exception as e:
             print("def login(self): 2: %s" % str(e))
-
 
         if not self.changeFocusToPopUp():
             print("FAILED TO CHANGE FOCUS TO POPUP")
@@ -212,25 +228,3 @@ class LoginHelper:
                         break
 
         self.browser.switch_to.window(main_window)
-
-
-    def isLoggedIn(self):
-        self.browser.get("http://www.tinder.com")
-        # check if there is a login button, if there is, that means user is not logged in yet
-        try:
-            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
-                (By.XPATH, '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/header/div[1]/div[2]/div/button')))
-
-            btn = self.browser.find_element_by_xpath(
-                '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/header/div[1]/div[2]/div/button')
-
-            btn.click()
-
-            print("USER NOT LOGGED IN YET")
-
-            time.sleep(3)
-            return False
-        except Exception as e:
-            print("USER ALREADY LOGGED IN")
-            return True
-

@@ -26,17 +26,23 @@ if __name__ == "__main__":
     bot.loginUsingGoogle(email=email, password=password)
 
     # alternatively you can use
-    # bot.loginUsingFacebook(email=email, password=password)
+    bot.loginUsingFacebook(email=email, password=password)
 
-    matches = bot.getMatches()
+    # There are 2 types of matches:
+    #  - new matches with whom you haven't interacted yet
+    #bot.getNewMatches()
+    #  - matches with whom you've already chatted
+    #bot.getChattedMatches()
+    # - or simply get all matches (new+chatted)
+    matches = bot.getAllMatches()
+
+    # Potentially iterate through these matches
     for match in matches:
         print(match.getName(), match.getID())
 
-    '''
     # spam likes
-    bot.like(amount=3)
+    bot.like(amount=0)
     # spam dislikes
-    bot.dislike(amount=1)
+    bot.dislike(amount=0)
     # spam superlikes
-    bot.superlike(amount=2)
-    '''
+    bot.superlike(amount=0)
