@@ -18,6 +18,8 @@ class TinderBot:
 
     delay = 5
 
+    HOME_URL = "https://www.tinder.com/app/recs"
+
     def __init__(self):
         self.logToScreen("Tinderbot", isBanner=True)
         self.logToScreen("-> Made by Frederikme")
@@ -26,11 +28,12 @@ class TinderBot:
         self.logToScreen("Getting ChromeDriver ...")
         self.browser = webdriver.Chrome(ChromeDriverManager().install())
 
-        self.loadPage("https://www.tinder.com")
+        self.loadPage(self.HOME_URL)
 
     def loadPage(self, url):
         self.logToScreen("Loading page %s" % str(url))
         self.browser.get(url)
+        time.sleep(1.5)
         # optionally add storage and readability of cookies with pickle
 
     def loginUsingGoogle(self, email, password):
@@ -44,40 +47,59 @@ class TinderBot:
             helper.loginByFacebook(email, password)
 
     def like(self, amount=1):
-        like_button = self.browser.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[4]/button')
+        try:
+            like_button = self.browser.find_element_by_xpath(
+                '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[4]/button')
 
-        for _ in range(amount):
-            like_button.click()
-            time.sleep(1)
-            # if you don't want the script to crash make sure you -> set gotMatched on return True
-            # for a smooth run without having to refresh the browser after every like -> set gotMatched on return False
-            if self.gotMatched():
-                self.backToTinder()  # or TODO: self.sendMessageToFreshMatched()
+            for _ in range(amount):
+                like_button.click()
+                time.sleep(1)
+                # if you don't want the script to crash make sure you -> set gotMatched on return True
+                # for a smooth run without having to refresh the browser after every like -> set gotMatched on return False
+                if self.gotMatched():
+                    self.backToTinder()  # or TODO: self.sendToFreshMatched(message="message")
+
+        except Exception as e:
+            print("like button not found->go back to home page to find button again")
+            self.backToTinder()
+            self.like(amount=amount)
 
     def gotMatched(self):
         # TODO check if there was a match ( hard to do, since I don't get any matches :')
         return False
 
     def backToTinder(self):
-        self.browser.get('http://www.tinder.com')
-        time.sleep(2)
+        self.browser.get(self.HOME_URL)
+        time.sleep(1)
         return
 
     def dislike(self, amount=1):
-        dislike_button = self.browser.find_element_by_xpath(
+        try:
+            dislike_button = self.browser.find_element_by_xpath(
             '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[2]/button')
 
-        for _ in range(amount):
-            dislike_button.click()
-            time.sleep(1)
+            for _ in range(amount):
+                dislike_button.click()
+                time.sleep(1)
+
+        except Exception as e:
+            print("dislike button not found->go back to home page to find button again")
+            self.backToTinder()
+            self.dislike(amount=amount)
 
     def superlike(self, amount=1):
-        superlike_button = self.browser.find_element_by_xpath(
-            '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[3]/div/div/div/button')
+        try:
+            superlike_button = self.browser.find_element_by_xpath(
+                '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[3]/div/div/div/button')
 
-        for _ in range(amount):
-            superlike_button.click()
-            time.sleep(1)
+            for _ in range(amount):
+                superlike_button.click()
+                time.sleep(1)
+
+        except Exception as e:
+            print("superlike button not found->go back to home page to find button again")
+            self.backToTinder()
+            self.superlike(amount=amount)
 
     def getAllMatches(self):
         new_matches = self.getNewMatches()
@@ -132,13 +154,7 @@ class TinderBot:
             list_refs = div.find_elements_by_class_name('messageListItem')
             list_names = div.find_elements_by_class_name('messageListItem__name')
 
-            # above should be equally sized
-            print(len(list_refs), len(list_names))
-
-            if len(list_refs) < len(list_names):
-                length = len(list_refs)
-            else:
-                length = len(list_names)
+            length = len(list_refs)
 
             matches = []
 
@@ -153,8 +169,43 @@ class TinderBot:
             print("getMatches FAILED for reason:\n%s" % str(e))
             return []
 
+    def openChat(self, match=None, mref=None, id=None):
+        if match:
+            href = match.mref
+        elif mref:
+            href = mref
+        elif id:
+            href = "/app/messages/%s" % id
+        else:
+            self.logToScreen("PLEASE IDENTIFY WHICH MATCH YOU WANT TO OPEN")
+            return
+
+        # look for the match with that id
+        # first we're gonna look for the match in the already interacted matches
+        messagesTab = self.browser.find_element_by_id("messages-tab")
+        messagesTab.click()
+        time.sleep(1)
+
+        try:
+            matchButton = self.browser.find_element_by_xpath('//a[@href="' + href + '"]')
+            matchButton.click()
+        except:
+
+            # match reference not found, so let's see if match exists in the new not yet interacted matches
+            newMatchesTab = self.browser.find_element_by_id("match-tab")
+            newMatchesTab.click()
+            time.sleep(1)
+
+            try:
+                matchedButton = self.browser.find_element_by_xpath('//a[@href="' + href + '"]')
+                matchedButton.click()
+            except Exception as e:
+                # some kind of error happened, probably cuz id/ref/match doesnt exist (anymore)
+                # Another error could be that the elements could not be found, cuz we're at a wrong url (potential bug)
+                print(e)
+
     def isLoggedIn(self):
-        if "/app/" in self.browser.current_url:
+        if "tinder.com/app/" in self.browser.current_url:
             return True
         else:
             return False
