@@ -52,14 +52,14 @@ messaged_matches = bot.getChattedMatches()
 matches = bot.getAllMatches(store_local=False)
 
 # opening a chat can be done by ID
-bot.openChat(id=matches[1].getID())
+bot.openChat(id=matches[0].getID())
 
 # send chats to the user (spammable)
-bot.sendMessage(toID=matches[1].getID(), message="hey")
+bot.sendMessage(toID=matches[0].getID(), message="hey")
 
 # possibilty to unmatch your match by giving their id
-bot.unMatch(id="kzifzuofy")
+bot.unMatch(id=matches[0].getID())
 
 # get a url to image (by default store_local=True if not in argument)
-bot.getImage(matches[1].getID(), store_local=False)
+bot.getImage(matches[0].getID(), store_local=False)
 ```
