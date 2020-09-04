@@ -5,8 +5,10 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.options import Options
-# for our print statements and layout in terminal/command prompt
+
+import urllib.request
+from PIL import Image
+
 import pyfiglet
 import os
 import time
@@ -169,16 +171,8 @@ class TinderBot:
             print("getMatches FAILED for reason:\n%s" % str(e))
             return []
 
-    def openChat(self, match=None, mref=None, id=None):
-        if match:
-            href = match.mref
-        elif mref:
-            href = mref
-        elif id:
-            href = "/app/messages/%s" % id
-        else:
-            self.logToScreen("PLEASE IDENTIFY WHICH MATCH YOU WANT TO OPEN")
-            return
+    def openChat(self, id):
+        href = "/app/messages/%s" % id
 
         # look for the match with that id
         # first we're gonna look for the match in the already interacted matches
@@ -203,6 +197,77 @@ class TinderBot:
                 # some kind of error happened, probably cuz id/ref/match doesnt exist (anymore)
                 # Another error could be that the elements could not be found, cuz we're at a wrong url (potential bug)
                 print(e)
+        time.sleep(1)
+
+    def sendMessage(self, toID, message):
+        # open the correct chat if not happened yet
+        if toID not in self.browser.current_url:
+            self.openChat(toID)
+            time.sleep(1)
+
+        # locate the textbox and send message
+        try:
+            textbox = self.browser.find_element_by_id("chat-text-area")
+            textbox.send_keys(message)
+            textbox.send_keys(Keys.ENTER)
+        except Exception as e:
+            print("SOMETHING WENT WRONG LOCATING TEXTBOX")
+            print(e)
+
+    def unMatch(self, id):
+        # open the correct user if not happened yet
+        if id not in self.browser.current_url:
+            self.openChat(id)
+            time.sleep(1)
+
+        try:
+            unmatch_button = self.browser.find_element_by_xpath('//button[text()="Unmatch"]')
+            unmatch_button.click()
+            time.sleep(1)
+
+            # We will unmatch the person with "no reason" as declaration
+            reason_button = self.browser.find_element_by_xpath('//div[text()="No reason"]')
+            reason_button.click()
+            time.sleep(1)
+
+            # scroll down so confirm
+            html = self.browser.find_element_by_tag_name('html')
+            html.send_keys(Keys.END)
+            time.sleep(1)
+
+            confirm_button = self.browser.find_element_by_xpath('//*[@id="modal-manager"]/div/div/div[2]/button')
+            confirm_button.click()
+            time.sleep(1)
+
+        except Exception as e:
+            print("SOMETHING WENT WRONG FINDING THE UNMATCH BUTTONS")
+            print(e)
+
+    def getImage(self, ofID):
+        # open the correct user if not happened yet
+        if ofID not in self.browser.current_url:
+            self.openChat(ofID)
+
+        try:
+            element = self.browser.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[1]/div/div/div[1]/span/a/div/div[1]/span[1]/div/div')
+            url = element.value_of_css_property('background-image').split('\"')[1]
+
+            random_image_name = ofID
+
+            if not os.path.exists("data/images"):
+                os.makedirs("data/images")
+
+            urllib.request.urlretrieve(url, "{}.webp".format(random_image_name))
+
+            im = Image.open("{}.webp".format(random_image_name)).convert("RGB")
+            im.save("{}/data/images/{}.jpg".format(os.getcwd(), random_image_name), "jpeg")
+
+            os.remove("{}.webp".format(random_image_name))
+
+
+        except Exception as e:
+            print(e)
+
 
     def isLoggedIn(self):
         if "tinder.com/app/" in self.browser.current_url:
