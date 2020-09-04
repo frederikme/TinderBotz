@@ -48,11 +48,18 @@ bot.superlike(amount=1)
 new_matches = bot.getNewMatches()
 messaged_matches = bot.getChattedMatches()
 
-# - or simply get all matches (new+chatted)
-matches = bot.getAllMatches()
+# - or simply get all matches (new+chatted) by default store_local=True if not passed as argument
+matches = bot.getAllMatches(store_local=False)
 
-# opening a chat can be done by 3 different parameters
-bot.openChat(match=matches[0])
+# opening a chat can be done by ID
 bot.openChat(id=matches[1].getID())
-bot.openChat(mref=matches[2].getMRef())
+
+# send chats to the user (spammable)
+bot.sendMessage(toID=matches[1].getID(), message="hey")
+
+# possibilty to unmatch your match by giving their id
+bot.unMatch(id="kzifzuofy")
+
+# get a url to image (by default store_local=True if not in argument)
+bot.getImage(matches[1].getID(), store_local=False)
 ```
