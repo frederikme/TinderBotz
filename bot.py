@@ -11,6 +11,7 @@ from PIL import Image
 
 import pyfiglet
 import os
+import json
 import time
 from helpers.login_helper import LoginHelper
 from helpers.match import Match
@@ -103,11 +104,28 @@ class TinderBot:
             self.backToTinder()
             self.superlike(amount=amount)
 
-    def getAllMatches(self):
+    def getAllMatches(self, store_local=True):
         new_matches = self.getNewMatches()
         changed_matches = self.getChattedMatches()
 
-        return new_matches+changed_matches
+        all_matches = new_matches + changed_matches
+
+        if store_local:
+            data = {'matches': []}
+
+            for match in all_matches:
+                match_data = {
+                    "name": match.getName(),
+                    "id": match.getID()
+                }
+                data['matches'].append(match_data)
+
+            json_data = json.dumps(data)
+
+            with open('data/matches.json', 'w') as file:
+                json.dump(json_data, file)
+
+        return all_matches
 
     def getNewMatches(self):
         newMatchesTab = self.browser.find_element_by_id("match-tab")

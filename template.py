@@ -41,7 +41,8 @@ if __name__ == "__main__":
 
     # print all matches name + their corresponding id
     for match in matches:
-        print("{:>20}   {:>50}".format(match.getName(), match.getID()))
+        break
+        #print("{:>20}   {:>50}".format(match.getName(), match.getID()))
 
     # opening a chat can be done by their id
     # bot.openChat(id=matches[1].getID())
