@@ -48,7 +48,7 @@ bot.superlike(amount=1)
 new_matches = bot.getNewMatches()
 messaged_matches = bot.getChattedMatches()
 
-# - or simply get all matches (new+chatted) by default store_local=True if not passed as argument
+# - or simply get all matches (new+chatted) by default store_local=True as /data/matches.json
 matches = bot.getAllMatches(store_local=False)
 
 # opening a chat can be done by ID
@@ -60,6 +60,6 @@ bot.sendMessage(toID=matches[0].getID(), message="hey")
 # possibilty to unmatch your match by giving their id
 bot.unMatch(id=matches[0].getID())
 
-# get a url to image (by default store_local=True if not in argument)
+# get a url to image (by default store_local=True and store the image as jpeg -> /data/images/matchid.jpg
 bot.getImage(matches[0].getID(), store_local=False)
 ```
