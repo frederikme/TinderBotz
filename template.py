@@ -8,10 +8,6 @@ import constants
 
 email = constants.email
 password = constants.password
-import string
-import random
-def name_generator(size=10, chars=string.ascii_uppercase + string.digits):
-    return ''.join(random.choice(chars) for _ in range(size))
 
 if __name__ == "__main__":
 
@@ -48,11 +44,11 @@ if __name__ == "__main__":
     # bot.openChat(id=matches[1].getID())
 
     # send chats to the user
-    #bot.sendMessage(toID=matches[1].getID(), message="hey")
+    #bot.sendMessage(id=matches[1].getID(), message="hey")
 
     # possibilty to unmatch your match
     #bot.unMatch(id="kzifzuofy")
 
     # get a url to image
-    bot.getImage(matches[1].getID())
+    image_url = bot.getImage(matches[1].getID())
 
