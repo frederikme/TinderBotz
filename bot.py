@@ -217,10 +217,10 @@ class TinderBot:
                 print(e)
         time.sleep(1)
 
-    def sendMessage(self, toID, message):
+    def sendMessage(self, id, message):
         # open the correct chat if not happened yet
-        if toID not in self.browser.current_url:
-            self.openChat(toID)
+        if id not in self.browser.current_url:
+            self.openChat(id)
             time.sleep(1)
 
         # locate the textbox and send message
@@ -261,30 +261,34 @@ class TinderBot:
             print("SOMETHING WENT WRONG FINDING THE UNMATCH BUTTONS")
             print(e)
 
-    def getImage(self, ofID):
+    def getImage(self, ofID, store_local=True):
         # open the correct user if not happened yet
         if ofID not in self.browser.current_url:
             self.openChat(ofID)
 
         try:
             element = self.browser.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[1]/div/div/div[1]/span/a/div/div[1]/span[1]/div/div')
-            url = element.value_of_css_property('background-image').split('\"')[1]
+            image_url = element.value_of_css_property('background-image').split('\"')[1]
 
-            random_image_name = ofID
+            if store_local:
+                random_image_name = ofID
 
-            if not os.path.exists("data/images"):
-                os.makedirs("data/images")
+                if not os.path.exists("data/images"):
+                    os.makedirs("data/images")
 
-            urllib.request.urlretrieve(url, "{}.webp".format(random_image_name))
+                urllib.request.urlretrieve(image_url, "{}.webp".format(random_image_name))
 
-            im = Image.open("{}.webp".format(random_image_name)).convert("RGB")
-            im.save("{}/data/images/{}.jpg".format(os.getcwd(), random_image_name), "jpeg")
+                im = Image.open("{}.webp".format(random_image_name)).convert("RGB")
+                im.save("{}/data/images/{}.jpg".format(os.getcwd(), random_image_name), "jpeg")
 
-            os.remove("{}.webp".format(random_image_name))
+                os.remove("{}.webp".format(random_image_name))
 
+            return image_url
 
         except Exception as e:
             print(e)
+
+        return None
 
 
     def isLoggedIn(self):
