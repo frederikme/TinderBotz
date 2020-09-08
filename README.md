@@ -26,7 +26,7 @@ deactivate
 ```
 pip3 install -r requirements.txt
 ```
-## Make your adjustments in the template.py file
+## Features
 ```
 # create instance of the bot
 bot = TinderBot()
@@ -48,18 +48,18 @@ bot.superlike(amount=1)
 new_matches = bot.getNewMatches()
 messaged_matches = bot.getChattedMatches()
 
-# - or simply get all matches (new+chatted) by default store_local=True as /data/matches.json
+# - or simply get all matches (new+chatted) by default store_local=True stored in /data/matches.json
 matches = bot.getAllMatches(store_local=False)
 
-# opening a chat can be done by ID
+# opening a chat can be done by ID 
 bot.openChat(id=matches[0].getID())
 
-# send chats to the user (spammable)
+# send chats to a user (spammable)
 bot.sendMessage(toID=matches[0].getID(), message="hey")
 
-# possibilty to unmatch your match by giving their id
+# possibilty to unmatch your match by id
 bot.unMatch(id=matches[0].getID())
 
-# get a url to image (by default store_local=True and store the image as jpeg -> /data/images/matchid.jpg
+# returns a url to the image of the match (AND when by default store_local=True it will store the image as jpeg in /data/images/matchid.jpg
 bot.getImage(matches[0].getID(), store_local=False)
 ```
