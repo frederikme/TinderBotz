@@ -17,7 +17,7 @@ if __name__ == "__main__":
     # get new, not yet interacted with, matches
     matches = bot.getNewMatches()
 
-    # create pick up line with place to insert name to make it more personal
+    # create pick up line with placeholder to insert name to make it more personal
     pick_up_line = "Hey {}, you look good!"
 
     # iterate through these matches
