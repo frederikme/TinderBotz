@@ -2,3 +2,4 @@ venv
 .idea
 constants.py
 data
+main.py

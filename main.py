@@ -1,13 +1,10 @@
-'''
-Created by Frederikme (TeetiFM)
-Examples of usage are demonstrated in this quickstart.py file
-'''
 
 from bot import *
 from helpers.socials import Socials
+import constants
 
-email = "example@email.com"
-password = "password123"
+email = constants.email
+password = constants.password
 
 if __name__ == "__main__":
 
