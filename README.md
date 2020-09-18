@@ -51,15 +51,21 @@ messaged_matches = bot.getChattedMatches()
 # - or simply get all matches (new+chatted) by default store_local=True stored in /data/matches.json
 matches = bot.getAllMatches(store_local=False)
 
-# opening a chat can be done by ID 
-bot.openChat(id=matches[0].getID())
-
-# send chats to a user (spammable)
+# send chats to a user
 bot.sendMessage(toID=matches[0].getID(), message="hey")
-
-# possibilty to unmatch your match by id
-bot.unMatch(id=matches[0].getID())
 
 # returns a url to the image of the match (AND when by default store_local=True it will store the image as jpeg in /data/images/matchid.jpg
 bot.getImage(matches[0].getID(), store_local=False)
+
+# send a funny gif
+bot.sendGif(id=id, gifname="pizza")
+
+# send a funny song
+bot.sendSong(id=id, songname="cutiepie")
+
+# send my instagram or you can use alternative socials like facebook, phonenumber and snapchat
+bot.sendSocials(id=id, media=Socials.INSTAGRAM, value="Teeti.fm")
+
+# possibilty to unmatch your match by id
+bot.unMatch(id=matches[0].getID())
 ```
