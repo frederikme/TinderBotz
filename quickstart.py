@@ -41,7 +41,7 @@ if __name__ == "__main__":
         name = match.getName()
         id = match.getID()
 
-        # start by storing their image and storing them in our data directory
+        # returns their image_url and storing them in our data directory
         bot.getImage(id=id, store_local=True)
 
         # send pick up line with their name in it to all my matches

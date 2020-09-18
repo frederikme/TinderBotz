@@ -386,30 +386,36 @@ class TinderBot:
         # open the correct user if not happened yet
         if id not in self.browser.current_url:
             self.openChat(id)
-
         try:
-            element = self.browser.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[1]/div/div/div[1]/span/a/div/div[1]/span[1]/div/div')
+
+            WebDriverWait(self.browser, self.delay).until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[1]/div/div/div[1]/span/div/div[1]/span[1]/div/div')))
+
+            element = self.browser.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[1]/div/div/div[1]/span/div/div[1]/span[1]/div/div')
             image_url = element.value_of_css_property('background-image').split('\"')[1]
 
-            if store_local:
-                random_image_name = id
-
-                if not os.path.exists("data/images"):
-                    os.makedirs("data/images")
-
-                urllib.request.urlretrieve(image_url, "{}.webp".format(random_image_name))
-
-                im = Image.open("{}.webp".format(random_image_name)).convert("RGB")
-                im.save("{}/data/images/{}.jpg".format(os.getcwd(), random_image_name), "jpeg")
-
-                os.remove("{}.webp".format(random_image_name))
-
-            return image_url
+        except TimeoutException as ex:
+            print("Element not found")
+            print(ex)
 
         except Exception as e:
             print(e)
+            return None
 
-        return None
+        if store_local:
+            random_image_name = id
+
+            if not os.path.exists("data/images"):
+                os.makedirs("data/images")
+
+            urllib.request.urlretrieve(image_url, "{}.webp".format(random_image_name))
+
+            im = Image.open("{}.webp".format(random_image_name)).convert("RGB")
+            im.save("{}/data/images/{}.jpg".format(os.getcwd(), random_image_name), "jpeg")
+
+            os.remove("{}.webp".format(random_image_name))
+
+        return image_url
 
 
     def isLoggedIn(self):
