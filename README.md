@@ -57,15 +57,15 @@ bot.sendMessage(toID=matches[0].getID(), message="hey")
 # returns a url to the image of the match (AND when by default store_local=True it will store the image as jpeg in /data/images/matchid.jpg
 bot.getImage(matches[0].getID(), store_local=False)
 
-# send a funny gif
-bot.sendGif(id=id, gifname="pizza")
+# searches for a gif and then sends the first one of the query
+bot.sendGif(id, gifname)
 
-# send a funny song
-bot.sendSong(id=id, songname="cutiepie")
+# searches for a song and then sends the first one of the query
+bot.sendSong(id, songname)
 
-# send my instagram or you can use alternative socials like facebook, phonenumber and snapchat
-bot.sendSocials(id=id, media=Socials.INSTAGRAM, value="Teeti.fm")
+# send my Socials.INSTAGRAM or you can use alternative socials like facebook, phonenumber and snapchat and value as username
+bot.sendSocials(id, media, value)
 
 # possibilty to unmatch your match by id
-bot.unMatch(id=matches[0].getID())
+bot.unMatch(id)
 ```
