@@ -37,10 +37,10 @@ bot.loginUsingGoogle(email, password)
 # alternatively you can login using Facebook
 bot.loginUsingFacebook(email, password)
 
-# this will (dis/super)like x amount of people in a row -> is spammable if you higher the amount
-bot.like(amount=10) 
-bot.dislike(amount=3)
-bot.superlike(amount=1)
+# this will (dis/super)like x amount of people in a row
+bot.like(amount) 
+bot.dislike(amount)
+bot.superlike(amount)
 
 # There are 2 types of matches:
 #  - new matches with whom you haven't interacted yet
@@ -49,13 +49,13 @@ new_matches = bot.getNewMatches()
 messaged_matches = bot.getChattedMatches()
 
 # - or simply get all matches (new+chatted) by default store_local=True stored in /data/matches.json
-matches = bot.getAllMatches(store_local=False)
+matches = bot.getAllMatches()
 
-# send chats to a user
-bot.sendMessage(toID=matches[0].getID(), message="hey")
+# send message to a user
+bot.sendMessage(id, message)
 
 # returns a url to the image of the match (AND when by default store_local=True it will store the image as jpeg in /data/images/matchid.jpg
-bot.getImage(matches[0].getID(), store_local=False)
+bot.getImage(id)
 
 # searches for a gif and then sends the first one of the query
 bot.sendGif(id, gifname)
