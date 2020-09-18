@@ -15,7 +15,7 @@ import json
 import time
 from helpers.login_helper import LoginHelper
 from helpers.match import Match
-
+from helpers.socials import Socials
 
 class TinderBot:
 
@@ -50,26 +50,19 @@ class TinderBot:
             helper.loginByFacebook(email, password)
 
     def like(self, amount=1):
-        try:
-            like_button = self.browser.find_element_by_xpath(
-                '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[4]/button')
 
-            for _ in range(amount):
+        for _ in range(amount):
+            try:
+                like_button = self.browser.find_element_by_xpath(
+                    '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[4]/button')
+
                 like_button.click()
                 time.sleep(1)
-                # if you don't want the script to crash make sure you -> set gotMatched on return True
-                # for a smooth run without having to refresh the browser after every like -> set gotMatched on return False
-                if self.gotMatched():
-                    self.backToTinder()  # or TODO: self.sendToFreshMatched(message="message")
 
-        except Exception as e:
-            print("like button not found->go back to home page to find button again")
-            self.backToTinder()
-            self.like(amount=amount)
-
-    def gotMatched(self):
-        # TODO check if there was a match ( hard to do, since I don't get any matches :')
-        return False
+            except Exception as e:
+                print("like button not found->go back to home page to find button again")
+                print("This means you have been matched")
+                self.backToTinder()
 
     def backToTinder(self):
         self.browser.get(self.HOME_URL)
@@ -128,9 +121,16 @@ class TinderBot:
         return all_matches
 
     def getNewMatches(self):
-        newMatchesTab = self.browser.find_element_by_id("match-tab")
-        newMatchesTab.click()
-        time.sleep(1)
+        try:
+            newMatchesTab = self.browser.find_element_by_id("match-tab")
+            newMatchesTab.click()
+            time.sleep(1)
+        except:
+            print("match tab could not be found, trying again")
+            time.sleep(1)
+            self.loadPage(self.HOME_URL)
+            return self.getNewMatches()
+
         try:
             div = self.browser.find_element_by_id('matchListNoMessages')
 
@@ -164,9 +164,15 @@ class TinderBot:
             return []
 
     def getChattedMatches(self):
-        messagesTab = self.browser.find_element_by_id("messages-tab")
-        messagesTab.click()
-        time.sleep(1)
+        try:
+            messagesTab = self.browser.find_element_by_id("messages-tab")
+            messagesTab.click()
+            time.sleep(1)
+        except:
+            print("messages tab could not be found, trying again")
+            time.sleep(1)
+            self.loadPage(self.HOME_URL)
+            return self.getChattedMatches()
 
         try:
             div = self.browser.find_element_by_class_name('messageList')
@@ -174,7 +180,9 @@ class TinderBot:
             list_refs = div.find_elements_by_class_name('messageListItem')
             list_names = div.find_elements_by_class_name('messageListItem__name')
 
+            # length of 2 lists should always be equal btw
             length = len(list_refs)
+
 
             matches = []
 
@@ -194,9 +202,13 @@ class TinderBot:
 
         # look for the match with that id
         # first we're gonna look for the match in the already interacted matches
-        messagesTab = self.browser.find_element_by_id("messages-tab")
-        messagesTab.click()
-        time.sleep(1)
+        try:
+            messagesTab = self.browser.find_element_by_id("messages-tab")
+            messagesTab.click()
+            time.sleep(1)
+        except:
+            self.loadPage(self.HOME_URL)
+            return self.openChat(id)
 
         try:
             matchButton = self.browser.find_element_by_xpath('//a[@href="' + href + '"]')
@@ -232,6 +244,115 @@ class TinderBot:
             print("SOMETHING WENT WRONG LOCATING TEXTBOX")
             print(e)
 
+    def sendGif(self, id, gifname):
+        # open the correct chat if not happened yet
+        if id not in self.browser.current_url:
+            self.openChat(id)
+            time.sleep(1)
+
+        try:
+            WebDriverWait(self.browser, self.delay).until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[1]/button')))
+            gif_btn = self.browser.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[1]/button')
+
+            gif_btn.click()
+            time.sleep(1.5)
+
+            search_box = self.browser.find_element_by_id('chat-text-area')
+            search_box.send_keys(gifname)
+            # give chance to load gif
+            time.sleep(1.5)
+
+            gif = self.browser.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div/div[1]/div[1]/div')
+            gif.click()
+
+        except Exception as e:
+            print(e)
+
+    def sendSong(self, id, songname):
+        # open the correct chat if not happened yet
+        if id not in self.browser.current_url:
+            self.openChat(id)
+            time.sleep(1)
+
+        try:
+            WebDriverWait(self.browser, self.delay).until(
+                EC.presence_of_element_located((By.XPATH,
+                                                '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[2]/button')))
+            song_btn = self.browser.find_element_by_xpath(
+                '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[2]/button')
+
+            song_btn.click()
+            time.sleep(1.5)
+
+            search_box = self.browser.find_element_by_id('chat-text-area')
+            search_box.send_keys(songname)
+            # give chance to load gif
+            time.sleep(1.5)
+
+            song = self.browser.find_element_by_xpath(
+                '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[2]/div/div[1]/div[1]/div/div[1]/div/button')
+            song.click()
+            time.sleep(0.5)
+
+            confirm_btn = self.browser.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[2]/div/div[1]/div[1]/div/div[2]/button')
+            confirm_btn.click()
+
+        except Exception as e:
+            print(e)
+
+    def sendSocials(self, id, media, value="Teeti.fm"):
+        didMatch = False
+        for social in (Socials):
+            if social == media:
+                didMatch = True
+
+        if not didMatch: print("Media must be of type Socials"); return
+
+        # open the correct chat if not happened yet
+        if id not in self.browser.current_url:
+            self.openChat(id)
+            time.sleep(1)
+
+        try:
+            WebDriverWait(self.browser, self.delay).until(
+                EC.presence_of_element_located((By.XPATH,
+                                                '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[3]/button')))
+            socials_btn = self.browser.find_element_by_xpath(
+                '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[3]/button')
+
+            socials_btn.click()
+            time.sleep(1.5)
+
+            social_btn = self.browser.find_element_by_xpath('//div[@data-cy-type="{}"]'.format(media.value))
+            social_btn.click()
+
+            # check if name needs to be given or not
+            try:
+                WebDriverWait(self.browser, 2).until(EC.presence_of_element_located((By.XPATH, "//input[@aria-labelledby='contact-card-input-label']")))
+
+                input = self.browser.find_element_by_xpath("//input[@aria-labelledby='contact-card-input-label']")
+                input.send_keys(value)
+
+                confirm_btn = self.browser.find_element_by_xpath('//*[@id="modal-manager"]/div/div/div[3]/button[1]')
+                confirm_btn.click()
+
+                # resend with saved value this time
+                self.sendSocials(id=id, media=media, value=value)
+            except TimeoutException:
+                print("There was already a value assigned to your social")
+
+            # locate the sendbutton and send social
+            try:
+                #self.browser.find_element_by_xpath("//button[@type='submit']").click()
+                print("Succesfully send social card")
+            except Exception as e:
+                print("SOMETHING WENT WRONG LOCATING TEXTBOX")
+                print(e)
+
+        except Exception as e:
+            print(e)
+
     def unMatch(self, id):
         # open the correct user if not happened yet
         if id not in self.browser.current_url:
@@ -261,17 +382,17 @@ class TinderBot:
             print("SOMETHING WENT WRONG FINDING THE UNMATCH BUTTONS")
             print(e)
 
-    def getImage(self, ofID, store_local=True):
+    def getImage(self, id, store_local=True):
         # open the correct user if not happened yet
-        if ofID not in self.browser.current_url:
-            self.openChat(ofID)
+        if id not in self.browser.current_url:
+            self.openChat(id)
 
         try:
             element = self.browser.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[1]/div/div/div[1]/span/a/div/div[1]/span[1]/div/div')
             image_url = element.value_of_css_property('background-image').split('\"')[1]
 
             if store_local:
-                random_image_name = ofID
+                random_image_name = id
 
                 if not os.path.exists("data/images"):
                     os.makedirs("data/images")
