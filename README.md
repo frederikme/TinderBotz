@@ -43,10 +43,9 @@ bot.dislike(amount)
 bot.superlike(amount)
 ```
 #### Getting your matches.
-There are 2 types of matches:<br/>
   - new matches with whom you haven't interacted yet</br>
   - matches with whom you've already chatted/interacted</br>
-or you could simply get all matches (AND when by default store_local=True it will store all match data in /data/matches.json
+  - or simply get all matches (AND when by default store_local=True it will store all match data in /data/matches.json
 ```
 new_matches = bot.getNewMatches()
 messaged_matches = bot.getChattedMatches()
