@@ -30,10 +30,9 @@ class LoginHelper:
 
             btn.click()
 
-            time.sleep(3)
+            time.sleep(2)
 
         except Exception as e:
-            # probably cuz user isn't logged in yet
             print(e)
 
     def loginByGoogle(self, email, password):

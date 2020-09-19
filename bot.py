@@ -14,6 +14,7 @@ import os
 import json
 import time
 from helpers.login_helper import LoginHelper
+from helpers.like_helper import LikeHelper
 from helpers.match import Match
 from helpers.socials import Socials
 
@@ -31,13 +32,10 @@ class TinderBot:
         self.logToScreen("Getting ChromeDriver ...")
         self.browser = webdriver.Chrome(ChromeDriverManager().install())
 
-        self.loadPage(self.HOME_URL)
-
     def loadPage(self, url):
         self.logToScreen("Loading page %s" % str(url))
         self.browser.get(url)
         time.sleep(1.5)
-        # optionally add storage and readability of cookies with pickle
 
     def loginUsingGoogle(self, email, password):
         if not self.isLoggedIn():
@@ -50,52 +48,19 @@ class TinderBot:
             helper.loginByFacebook(email, password)
 
     def like(self, amount=1):
-
-        for _ in range(amount):
-            try:
-                like_button = self.browser.find_element_by_xpath(
-                    '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[4]/button')
-
-                like_button.click()
-                time.sleep(1)
-
-            except Exception as e:
-                print("like button not found->go back to home page to find button again")
-                print("This means you have been matched")
-                self.backToTinder()
-
-    def backToTinder(self):
-        self.browser.get(self.HOME_URL)
-        time.sleep(1)
-        return
+        if self.isLoggedIn():
+            helper = LikeHelper(browser=self.browser)
+            helper.like(amount)
 
     def dislike(self, amount=1):
-        try:
-            dislike_button = self.browser.find_element_by_xpath(
-            '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[2]/button')
-
-            for _ in range(amount):
-                dislike_button.click()
-                time.sleep(1)
-
-        except Exception as e:
-            print("dislike button not found->go back to home page to find button again")
-            self.backToTinder()
-            self.dislike(amount=amount)
+        if self.isLoggedIn():
+            helper = LikeHelper(browser=self.browser)
+            helper.dislike(amount)
 
     def superlike(self, amount=1):
-        try:
-            superlike_button = self.browser.find_element_by_xpath(
-                '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[3]/div/div/div/button')
-
-            for _ in range(amount):
-                superlike_button.click()
-                time.sleep(1)
-
-        except Exception as e:
-            print("superlike button not found->go back to home page to find button again")
-            self.backToTinder()
-            self.superlike(amount=amount)
+        if self.isLoggedIn():
+            helper = LikeHelper(browser=self.browser)
+            helper.superlike(amount)
 
     def getAllMatches(self, store_local=True):
         new_matches = self.getNewMatches()
@@ -394,10 +359,6 @@ class TinderBot:
             element = self.browser.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[1]/div/div/div[1]/span/div/div[1]/span[1]/div/div')
             image_url = element.value_of_css_property('background-image').split('\"')[1]
 
-        except TimeoutException as ex:
-            print("Element not found")
-            print(ex)
-
         except Exception as e:
             print(e)
             return None
@@ -417,11 +378,15 @@ class TinderBot:
 
         return image_url
 
-
     def isLoggedIn(self):
+        # make sure tinder website is loaded for the first time
+        if not "tinder" in self.browser.current_url:
+            self.loadPage(self.HOME_URL)
+
         if "tinder.com/app/" in self.browser.current_url:
             return True
         else:
+            print("User is not logged in yet.")
             return False
 
     def logToScreen(self, text, isBanner=False):
