@@ -27,7 +27,7 @@ deactivate
 pip3 install -r requirements.txt
 ```
 ## Usage
-Create instance of the bot
+#### Create instance of the bot
 ```
 bot = TinderBot()
 ```
