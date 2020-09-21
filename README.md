@@ -27,5 +27,5 @@ deactivate
 pip3 install -r requirements.txt
 ```
 ## Usage
-#### Take a look at quickstart.py
+### Basic commands and possibilities
 [Take a look at quickstart.py](quickstart.py)
