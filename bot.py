@@ -19,20 +19,20 @@ from helpers.socials import Socials
 class TinderBot:
 
     delay = 5
-
     HOME_URL = "https://www.tinder.com/app/recs"
 
     def __init__(self):
-        # clear the terminal
+        # clear the console and show some basic info
         os.system("clear")
         text = "Tinderbot"
         print(pyfiglet.figlet_format(text))
         print("-> Made by Frederikme")
         print("-----------------------------------\n\n")
 
+        # getting chromedriver from cache or download from internet
         print("Getting ChromeDriver ...")
         self.browser = webdriver.Chrome(ChromeDriverManager().install())
-
+    
     def loginUsingGoogle(self, email, password):
         if not self.isLoggedIn():
             helper = LoginHelper(browser=self.browser)

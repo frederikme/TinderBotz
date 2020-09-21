@@ -33,12 +33,13 @@ if __name__ == "__main__":
     for match in matches:
         match.storeLocal()
 
-    # My pick up line with personal name so it doesn't look spammy
+    # Pick up line with their personal name so it doesn't look spammy
     pickup_line = "Hey {}! You. Me. Pizza? Or do you not like pizza?"
 
     # loop through my new matches and send them the first message of the conversation
     for match in new_matches:
-        # store name and chatid locally so we can use it more simply
+
+        # store name and chatid in variable so we can use it more simply
         name = match.getName()
         id = match.getChatID()
 
