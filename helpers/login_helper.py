@@ -22,11 +22,12 @@ class LoginHelper:
     def clickLoginButton(self):
         # check if there is a login button, if there is, that means user is not logged in yet
         try:
-            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
-                (By.XPATH, '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/header/div[1]/div[2]/div/button')))
+            xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/header/div[1]/div[2]/div/button'
 
-            btn = self.browser.find_element_by_xpath(
-                '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/header/div[1]/div[2]/div/button')
+            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+                (By.XPATH, xpath)))
+
+            btn = self.browser.find_element_by_xpath(xpath)
 
             btn.click()
 
@@ -40,11 +41,12 @@ class LoginHelper:
 
         # wait for google button to appear
         try:
-            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
-                (By.XPATH, '//*[@id="modal-manager"]/div/div/div[1]/div/div[3]/span/div[1]/div/button')))
+            xpath = '//*[@id="modal-manager"]/div/div/div[1]/div/div[3]/span/div[1]/div/button'
 
-            btn = self.browser.find_element_by_xpath(
-                '//*[@id="modal-manager"]/div/div/div[1]/div/div[3]/span/div[1]/div/button')
+            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+                (By.XPATH, xpath)))
+
+            btn = self.browser.find_element_by_xpath(xpath)
 
             btn.send_keys(Keys.ENTER)
             print("Sleeping 3 seconds for pop up to come through")
@@ -92,17 +94,18 @@ class LoginHelper:
         self.denyOverlayedNotifications()
         self.acceptCookies()
 
-
+    # TODO: needs adjustments and further implementation
     def loginByFacebook(self, email, password):
         self.clickLoginButton()
 
         # wait for facebook button to appear
         try:
-            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
-                (By.XPATH, '//*[@id="modal-manager"]/div/div/div[1]/div/div[3]/span/div[2]/button')))
+            xpath = '//*[@id="modal-manager"]/div/div/div[1]/div/div[3]/span/div[2]/button'
 
-            btn = self.browser.find_element_by_xpath(
-                '//*[@id="modal-manager"]/div/div/div[1]/div/div[3]/span/div[2]/button')
+            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+                (By.XPATH, xpath)))
+
+            btn = self.browser.find_element_by_xpath(xpath)
 
             btn.send_keys(Keys.ENTER)
             print("Sleeping 3 seconds for pop up to come through")
