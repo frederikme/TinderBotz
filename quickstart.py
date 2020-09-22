@@ -59,10 +59,10 @@ if __name__ == "__main__":
         # bot.unMatch(chatid=id)
 
     # let's scrape some geomatches now
-    for _ in range(10):
+    for _ in range(50):
         # get profile data (name, age, bio, images, ...)
         geomatch = bot.getGeomatch()
-        # store this data locally as json and reference to images
-        # geomatch.storeLocal()
-        # dislike the profile, so it will show us the next geomatch
+        # store this data locally as json with reference to their respective (locally stored) images
+        geomatch.storeLocal()
+        # dislike the profile, so it will show us the next geomatch (since we got infinite amount of dislikes anyway)
         bot.dislike(1)
