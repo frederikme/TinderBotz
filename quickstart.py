@@ -25,7 +25,7 @@ if __name__ == "__main__":
     # get new matches, with whom you haven't interacted yet
     new_matches = bot.getNewMatches()
     # get already interacted with matches
-    old_matches = bot.getChattedMatches()
+    old_matches = bot.getMessagedMatches()
     # get all matches
     matches = bot.getAllMatches()
 

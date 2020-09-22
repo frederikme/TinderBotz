@@ -75,10 +75,10 @@ class TinderBot:
             helper = MatchHelper(browser=self.browser)
             return helper.getNewMatches()
 
-    def getChattedMatches(self):
+    def getMessagedMatches(self):
         if self.isLoggedIn():
             helper = MatchHelper(browser=self.browser)
-            return helper.getChattedMatches()
+            return helper.getMessagedMatches()
 
     def sendMessage(self, chatid, message):
         if self.isLoggedIn():

@@ -22,7 +22,7 @@ class MatchHelper:
             time.sleep(2)
 
     def getAllMatches(self):
-        return self.getNewMatches() + self.getChattedMatches()
+        return self.getNewMatches() + self.getMessagedMatches()
 
     def getNewMatches(self):
 
@@ -77,7 +77,7 @@ class MatchHelper:
             print("getMatches FAILED for reason:\n%s" % str(e))
             return matches
 
-    def getChattedMatches(self):
+    def getMessagedMatches(self):
         # Make sure we're in the 'messaged matches' tab
         try:
             xpath = '//*[@id="messages-tab"]'
@@ -92,7 +92,7 @@ class MatchHelper:
             print("match tab could not be found, trying again")
             self.browser.get(self.HOME_URL)
             time.sleep(1)
-            return self.getChattedMatches()
+            return self.getMessagedMatches()
         except Exception as e:
             print("An unhandled exception occured in getNewMatches:")
             print(e)
