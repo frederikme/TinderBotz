@@ -33,10 +33,18 @@ class StorageHelper:
 
         except Exception as e:
             print(e)
-            sleepy_time = amount_of_attempts*20
+            sleepy_time = amount_of_attempts*30
             print("Will sleep for now try again in {} seconds".format(sleepy_time))
             time.sleep(sleepy_time)
-            return StorageHelper.storeImageAs(url, image_name, directory, amount_of_attempts+1)
+            if amount_of_attempts < 5:
+                return StorageHelper.storeImageAs(url, image_name, directory, amount_of_attempts+1)
+            else:
+                # Settle with the fact this one won't be stored
+                error = "Amount of attempts exceeded in storage_helper\n" \
+                        "attempting to get url: {}\n" \
+                        "resulted in error: {}".format(url, e)
+                StorageHelper.logError(error)
+                return
 
         if ".jpg" in url:
             f = open("{}/{}/{}.jpg".format(os.getcwd(), directory, image_name), 'wb')
@@ -61,10 +69,11 @@ class StorageHelper:
             print("URL of image cannot be saved!")
             print("URL DOES NOT CONTAIN .JPG OR .WEBP EXTENSION")
             print(url)
-            # write to error logfile
-            with open("ERRORS.txt", "w+") as text_file:
-                text_file.write("URL DOES NOT CONTAIN .JPG OR .WEBP EXTENSION: {}".format(url))
-                text_file.write("Please add extension needed in storage_helper")
+
+            error = "URL DOES NOT CONTAIN .JPG OR .WEBP EXTENSION: {}\n" \
+                    "Please add extension needed in storage_helper".format(url)
+
+            StorageHelper.logError(error)
 
     @staticmethod
     def storeMatch(match, directory, filename):
@@ -86,3 +95,9 @@ class StorageHelper:
 
         with open(filepath, 'w+') as file:
             json.dump(data, file)
+
+    @staticmethod
+    def logError(error):
+        # write to error logfile
+        with open("ERRORS.txt", "w+") as text_file:
+            text_file.write(error)
