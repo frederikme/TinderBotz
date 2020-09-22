@@ -39,7 +39,7 @@ if __name__ == "__main__":
     # loop through my new matches and send them the first message of the conversation
     for match in new_matches:
 
-        # store name and chatid in variable so we can use it more simply
+        # store name and chatid in variables so we can use it more simply later on
         name = match.getName()
         id = match.getChatID()
 
