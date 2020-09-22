@@ -6,7 +6,6 @@ Examples of usage are demonstrated in this quickstart.py file
 from bot import *
 import constants
 import random
-import urllib.request
 
 email = constants.email
 password = constants.password
@@ -26,8 +25,10 @@ if __name__ == "__main__":
         geomatch = bot.getGeomatch()
 
         # check if crucial data is not being skipped
-        if geomatch.getName() != None and geomatch.getImageURLS() != []:
-            # let's store the match locally
+        if geomatch.getName() is not None \
+                and geomatch.getImageURLS() != []:
+
+            # let's store the data of the geomatch locally
             geomatch.storeLocal()
 
             # display data in terminal
@@ -37,7 +38,7 @@ if __name__ == "__main__":
             bot.dislike(amount=1)
 
         else:
-            # refresh webpage
+            # refresh webpage, and go for another geomatch
             bot.refresh()
 
         # make a random sleep between dislikes between 0 and 4 seconds so it looks human-like behaviour
