@@ -85,7 +85,7 @@ class StorageHelper:
 
         os.rename('{}/{}/{}.jpg'.format(os.getcwd(), directory, temp_name),
                   '{}/{}/{}.jpg'.format(os.getcwd(), directory, hashvalue))
-        
+
         return hashvalue
 
     @staticmethod
