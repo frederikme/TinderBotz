@@ -38,14 +38,33 @@ class StorageHelper:
             time.sleep(sleepy_time)
             return StorageHelper.storeImageAs(url, image_name, directory, amount_of_attempts+1)
 
-        f = open("{}.webp".format(os.getcwd(), directory, image_name), 'wb')
-        f.write(response.read())
-        f.close()
+        if ".jpg" in url:
+            f = open("{}/{}/{}.jpg".format(os.getcwd(), directory, image_name), 'wb')
+            f.write(response.read())
+            f.close()
 
-        im = Image.open("{}.webp".format(image_name)).convert("RGB")
-        im.save("{}/{}/{}.jpg".format(os.getcwd(), directory, image_name), "jpeg")
+        elif '.webp' in url:
+            # save as a temporary file
+            f = open("{}.webp".format(image_name), 'wb')
+            f.write(response.read())
+            f.close()
 
-        os.remove("{}.webp".format(image_name))
+            # open the file and convert the file to jpeg
+            im = Image.open("{}.webp".format(image_name)).convert("RGB")
+            # save the jpeg file in the directory it belongs
+            im.save("{}/{}/{}.jpg".format(os.getcwd(), directory, image_name), "jpeg")
+
+            # remove the temporary file
+            os.remove("{}.webp".format(image_name))
+
+        else:
+            print("URL of image cannot be saved!")
+            print("URL DOES NOT CONTAIN .JPG OR .WEBP EXTENSION")
+            print(url)
+            # write to error logfile
+            with open("ERRORS.txt", "w+") as text_file:
+                text_file.write("URL DOES NOT CONTAIN .JPG OR .WEBP EXTENSION: {}".format(url))
+                text_file.write("Please add extension needed in storage_helper")
 
     @staticmethod
     def storeMatch(match, directory, filename):
@@ -55,7 +74,6 @@ class StorageHelper:
 
         filepath = directory + "/{}.json".format(filename)
 
-        print("Reading %s" % filepath)
         try:
             with open(filepath, "r") as fp:
                 data = json.load(fp)
