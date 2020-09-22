@@ -27,11 +27,11 @@ if __name__ == "__main__":
 
         # check if crucial data is not being skipped
         if geomatch.getName() != None and geomatch.getImageURLS() != []:
-            # display data in terminal
-            print(geomatch.getDictionary())
-
             # let's store the match locally
             geomatch.storeLocal()
+
+            # display data in terminal
+            print(geomatch.getDictionary())
 
             # account is scraped, now dislike and go next (since dislikes are infinite)
             bot.dislike(amount=1)

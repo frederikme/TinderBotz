@@ -24,9 +24,8 @@ class Geomatch:
 
         # store its images
         for url in self.image_urls:
-            random_id = "{}_{}".format(self.getID(), StorageHelper.id_generator(size=4))
-            StorageHelper.storeImageAs(url=url, image_name=random_id, directory='data/{}/images'.format(filename))
-            self.images_by_ids.append(random_id)
+            hashed_image = StorageHelper.storeImageAs(url=url, directory='data/{}/images'.format(filename))
+            self.images_by_ids.append(hashed_image)
 
         # store its userdata
         StorageHelper.storeMatch(match=self, directory='data/{}'.format(filename), filename=filename)

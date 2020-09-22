@@ -6,6 +6,7 @@ import time
 
 import urllib.request
 from PIL import Image
+import hashlib
 
 class StorageHelper:
 
@@ -13,8 +14,9 @@ class StorageHelper:
     def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
         return ''.join(random.choice(chars) for _ in range(size))
 
+    # Returns hash value of the image saved by the url given
     @staticmethod
-    def storeImageAs(url, image_name, directory, amount_of_attempts=1):
+    def storeImageAs(url, directory, amount_of_attempts=1):
         if not os.path.exists(directory):
             os.makedirs(directory)
 
@@ -37,7 +39,7 @@ class StorageHelper:
             print("Will sleep for now try again in {} seconds".format(sleepy_time))
             time.sleep(sleepy_time)
             if amount_of_attempts < 5:
-                return StorageHelper.storeImageAs(url, image_name, directory, amount_of_attempts+1)
+                return StorageHelper.storeImageAs(url, directory, amount_of_attempts+1)
             else:
                 # Settle with the fact this one won't be stored
                 error = "Amount of attempts exceeded in storage_helper\n" \
@@ -46,24 +48,26 @@ class StorageHelper:
                 StorageHelper.logError(error)
                 return
 
+        temp_name = "temporary"
+
         if ".jpg" in url:
-            f = open("{}/{}/{}.jpg".format(os.getcwd(), directory, image_name), 'wb')
+            f = open("{}/{}/{}.jpg".format(os.getcwd(), directory, temp_name), 'wb')
             f.write(response.read())
             f.close()
 
         elif '.webp' in url:
             # save as a temporary file
-            f = open("{}.webp".format(image_name), 'wb')
+            f = open("{}.webp".format(temp_name), 'wb')
             f.write(response.read())
             f.close()
 
             # open the file and convert the file to jpeg
-            im = Image.open("{}.webp".format(image_name)).convert("RGB")
+            im = Image.open("{}.webp".format(temp_name)).convert("RGB")
             # save the jpeg file in the directory it belongs
-            im.save("{}/{}/{}.jpg".format(os.getcwd(), directory, image_name), "jpeg")
+            im.save("{}/{}/{}.jpg".format(os.getcwd(), directory, temp_name), "jpeg")
 
             # remove the temporary file
-            os.remove("{}.webp".format(image_name))
+            os.remove("{}.webp".format(temp_name))
 
         else:
             print("URL of image cannot be saved!")
@@ -74,6 +78,15 @@ class StorageHelper:
                     "Please add extension needed in storage_helper".format(url)
 
             StorageHelper.logError(error)
+
+        # rename saved image to their hashvalue, so it's easy to compare (hashes of) images later on
+        im = Image.open('{}/{}/{}.jpg'.format(os.getcwd(), directory, temp_name))
+        hashvalue = hashlib.md5(im.tobytes()).hexdigest()
+
+        os.rename('{}/{}/{}.jpg'.format(os.getcwd(), directory, temp_name),
+                  '{}/{}/{}.jpg'.format(os.getcwd(), directory, hashvalue))
+        
+        return hashvalue
 
     @staticmethod
     def storeMatch(match, directory, filename):
