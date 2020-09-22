@@ -6,6 +6,7 @@ Examples of usage are demonstrated in this quickstart.py file
 from bot import *
 import constants
 import random
+import urllib.request
 
 email = constants.email
 password = constants.password
@@ -23,11 +24,22 @@ if __name__ == "__main__":
 
         # get user
         geomatch = bot.getGeomatch()
-        print(geomatch.getDictionary())
 
-        # account is scraped, now dislike and go next (since dislikes are infinite)
-        bot.dislike(amount=1)
+        # check if crucial data is not being skipped
+        if geomatch.getName() != None and geomatch.getImageURLS() != []:
+            # display data in terminal
+            print(geomatch.getDictionary())
 
-        # make a random sleep between dislikes between 0 and 2 seconds so it it looks human-like behaviour
-        sleepy_time = random.random() * 2
+            # let's store the match locally
+            geomatch.storeLocal()
+
+            # account is scraped, now dislike and go next (since dislikes are infinite)
+            bot.dislike(amount=1)
+
+        else:
+            # refresh webpage
+            bot.refresh()
+
+        # make a random sleep between dislikes between 0 and 4 seconds so it looks human-like behaviour
+        sleepy_time = random.random() * 5
         time.sleep(sleepy_time)

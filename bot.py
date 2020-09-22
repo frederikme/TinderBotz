@@ -32,7 +32,7 @@ class TinderBot:
         # getting chromedriver from cache or download from internet
         print("Getting ChromeDriver ...")
         self.browser = webdriver.Chrome(ChromeDriverManager().install())
-    
+
     def loginUsingGoogle(self, email, password):
         if not self.isLoggedIn():
             helper = LoginHelper(browser=self.browser)
@@ -104,6 +104,10 @@ class TinderBot:
         if self.isLoggedIn():
             helper = MatchHelper(browser=self.browser)
             return helper.unMatch(chatid)
+
+    def refresh(self):
+        print("Refreshing url: {}".format(self.browser.current_url))
+        self.browser.get(self.browser.current_url)
 
     def isLoggedIn(self):
         # make sure tinder website is loaded for the first time

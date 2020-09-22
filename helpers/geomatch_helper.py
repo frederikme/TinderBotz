@@ -5,8 +5,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import *
 import time
 
-from helpers.geomatch import Geomatch
-
 class GeomatchHelper:
 
     delay = 3
@@ -15,7 +13,7 @@ class GeomatchHelper:
 
     def __init__(self, browser):
         self.browser = browser
-        if self.HOME_URL is not self.browser.current_url:
+        if "/app/recs" not in self.browser.current_url:
             self.browser.get(self.HOME_URL)
 
     def like(self, amount):
@@ -52,7 +50,11 @@ class GeomatchHelper:
 
     def dislike(self, amount):
         try:
-            xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[2]/button'
+            # TODO handle by aria-label, cleaner and no need to diverse between profile selected or not
+            if 'profile' in self.browser.current_url:
+                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[2]/button'
+            else:
+                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[2]/button'
 
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
@@ -122,25 +124,32 @@ class GeomatchHelper:
             full_profile_button = self.browser.find_element_by_xpath(xpath)
 
             full_profile_button.click()
+            time.sleep(1)
 
         except TimeoutException:
             if not second_try:
-                print("Trying again to locate the profile info button in a second")
+                print("Trying again to locate the profile info button in a few seconds")
                 time.sleep(2)
                 self.openProfile(second_try=True)
             else:
                 print("timeout exception")
 
         except Exception as e:
-            print("exception")
-            print(e)
+            print("Needs to reload {}".format(self.HOME_URL))
+            self.browser.get(self.HOME_URL)
 
     def getName(self):
         if not self.isProfileOpened():
             self.openProfile()
 
         try:
-            element = self.browser.find_element_by_xpath('//h1[@itemprop="name"]')
+            xpath = '//h1[@itemprop="name"]'
+
+            # wait for element to appear
+            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+                (By.XPATH, xpath)))
+
+            element = self.browser.find_element_by_xpath(xpath)
             return element.text
         except Exception as e:
             print("name")
@@ -151,7 +160,13 @@ class GeomatchHelper:
             self.openProfile()
 
         try:
-            element = self.browser.find_element_by_xpath('//span[@itemprop="age"]')
+            xpath = '//span[@itemprop="age"]'
+
+            # wait for element to appear
+            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+                (By.XPATH, xpath)))
+
+            element = self.browser.find_element_by_xpath(xpath)
             return element.text
         except Exception as e:
             print("age")
@@ -162,7 +177,14 @@ class GeomatchHelper:
             self.openProfile()
 
         try:
-            element = self.browser.find_element_by_xpath("//*[contains(text(), 'kilometres away')]")
+
+            xpath = "//*[contains(text(), 'kilometres away')]"
+
+            # wait for element to appear
+            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+                (By.XPATH, xpath)))
+
+            element = self.browser.find_element_by_xpath(xpath)
             return element.text.split(' ')[0]
         except Exception as e:
             print("distance")
@@ -175,6 +197,7 @@ class GeomatchHelper:
         try:
             xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[2]/div[2]/div'
             return self.browser.find_element_by_xpath(xpath).text
+
         except Exception as e:
             # no bio included?
             return None
@@ -186,8 +209,12 @@ class GeomatchHelper:
         image_urls = []
 
         try:
-
             classname = 'bullet'
+
+            # wait for element to appear
+            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+                (By.CLASS_NAME, classname)))
+
             image_btns = self.browser.find_elements_by_class_name(classname)
 
             for btn in image_btns:
