@@ -93,6 +93,7 @@ class LoginHelper:
         self.acceptLocationNotification()
         self.denyOverlayedNotifications()
         self.acceptCookies()
+        self.denySeeWhoLikedYou()
 
     # TODO: needs adjustments and further implementation
     def loginByFacebook(self, email, password):
@@ -140,14 +141,15 @@ class LoginHelper:
         self.acceptLocationNotification()
         self.denyOverlayedNotifications()
         self.acceptCookies()
+        self.denySeeWhoLikedYou()
 
     def acceptLocationNotification(self):
         try:
+            xpath = '//*[@id="modal-manager"]/div/div/div/div/div[3]/button[1]'
             WebDriverWait(self.browser, self.delay).until(
-                EC.presence_of_element_located((By.XPATH, '//*[@id="modal-manager"]/div/div/div/div/div[3]/button[1]')))
+                EC.presence_of_element_located((By.XPATH, xpath)))
 
-            locationBtn = self.browser.find_element_by_xpath(
-                '//*[@id="modal-manager"]/div/div/div/div/div[3]/button[1]')
+            locationBtn = self.browser.find_element_by_xpath(xpath)
             locationBtn.click()
             print("ACCEPTED LOCATION")
             print("Sleeping 2 seconds to load new view")
@@ -160,11 +162,11 @@ class LoginHelper:
 
     def denyOverlayedNotifications(self):
         try:
+            xpath = '//*[@id="modal-manager"]/div/div/div/div/div[3]/button[2]'
             WebDriverWait(self.browser, self.delay).until(
-                EC.presence_of_element_located((By.XPATH, '//*[@id="modal-manager"]/div/div/div/div/div[3]/button[2]')))
+                EC.presence_of_element_located((By.XPATH, xpath)))
 
-            denyNotificationsBtn = self.browser.find_element_by_xpath(
-                '//*[@id="modal-manager"]/div/div/div/div/div[3]/button[2]')
+            denyNotificationsBtn = self.browser.find_element_by_xpath(xpath)
             denyNotificationsBtn.click()
             print("DENIED NOTIFICATIONS")
             print("Sleeping 2 seconds to load new view")
@@ -177,10 +179,11 @@ class LoginHelper:
 
     def acceptCookies(self):
         try:
+            xpath = '//*[@id="content"]/div/div[2]/div/div/div[1]/button'
             WebDriverWait(self.browser, self.delay).until(
-                EC.presence_of_element_located((By.XPATH, '//*[@id="content"]/div/div[2]/div/div/div[1]/button')))
+                EC.presence_of_element_located((By.XPATH, xpath)))
 
-            acceptCookiesBtn = self.browser.find_element_by_xpath('//*[@id="content"]/div/div[2]/div/div/div[1]/button')
+            acceptCookiesBtn = self.browser.find_element_by_xpath(xpath)
             acceptCookiesBtn.click()
             print("ACCEPTED COOKIES")
             print("Sleeping 2 seconds to load new view")
@@ -190,6 +193,25 @@ class LoginHelper:
                 "ACCEPTING COOKIES: Loading took too much time! Element probably not presented, so we continue.")
         except Exception as e:
             print("def login(self): 7: %s" % str(e))
+
+    def denySeeWhoLikedYou(self):
+        try:
+            xpath = '//*[@id="modal-manager"]/div/div/div/div[3]/button[2]'
+
+            WebDriverWait(self.browser, self.delay).until(
+                EC.presence_of_element_located((By.XPATH, xpath)))
+
+            denyBtn = self.browser.find_element_by_xpath(xpath)
+            denyBtn.click()
+            print("DENIED SEE WHO LIKED YOU")
+            print("Sleeping 2 seconds to load new view")
+            time.sleep(2)
+        except TimeoutException:
+            print(
+                "DENYING SEE WHO LIKES YOU: Loading took too much time! Element probably not presented, so we continue.")
+        except Exception as e:
+            print("def login(self): 8: %s" % str(e))
+
 
     def changeFocusToPopUp(self):
         max_tries = 50
