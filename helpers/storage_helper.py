@@ -34,11 +34,10 @@ class StorageHelper:
             response = urllib.request.urlopen(request_)  # store the response
 
         except Exception as e:
-            print(e)
-            sleepy_time = amount_of_attempts*30
-            print("Will sleep for now try again in {} seconds".format(sleepy_time))
-            time.sleep(sleepy_time)
-            if amount_of_attempts < 5:
+            if amount_of_attempts < 20:
+                sleepy_time = amount_of_attempts * 30
+                print("Attempt: {}, sleeping for {} seconds ...".format(amount_of_attempts, sleepy_time))
+                time.sleep(sleepy_time)
                 return StorageHelper.storeImageAs(url, directory, amount_of_attempts+1)
             else:
                 # Settle with the fact this one won't be stored
@@ -46,7 +45,7 @@ class StorageHelper:
                         "attempting to get url: {}\n" \
                         "resulted in error: {}".format(url, e)
                 StorageHelper.logError(error)
-                return
+                return None
 
         temp_name = "temporary"
 

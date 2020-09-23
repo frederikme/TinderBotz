@@ -14,7 +14,7 @@ class Geomatch:
 
         # create a unique chatid for this person
         self.id = "{}{}_{}".format(name, age, StorageHelper.id_generator(size=4))
-        self.images_by_ids = []
+        self.images_by_hashes = []
 
     def storeLocal(self):
         if self.is_match:
@@ -25,7 +25,7 @@ class Geomatch:
         # store its images
         for url in self.image_urls:
             hashed_image = StorageHelper.storeImageAs(url=url, directory='data/{}/images'.format(filename))
-            self.images_by_ids.append(hashed_image)
+            self.images_by_hashes.append(hashed_image)
 
         # store its userdata
         StorageHelper.storeMatch(match=self, directory='data/{}'.format(filename), filename=filename)
@@ -55,6 +55,6 @@ class Geomatch:
             "bio": self.getBio(),
             "distance": self.getDistance(),
             "image_urls": self.image_urls,
-            "images_by_ids": self.images_by_ids,
+            "images_by_hashes": self.images_by_hashes,
         }
         return data

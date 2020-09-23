@@ -42,5 +42,5 @@ if __name__ == "__main__":
             bot.refresh()
 
         # make a random sleep between dislikes between 0 and 4 seconds so it looks human-like behaviour
-        sleepy_time = random.random() * 5
+        sleepy_time = random.random() * 4
         time.sleep(sleepy_time)

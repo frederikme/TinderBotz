@@ -209,6 +209,7 @@ class GeomatchHelper:
         image_urls = []
 
         try:
+            # There are no bullets when there is only 1 image
             classname = 'bullet'
 
             # wait for element to appear
@@ -231,6 +232,20 @@ class GeomatchHelper:
 
         except StaleElementReferenceException:
             return image_urls
+
+        except TimeoutException:
+            # there is only 1 image, so no bullets to iterate through
+            try:
+                element = self.browser.find_element_by_xpath("//div[@aria-label='Profile slider']")
+                image_url = element.value_of_css_property('background-image').split('\"')[1]
+                if image_url not in image_urls:
+                    image_urls.append(image_url)
+                return image_urls
+
+            except Exception as e:
+                print("unhandled Exception when trying to store their only image")
+                print(e)
+                return image_urls
 
         except Exception as e:
             print("unhandled exception getImageUrls in geomatch_helper")

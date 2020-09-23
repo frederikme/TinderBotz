@@ -21,7 +21,7 @@ class Match(Geomatch):
             "bio": self.getBio(),
             "distance": self.getDistance(),
             "image_urls": self.image_urls,
-            "images_by_ids": self.images_by_ids,
+            "images_by_hashes": self.images_by_hashes,
             "chatid": self.chatid
         }
         return data
