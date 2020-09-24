@@ -8,6 +8,7 @@ Simple bot for Tinder using selenium written in python3
 
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
+* [Getting Started](#getting-started)
   * [Installation](#installation)
 
 <!-- ABOUT THE PROJECT -->
@@ -15,10 +16,9 @@ Simple bot for Tinder using selenium written in python3
 This project started with the motivation of learning web automation further and scraping with Python.</br>
 After succesfully creating a bot that could:</br>
 
-* Open a browser
-* Login to Tinder.com
+* Open a browser and login to Tinder.com
 * Accept all notifications and dismiss pop-ups
-* Swiping right or left 
+* Swiping right or left X amount of times
 * Scraping data of the profiles displayed, including, yet not limited to, name, age, bio, images, ...
 * Sending personlized messages to your matches
 * Sending you social media cards, like Instagram, Snapchat, Phonenumber and Facebook
@@ -34,6 +34,8 @@ I decided to add some data analysis and plotting of data to the project. Star th
 * [Wordcloud](https://github.com/amueller/word_cloud)
 * [Geoplotlib](https://github.com/andrea-cuttone/geoplotlib)
 
+<!-- Getting Started -->
+## Getting Started
 ### Installation
 #### Make sure python and pip are installed
 Pip should be included with python by default.<br/>
