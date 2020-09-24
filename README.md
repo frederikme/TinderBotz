@@ -1,5 +1,5 @@
 # TinderBot
-Simple bot for Tinder using selenium written in python3
+Simple bot for Tinder using selenium written in python.
 
 ![automation_tinder](https://user-images.githubusercontent.com/60892381/94200140-384a7f80-feba-11ea-8fcf-ec4507eda017.jpg)
 
