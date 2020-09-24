@@ -50,5 +50,8 @@ pip3 install -r requirements.txt
 ```
 
 ## Usage
-### Basic commands and possibilities
-[Take a look at quickstart.py](quickstart.py)
+
+1. First and foremost open the [secrets.py](https://github.com/frederikme/TinderBot/blob/master/secrets.py) file and input your Google credentials to be able to login to Tinder.
+
+2. Open the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/quickstart.py) script and change to your needs.
+
