@@ -9,6 +9,7 @@ Simple bot for Tinder using selenium written in python3
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
 * [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 
 <!-- ABOUT THE PROJECT -->
@@ -36,32 +37,18 @@ I decided to add some data analysis and plotting of data to the project. Star th
 
 <!-- Getting Started -->
 ## Getting Started
-### Installation
-#### Make sure python and pip are installed
-Pip should be included with python by default.<br/>
-Dowload python: https://www.python.org/downloads/
+### Prerequisites
 
-#### Usage of a virtual environment recommended
-##### install virtualenv
-```
-pip3 install virtualenv 
-```
-##### Create a virtual environment
-```
-virtualenv venv
-```
-##### Activate the virtual environment
-```
-source venv/bin/activate
-```
-##### To deactivate or leave the virtual environment
-```
-deactivate
-```
-#### Install dependencies (preferably in the venv)
+- Environment running python 3.x
+- Tinder account with Google login enabled
+
+### Installation
+1. Clone or download the project
+2. Install the required packages
 ```
 pip3 install -r requirements.txt
 ```
+
 ## Usage
 ### Basic commands and possibilities
 [Take a look at quickstart.py](quickstart.py)
