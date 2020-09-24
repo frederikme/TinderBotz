@@ -8,6 +8,7 @@ Simple bot for Tinder using selenium written in python3
 
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
+  * [Installation](#installation)
 
 <!-- ABOUT THE PROJECT -->
 ## About the Project
@@ -33,28 +34,29 @@ I decided to add some data analysis and plotting of data to the project. Star th
 * [Wordcloud](https://github.com/amueller/word_cloud)
 * [Geoplotlib](https://github.com/andrea-cuttone/geoplotlib)
 
-## Make sure python and pip are installed
+### Installation
+#### Make sure python and pip are installed
 Pip should be included with python by default.<br/>
 Dowload python: https://www.python.org/downloads/
 
-## Usage of a virtual environment recommended
-### install virtualenv
+#### Usage of a virtual environment recommended
+##### install virtualenv
 ```
 pip3 install virtualenv 
 ```
-### Create virtual environment
+##### Create a virtual environment
 ```
 virtualenv venv
 ```
-### Activate virtual environment
+##### Activate the virtual environment
 ```
 source venv/bin/activate
 ```
-### To deactivate or leave the virtual environment
+##### To deactivate or leave the virtual environment
 ```
 deactivate
 ```
-## Install dependencies (preferably in the venv)
+#### Install dependencies (preferably in the venv)
 ```
 pip3 install -r requirements.txt
 ```
