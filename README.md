@@ -40,9 +40,9 @@ After succesfully creating a bot that could:</br>
 
 * Open a browser and login to Tinder.com
 * Accept all notifications and dismiss pop-ups
-* Swiping right or left X amount of times
+* Swiping x amount of profiles left or right
 * Scraping data of the profiles displayed, including, yet not limited to, name, age, bio, images, ...
-* Sending personlized messages to your matches
+* Sending personalized messages to your matches
 * Sending you social media cards, like Instagram, Snapchat, Phonenumber and Facebook
 * Sending GIFS and songs
 * Unmatching
