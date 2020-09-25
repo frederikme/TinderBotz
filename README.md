@@ -17,9 +17,9 @@
     <br />
     <a href="https://github.com/frederikme/TinderBot">View Demo</a>
     ·
-    <a href="https://github.com/frederikme/TinderBot/issues">Report Bug</a>
+    <a href="https://github.com/frederikme/TinderBot/issues/new">Report Bug</a>
     ·
-    <a href="https://github.com/frederikme/TinderBot/issues">Request Feature</a>
+    <a href="https://github.com/frederikme/TinderBot/issues/new">Request Feature</a>
   </p>
 </p>
 
