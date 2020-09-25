@@ -1,5 +1,4 @@
 venv
 .idea
-constants.py
-datahandler.py
+tinderbot/constants.py
 data
