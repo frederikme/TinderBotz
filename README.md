@@ -60,7 +60,7 @@ I decided to add some data analysis and plotting of data to the project. Star th
 ### Prerequisites
 
 - Environment running python 3.x
-- Tinder account with Google login enabled
+- Tinder account with Google or Facebook login enabled
 
 ### Installation
 1. Clone or download the project
@@ -69,9 +69,10 @@ I decided to add some data analysis and plotting of data to the project. Star th
 pip3 install -r requirements.txt
 ```
 
-## Usage
+## TODO: write understandable, clear documentation about the usage
 
-1. Open the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/quickstart.py) script.
-2. Insert your Google credentials (email and password) to be able to login to Tinder.
+For now, 
+1. Open [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/tinderbot/quickstart.py).
+2. Insert your credentials (email and password) to be able to login to Tinder.
 3. Change the quickstart script to your needs.
 
