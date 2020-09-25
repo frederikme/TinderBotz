@@ -12,7 +12,7 @@
   <p align="center">
     Tinder web automation and scraper.
     <br />
-    <a href="https://github.com/frederikme/TinderBot"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/frederikme/TinderBot/blob/master/README.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/frederikme/TinderBot">View Demo</a>
