@@ -21,7 +21,7 @@
     ·
     <a href="https://github.com/frederikme/TinderBot/issues/new">Request Feature</a>
     ·
-    <a href="https://paypal.me/frederikmees">Donate</a>
+    <a href="https://paypal.me/frederikmees">Support Repository</a>
   </p>
 </p>
 
@@ -33,6 +33,7 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
+* [Support the Repository](#support-the-repository)
 
 <!-- ABOUT THE PROJECT -->
 ## About the Project
@@ -77,4 +78,8 @@ For now,
 1. Open the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/tinderbot/quickstart.py) from the tinderbot directory.
 2. Fill in your credentials (email and password) to be able to login to Tinder.
 3. Change the quickstart script to your needs.
+
+## Support the Repository
+
+* [Paypal](https://paypal.me/frederikmees)
 
