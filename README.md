@@ -7,7 +7,7 @@
     <img src="https://user-images.githubusercontent.com/60892381/94200140-384a7f80-feba-11ea-8fcf-ec4507eda017.jpg">
   </a>
 
-  <h3 align="center">TINDER BOT AND DATA ANALYSIS</h3>
+  <h3 align="center">TINDERBOT AND DATA ANALYSIS</h3>
 
   <p align="center">
     Tinder web automation and scraper.
