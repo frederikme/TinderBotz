@@ -31,6 +31,9 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
+* [Usage](#usage)
+  * [tinderbot](#tinderbot)
+  * [data analysis](#dataanalysis)
 * [Support the Repository](#support-the-repository)
 
 <!-- ABOUT THE PROJECT -->
@@ -70,12 +73,17 @@ I decided to add some data analysis and plotting of data to the project. Star th
 pip3 install -r requirements.txt
 ```
 
-## TODO: write understandable, clear documentation about the usage
+## Usage
+### Tinderbot
 
 For now, 
 1. Open the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/tinderbot/quickstart.py) from the tinderbot directory.
 2. Fill in your credentials (email and password) to be able to login to Tinder.
 3. Change the quickstart script to your needs.
+
+### Data Analysis
+
+
 
 ## Support the Repository
 
