@@ -28,20 +28,8 @@ class Analytics:
                 temp_data[name] = 1
 
         sorted_data = sorted(temp_data.items(), key=lambda x: x[1], reverse=True)
-        print(sorted_data)
 
-        # check which one is most common
-        most_common = None
-        amount = None
-        for name in temp_data:
-            if most_common is None:
-                most_common = name
-            else:
-                if temp_data[name] > temp_data[most_common]:
-                    most_common = name
-                    amount = temp_data[name]
-
-        return most_common, amount
+        return sorted_data[0]
 
     def getAverageAge(self):
         age_counter = 0
@@ -207,6 +195,15 @@ class Analytics:
                             x1=user_2['distance']['scrapers_latitude'], y1=user_2['distance']['scrapers_longitude'],
                             r1=user_2['distance']['radius']
                         )
+                        # add both intersections to the location file 
+                        # (we actually need 3 different scrapes of a user to determine their exact location)
+                        if intersections is not None:
+                            line = "Location,{},{}\n".format(intersections[0], intersections[1])
+                            line2 = "Location,{},{}\n".format(intersections[3], intersections[4])
+                            locations_file.write(line)
+                            locations_file.write(line2)
+                            
+                        
         print(users)
         '''
 
