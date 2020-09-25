@@ -2,13 +2,16 @@
 Created by Frederikme (TeetiFM)
 Examples of usage are demonstrated in this quickstart.py file
 '''
-
-from bot import *
+import random, time
+from bot import TinderBot
 import constants
-import random
 
-email = constants.email
-password = constants.password
+
+email = constants.email_facebook
+password = constants.password_facebook
+
+latitude = constants.lat_kam
+longitude = constants.lon_kam
 
 if __name__ == "__main__":
 
@@ -16,13 +19,15 @@ if __name__ == "__main__":
     bot = TinderBot()
 
     # login using your google account
-    bot.loginUsingGoogle(email=email, password=password)
+    #bot.loginUsingGoogle(email=email, password=password)
+    bot.loginUsingFacebook(email=email, password=password)
+
 
     # start scraping as much geomatches as possible
-    while True:
-
+    #while True:
+    for _ in range(2):
         # get user
-        geomatch = bot.getGeomatch()
+        geomatch = bot.getGeomatch(latitude=latitude, longitude=longitude)
 
         # check if crucial data is not being skipped
         if geomatch.getName() is not None \
@@ -44,3 +49,4 @@ if __name__ == "__main__":
         # make a random sleep between dislikes between 0 and 4 seconds so it looks human-like behaviour
         sleepy_time = random.random() * 4
         time.sleep(sleepy_time)
+

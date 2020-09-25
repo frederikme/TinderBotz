@@ -8,7 +8,10 @@ import urllib.request
 from PIL import Image
 import hashlib
 
+
 class StorageHelper:
+
+    data_path = '../data'
 
     @staticmethod
     def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
@@ -63,7 +66,7 @@ class StorageHelper:
             # open the file and convert the file to jpeg
             im = Image.open("{}.webp".format(temp_name)).convert("RGB")
             # save the jpeg file in the directory it belongs
-            im.save("{}/{}/{}.jpg".format(os.getcwd(), directory, temp_name), "jpeg")
+            im.save("{}/{}/{}.jpg".format(StorageHelper.data_path, directory, temp_name), "jpeg")
 
             # remove the temporary file
             os.remove("{}.webp".format(temp_name))
@@ -82,8 +85,8 @@ class StorageHelper:
         im = Image.open('{}/{}/{}.jpg'.format(os.getcwd(), directory, temp_name))
         hashvalue = hashlib.md5(im.tobytes()).hexdigest()
 
-        os.rename('{}/{}/{}.jpg'.format(os.getcwd(), directory, temp_name),
-                  '{}/{}/{}.jpg'.format(os.getcwd(), directory, hashvalue))
+        os.rename('{}/{}/{}.jpg'.format(StorageHelper.data_path, directory, temp_name),
+                  '{}/{}/{}.jpg'.format(StorageHelper.data_path, directory, hashvalue))
 
         return hashvalue
 
@@ -102,7 +105,6 @@ class StorageHelper:
             print("Could not read file, starting from scratch")
             data = {}
 
-        # Add some data
         data[match.getID()] = match.getDictionary()
 
         with open(filepath, 'w+') as file:

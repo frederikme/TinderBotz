@@ -1,15 +1,16 @@
 from helpers.storage_helper import StorageHelper
 
-
 class Geomatch:
 
     is_match = False
 
-    def __init__(self, name, age, bio, distance, image_urls):
+    def __init__(self, name, age, bio, distance, image_urls, lat_scraper, long_scraper):
         self.name = name
         self.age = age
         self.bio = bio
-        self.distance = distance
+        self.distance = {"radius": distance,
+                         "scrapers_latitude": lat_scraper,
+                         "scrapers_longitude": long_scraper}
         self.image_urls = image_urls
 
         # create a unique chatid for this person
@@ -24,11 +25,11 @@ class Geomatch:
 
         # store its images
         for url in self.image_urls:
-            hashed_image = StorageHelper.storeImageAs(url=url, directory='data/{}/images'.format(filename))
+            hashed_image = StorageHelper.storeImageAs(url=url, directory='../data/{}/images'.format(filename))
             self.images_by_hashes.append(hashed_image)
 
         # store its userdata
-        StorageHelper.storeMatch(match=self, directory='data/{}'.format(filename), filename=filename)
+        StorageHelper.storeMatch(match=self, directory='../data/{}'.format(filename), filename=filename)
 
     def getName(self):
         return self.name

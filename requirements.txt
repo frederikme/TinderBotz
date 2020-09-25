@@ -2,3 +2,7 @@ selenium
 webdriver-manager
 pyfiglet
 pillow
+wordcloud
+geoplotlib
+pyglet
+scipy

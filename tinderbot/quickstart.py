@@ -3,11 +3,23 @@ Created by Frederikme (TeetiFM)
 Examples of usage are demonstrated in this quickstart.py file
 '''
 
-from bot import TinderBot
-from helpers.socials import Socials
+from tinderbot import TinderBot
+from tinderbot.helpers import Socials
+'''
+Login credentials
+    google   -> Make sure your email is verified
+    facebook -> Make sure your tinder profile is linked with you Facebook account
+'''
+email = "myemail@gmail.com"
+password = "mypassword"
 
-email = "example@email.com"
-password = "password123"
+'''
+Recommended to fill in using your location from where you're scraping 
+    - Peoples exact location can be calculated after multiple scrapes from different locations
+    - An intersection will be made from the circles (distance) of your location to the profile over multiple scrapes
+'''
+latitude = None
+longitude = None
 
 if __name__ == "__main__":
 
@@ -17,11 +29,15 @@ if __name__ == "__main__":
     # login using your google account with a verified email!
     bot.loginUsingGoogle(email=email, password=password)
 
+    # Alternatively you can login using facebook
+    bot.loginUsingFacebook(email=email, password=password)
+
     # spam likes, dislikes and superlikes
     bot.like(amount=5)
     bot.dislike(amount=0)
     bot.superlike(amount=0)
 
+    # Getting matches takes ages, when you have a lot of matches: This needs a fix + local storage and reloading
     # get new matches, with whom you haven't interacted yet
     new_matches = bot.getNewMatches()
     # get already interacted with matches
@@ -61,7 +77,7 @@ if __name__ == "__main__":
     # let's scrape some geomatches now
     for _ in range(50):
         # get profile data (name, age, bio, images, ...)
-        geomatch = bot.getGeomatch()
+        geomatch = bot.getGeomatch(latitude=latitude, longitude=longitude)
         # store this data locally as json with reference to their respective (locally stored) images
         geomatch.storeLocal()
         # dislike the profile, so it will show us the next geomatch (since we got infinite amount of dislikes anyway)

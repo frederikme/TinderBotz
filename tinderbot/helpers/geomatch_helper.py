@@ -167,7 +167,11 @@ class GeomatchHelper:
                 (By.XPATH, xpath)))
 
             element = self.browser.find_element_by_xpath(xpath)
-            return element.text
+            try:
+                return int(element.text)
+            except ValueError:
+                return None
+
         except Exception as e:
             print("age")
             print(e)

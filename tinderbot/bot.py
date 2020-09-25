@@ -1,9 +1,4 @@
 from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
 
 import pyfiglet
@@ -14,11 +9,10 @@ from helpers.geomatch import Geomatch
 from helpers.login_helper import LoginHelper
 from helpers.geomatch_helper import GeomatchHelper
 from helpers.match_helper import MatchHelper
-from helpers.socials import Socials
+
 
 class TinderBot:
 
-    delay = 5
     HOME_URL = "https://www.tinder.com/app/recs"
 
     def __init__(self):
@@ -38,6 +32,11 @@ class TinderBot:
             helper = LoginHelper(browser=self.browser)
             helper.loginByGoogle(email, password)
 
+    def loginUsingFacebook(self, email, password):
+        if not self.isLoggedIn():
+            helper = LoginHelper(browser=self.browser)
+            helper.loginByFacebook(email, password)
+
     def like(self, amount=1):
         if self.isLoggedIn():
             helper = GeomatchHelper(browser=self.browser)
@@ -53,7 +52,7 @@ class TinderBot:
             helper = GeomatchHelper(browser=self.browser)
             helper.superlike(amount)
 
-    def getGeomatch(self):
+    def getGeomatch(self, latitude=None, longitude=None):
         if self.isLoggedIn():
             helper = GeomatchHelper(browser=self.browser)
 
@@ -63,7 +62,8 @@ class TinderBot:
             bio = helper.getBio()
             image_urls = helper.getImageURLS()
 
-            return Geomatch(name=name, age=age, distance=distance, bio=bio, image_urls=image_urls)
+            return Geomatch(name=name, age=age, distance=distance, bio=bio, image_urls=image_urls,
+                            lat_scraper=latitude, long_scraper=longitude)
 
     def getAllMatches(self):
         if self.isLoggedIn():

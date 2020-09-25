@@ -119,13 +119,16 @@ class LoginHelper:
         if not self.changeFocusToPopUp():
             print("FAILED TO CHANGE FOCUS TO POPUP")
         try:
-            WebDriverWait(self.browser, self.delay).until(
-                EC.presence_of_element_located((By.ID, "email")))
 
-            emailfield = self.browser.find_element_by_id("email")
+            xpath_email = '//*[@id="email"]'
+            xpath_password = '//*[@id="pass"]'
+            WebDriverWait(self.browser, self.delay).until(
+                EC.presence_of_element_located((By.XPATH, xpath_email)))
+
+            emailfield = self.browser.find_element_by_xpath(xpath_email)
             emailfield.send_keys(email)
 
-            pwdfield = self.browser.find_element_by_id("pass")
+            pwdfield = self.browser.find_element_by_xpath(xpath_password)
             pwdfield.send_keys(password)
             pwdfield.send_keys(Keys.ENTER)
 
