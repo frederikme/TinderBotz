@@ -1,7 +1,27 @@
 # TinderBot
-Simple bot for Tinder using selenium written in python.
 
-![automation_tinder](https://user-images.githubusercontent.com/60892381/94200140-384a7f80-feba-11ea-8fcf-ec4507eda017.jpg)
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://user-images.githubusercontent.com/60892381/94200140-384a7f80-feba-11ea-8fcf-ec4507eda017.jpg">
+    <img src="https://user-images.githubusercontent.com/60892381/94200140-384a7f80-feba-11ea-8fcf-ec4507eda017.jpg">
+  </a>
+
+  <h3 align="center">TINDERBOT AND DATA ANALYSIS</h3>
+
+  <p align="center">
+    Tinder web automation and scraper.
+    <br />
+    <a href="https://github.com/frederikme/TinderBot"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/frederikme/TinderBot">View Demo</a>
+    ·
+    <a href="https://github.com/frederikme/TinderBot/issues/new">Report Bug</a>
+    ·
+    <a href="https://github.com/frederikme/TinderBot/issues/new">Request Feature</a>
+  </p>
+</p>
 
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
@@ -40,7 +60,7 @@ I decided to add some data analysis and plotting of data to the project. Star th
 ### Prerequisites
 
 - Environment running python 3.x
-- Tinder account with Google login enabled
+- Tinder account with Google or Facebook login enabled
 
 ### Installation
 1. Clone or download the project
@@ -49,9 +69,10 @@ I decided to add some data analysis and plotting of data to the project. Star th
 pip3 install -r requirements.txt
 ```
 
-## Usage
+## TODO: write understandable, clear documentation about the usage
 
-1. Open the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/quickstart.py) script.
-2. Insert your Google credentials (email and password) to be able to login to Tinder.
+For now, 
+1. Open [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/tinderbot/quickstart.py).
+2. Insert your credentials (email and password) to be able to login to Tinder.
 3. Change the quickstart script to your needs.
 
