@@ -1,0 +1,63 @@
+Tutorial Tinderbot
+
+If you're familiar with python and git, I recommend you fastforward about X minutes.
+
+Installing Python:
+First thing first, before being able to use the Tinderbot, you will need to have python installed.
+Simply click this link and download python. To check if python is installed can open our terminal or command prompt.
+For Mac users simply click "CMD-SPACE", search for terminal and click enter.
+For Windows users, simply click in the lower left corner, search for 'CMD' and press enter.
+
+Once our console is opened, we can look if python is installed by entering 'python --version'
+As you can see we got the latest version of python installed.
+
+Furthermore we're gonna need 'pip' which we can check if it is installed by the command 'pip3 --version'
+
+Once pip is installed we'll be able to install the packages and libraries we need to run the code of this project
+and other projects you're interested in.
+
+Installing these libraries in a virtual environment where it can't harm your system is a good practice but not mandatory
+Although since we're good kiddo's, we're gonna do it by the book and install virtualenv
+pip3 install virtualenv
+
+From now on we're not gonna use pip3 install outside of any virtual environment anymore.
+
+Let's start by simply downloading our project.
+Once the project is downloaded we can drag it to our desktop.
+We're going to open our terminal/command prompt again and we're gonna navigate to our project.
+We can do this by checking what directories there are by the command 'ls' for mac and for windows 'dir'
+We can see that 'Desktop' is one of the directories, one of the folders we can navigate to.
+So let's CHANGE DIRECTORY (cd) to Desktop. (Note: Terminal is capital sensitive)
+and further to Tinderbot. (cd Tinderbot)
+Let's see again what our options are from here by entering the command 'ls' or 'dir'.
+We can see another directory, named 'helpers', as well as files like our bot.py, quickstart script and the requirements.txt
+Let's open this requirements.txt to see what's inside.
+The requirements.txt file holds the modules we're going to need to be able to run this project.
+As you can see we're gonna need, Selenium and webdriver-manager for our automation, pyfiglet for our cool banner,
+and pillow to handle images.
+
+We're good bois and grils so what did we learn. We need to install these inside a virtual environment.
+let's create a virtual environment using our terminal by the command 'virtualenv venv'
+This will install our virtual environment for this project
+To activate this environment we're gonna need to use 'source venv/bin/activate'
+As you can see we're now inside the virtual environment.
+Time to install the modules we need by running the command 'pip3 install -r requirements.txt'
+As you can see al the packages we need are getting installed.
+to get out of this virtual environment we can just write 'deactivate' and press enter.
+However running our project from outside the virtual environment will result into errors, since the packages are
+only installed and accessible inside the virtual environment.
+so we're gonna re-enter our virtual environment where the dependencies were installed
+
+Before we dive into the code and open the quickstart script, we're gonna talk about the structure and design of the project
+Basically if we open Tinder, we have a first seperation between our matches and our swipeable profiles.
+Swipeable profiles are being called geomatches. Why geomatches?
+Geomatches are actually profiles that lie within your ranges of distance, age, gender, ...
+AND whom ranges include your profile. So that's a first 'grade' of being matches let's say.
+Therefore called geomatches (geo=location, within range) matches.
+
+
+
+
+
+
+

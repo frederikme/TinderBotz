@@ -2,3 +2,4 @@ venv
 .idea
 tinderbot/constants.py
 data
+tutorial.txt

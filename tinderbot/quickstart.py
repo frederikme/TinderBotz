@@ -3,8 +3,8 @@ Created by Frederikme (TeetiFM)
 Examples of usage are demonstrated in this quickstart.py file
 '''
 
-from tinderbot import TinderBot
-from tinderbot.helpers import Socials
+from bot import TinderBot
+from helpers.socials import Socials
 '''
 Login credentials
     google   -> Make sure your email is verified
