@@ -21,7 +21,7 @@
     ·
     <a href="https://github.com/frederikme/TinderBot/issues/new">Request Feature</a>
     ·
-    <a href="https://paypal.me/frederikmees">Buy me a coffee</a>
+    <a href="https://paypal.me/frederikmees">Donate</a>
   </p>
 </p>
 
