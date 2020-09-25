@@ -32,8 +32,8 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage)
-  * [tinderbot](#usage:-tinderbot)
-  * [data analysis](#usage:-data-analysis)
+  * [tinderbot](#usage-tinderbot)
+  * [data analysis](#usage-data-analysis)
 * [Support the Repository](#support-the-repository)
 
 <!-- ABOUT THE PROJECT -->
