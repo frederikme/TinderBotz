@@ -84,7 +84,7 @@ For now,
 ### Usage: Data Analysis
 
 For now,
-1. Make sure you already scraped some data of your matches.
+1. Make sure you already scraped some data.
 2. Take a look at the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/dataanalysis/quickstart.py) from the dataanlysis directory.
 
 ## Support the Repository
