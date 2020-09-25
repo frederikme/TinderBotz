@@ -32,8 +32,8 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage)
-  * [tinderbot](#tinderbot)
-  * [data analysis](#dataanalysis)
+  * [tinderbot](#usage:-tinderbot)
+  * [data analysis](#usage:-data-analysis)
 * [Support the Repository](#support-the-repository)
 
 <!-- ABOUT THE PROJECT -->
@@ -74,14 +74,14 @@ pip3 install -r requirements.txt
 ```
 
 ## Usage
-### Tinderbot
+### Usage: Tinderbot
 
 For now, 
 1. Open the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/tinderbot/quickstart.py) from the tinderbot directory.
 2. Fill in your credentials (email and password) to be able to login to Tinder.
 3. Change the quickstart script to your needs.
 
-### Data Analysis
+### Usage: Data Analysis
 
 
 
