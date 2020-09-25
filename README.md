@@ -20,8 +20,6 @@
     <a href="https://github.com/frederikme/TinderBot/issues/new">Report Bug</a>
     ·
     <a href="https://github.com/frederikme/TinderBot/issues/new">Request Feature</a>
-    ·
-    <a href="https://paypal.me/frederikmees">Support Repository</a>
   </p>
 </p>
 
