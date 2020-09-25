@@ -24,8 +24,7 @@ if __name__ == "__main__":
 
 
     # start scraping as much geomatches as possible
-    #while True:
-    for _ in range(2):
+    while True:
         # get user
         geomatch = bot.getGeomatch(latitude=latitude, longitude=longitude)
 
