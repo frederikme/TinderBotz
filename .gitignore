@@ -1,5 +1,5 @@
 venv
 .idea
-tinderbot/constants.py
+constants.py
 data
 tutorial.txt

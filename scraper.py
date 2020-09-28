@@ -3,7 +3,7 @@ Created by Frederikme (TeetiFM)
 Examples of usage are demonstrated in this quickstart.py file
 '''
 import random, time
-from bot import TinderBot
+from tinderbot.bot import TinderBot
 import constants
 
 
