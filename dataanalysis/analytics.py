@@ -115,14 +115,6 @@ class Analytics:
         image.show()
         image.save("{}/{}/{}.jpg".format(os.getcwd(), directory, "bio_of_age_{}".format(age)), "png")
 
-    def getDotMapOfMatches(self):
-        #self.updateLocationDataFile()
-
-        data = read_csv(self.location_data)
-        print(data)
-        geoplotlib.dot(data)
-        geoplotlib.show()
-
     def getHistogramOfMatches(self):
         #self.updateLocationDataFile()
 
@@ -205,14 +197,18 @@ class Analytics:
                         # -> will return locations of intersections
                         intersections = Analytics.getIntersections(
                             x0=user['distance']['scrapers_latitude'], y0=user['distance']['scrapers_longitude'],
-                            r0=user['distance']['radius'],
+                            r0=user['distance']['radius']/110.574,
                             x1=user_2['distance']['scrapers_latitude'], y1=user_2['distance']['scrapers_longitude'],
-                            r1=user_2['distance']['radius']
+                            r1=user_2['distance']['radius']/110.574
                         )
                         # add both intersections to the location file
                         # (we actually need 3 different scrapes of a user to determine their exact location)
                         if intersections is not None:
-
+                            line = "Location,{},{}\n".format(intersections[0], intersections[1])
+                            lines.append(line)
+                            line2 = "Location,{},{}\n".format(intersections[2], intersections[3])
+                            lines.append(line2)
+                            '''
                             if Analytics.isValidLocation(intersections[0], intersections[1]):
                                 line = "Location,{},{}\n".format(intersections[0], intersections[1])
                                 lines.append(line)
@@ -220,18 +216,18 @@ class Analytics:
                             if Analytics.isValidLocation(intersections[2], intersections[3]):
                                 line2 = "Location,{},{}\n".format(intersections[2], intersections[3])
                                 lines.append(line2)
-
+                            '''
         print(len(users))
         return lines
 
-    '''
+
     def modify(self):
         for id in self.data:
             self.data[id]['distance']['radius'] = int(self.data[id]['distance']['radius'])
 
         with open(self.path_file, 'w') as f:
             json.dump(self.data, f)
-    '''
+
     @staticmethod
     def haveCommonElement(list1, list2):
         # traverse in the 1st list
@@ -244,14 +240,14 @@ class Analytics:
                     return x
 
         return None
-
+    '''
     @staticmethod
     def isValidLocation(lat, long):
         if abs(lat) > 90 or abs(long) > 180:
             return False
         else:
             return True
-
+    '''
     @staticmethod
     def getIntersections(x0, y0, r0, x1, y1, r1):
         # circle 1: (x0, y0), radius r0

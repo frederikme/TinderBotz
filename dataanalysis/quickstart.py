@@ -3,7 +3,7 @@ from analytics import Analytics
 analytics = Analytics(path_file='../data/geomatches/geomatches.json')
 
 #analytics.updateLocationDataFile()
-
+'''
 print("You scraped {} profiles!".format(analytics.getAmountOfProfiles()))
 print("The name {} occurred the most, namely {} times".format(analytics.getMostCommonName()[0], analytics.getMostCommonName()[1]))
 print("The average age of the profiles is {}".format(analytics.getAverageAge()))
@@ -16,10 +16,9 @@ analytics.getWordCloudOfBio()
 for age in range(18, 26):
     analytics.getWordCloudOfNames(age=age)
     analytics.getWordCloudOfBio(age=age)
+'''
 
-'''
-analytics.getDotMapOfMatches()
-analytics.getHistogramOfMatches()
-analytics.getHeatmapOfMatches()
-analytics.getDelaunayTriangulation()
-'''
+
+#analytics.getHistogramOfMatches()
+#analytics.getHeatmapOfMatches()
+#analytics.getDelaunayTriangulation()
