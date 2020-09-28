@@ -6,8 +6,8 @@ from geoplotlib.utils import read_csv
 
 class Analytics:
 
-    main_directory = "../data/geomatches"
-    location_data = "../data/locationdata.csv"
+    main_directory = "data/geomatches"
+    location_data = "data/locationdata.csv"
 
     def __init__(self, path_file):
         self.path_file = path_file

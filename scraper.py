@@ -1,6 +1,6 @@
 '''
 Created by Frederikme (TeetiFM)
-Examples of usage are demonstrated in this quickstart.py file
+Examples of usage are demonstrated in this quickstart_analytics.py file
 '''
 import random, time
 from tinderbot.bot import TinderBot
@@ -18,10 +18,9 @@ if __name__ == "__main__":
     # creates instance of bot
     bot = TinderBot()
 
-    # login using your google account
-    #bot.loginUsingGoogle(email=email, password=password)
+    # login using your google or facebook account
+    # bot.loginUsingGoogle(email=email, password=password)
     bot.loginUsingFacebook(email=email, password=password)
-
 
     # start scraping as much geomatches as possible
     while True:

@@ -1,6 +1,6 @@
 '''
 Created by Frederikme (TeetiFM)
-Examples of usage are demonstrated in this quickstart.py file
+Examples of usage are demonstrated in this quickstart_analytics.py file
 '''
 
 from tinderbot.bot import TinderBot

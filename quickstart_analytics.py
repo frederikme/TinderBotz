@@ -1,6 +1,6 @@
 from analytics import Analytics
 
-analytics = Analytics(path_file='../data/geomatches/geomatches.json')
+analytics = Analytics(path_file='data/geomatches/geomatches.json')
 
 #analytics.updateLocationDataFile()
 '''
