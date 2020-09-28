@@ -6,7 +6,8 @@ from geoplotlib.utils import read_csv
 
 class Analytics:
 
-    location_data = "data/locationdata.csv"
+    main_directory = "../data/geomatches"
+    location_data = "../data/locationdata.csv"
 
     def __init__(self, path_file):
         self.path_file = path_file
@@ -60,7 +61,7 @@ class Analytics:
 
     def getWordCloudOfNames(self, age="all"):
         names = ""
-        directory = 'data/geomatches/wordclouds'
+        directory = '{}/wordclouds'.format(self.main_directory)
 
         if not os.path.exists(directory):
             os.makedirs(directory)
@@ -82,7 +83,7 @@ class Analytics:
 
     def getWordCloudOfBio(self, age="all"):
         bios = ""
-        directory = 'data/geomatches/wordclouds'
+        directory = '{}/wordclouds'.format(self.main_directory)
 
         ignore_list = ["een", "de", "le", "la", "het", "ben", "suis", "ook", "maar", "en", "et", "maar"]
 
