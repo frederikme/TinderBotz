@@ -31,8 +31,8 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-* [Usage](#usage-tinderbot)
-  * [Tinderbot](#usage-tinderbot)
+* [Usage](#usage-of-tinderbot)
+  * [Tinderbot](#usage-of-tinderbot)
   * [Data Analysis](#usage-data-analysis)
 * [Support the Repository](#support-the-repository)
 
