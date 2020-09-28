@@ -33,7 +33,7 @@
   * [Installation](#installation)
 * [Usage](#usage-of-tinderbot)
   * [Tinderbot](#usage-of-tinderbot)
-  * [Data Analysis](#usage-data-analysis)
+  * [Data Analysis](#usage-of-data-analysis)
 * [Support the Repository](#support-the-repository)
 
 <!-- ABOUT THE PROJECT -->
