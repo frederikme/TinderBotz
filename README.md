@@ -76,7 +76,7 @@ pip3 install -r requirements.txt
 ## Usage of Tinderbot
 
 For now, 
-1. Open the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/quickstart.py) from the tinderbot directory.
+1. Open the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_tinderbot.py) from the tinderbot directory.
 2. Fill in your credentials (email and password) to be able to login to Tinder.
 3. Change the quickstart script to your needs.
 
@@ -87,7 +87,7 @@ then [scraper.py](https://github.com/frederikme/TinderBot/blob/master/scraper.py
 
 For now,
 1. Make sure you already scraped some data.
-2. Take a look at the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/dataanalysis/quickstart.py) from the dataanlysis directory.
+2. Take a look at the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/dataanalysis/quickstart_analytics.py) from the dataanlysis directory.
 
 #### Wordcloud of most common names
 <a href="https://github.com/frederikme/TinderBot/blob/master/data/geomatches/wordclouds/name_of_age_all.jpg">
