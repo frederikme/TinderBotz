@@ -31,8 +31,8 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-* [Usage](#usage)
-  * [Tinderbot](#usage-tinderbot)
+* [Usage](#usage-of-tinderbot)
+  * [Tinderbot](#usage-of-tinderbot)
   * [Data Analysis](#usage-data-analysis)
 * [Support the Repository](#support-the-repository)
 
@@ -73,8 +73,7 @@ I decided to add some data analysis and plotting of data to the project. Star th
 pip3 install -r requirements.txt
 ```
 
-## Usage
-### Usage: Tinderbot
+## Usage of Tinderbot
 
 For now, 
 1. Open the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/quickstart.py) from the tinderbot directory.
@@ -84,11 +83,22 @@ For now,
 If you want to scrape as much profiles as possible,</br>
 then [scraper.py](https://github.com/frederikme/TinderBot/blob/master/scraper.py) will be suiting your needs better.
 
-### Usage: Data Analysis
+## Usage of Data Analysis
 
 For now,
 1. Make sure you already scraped some data.
 2. Take a look at the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/dataanalysis/quickstart.py) from the dataanlysis directory.
+
+#### Wordcloud of most common names
+<a href="https://github.com/frederikme/TinderBot/blob/master/data/geomatches/wordclouds/name_of_age_all.jpg">
+    <img src="https://github.com/frederikme/TinderBot/blob/master/data/geomatches/wordclouds/name_of_age_all.jpg">
+ </a>
+
+#### Heatmap of the geomatches location 
+Locations of users is based on multiple scrapes from different locations by taking the intersections of the circles (based on the 'distance away')
+<a href="https://github.com/frederikme/TinderBot/blob/master/data/geomatches/maps/Heatmap.png">
+    <img src="https://github.com/frederikme/TinderBot/blob/master/data/geomatches/maps/Heatmap.png">
+ </a>
 
 ## Support the Repository
 Feel free to make a pull request and contribute to this project.</br>
