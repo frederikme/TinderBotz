@@ -90,6 +90,17 @@ For now,
 1. Make sure you already scraped some data.
 2. Take a look at the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/dataanalysis/quickstart.py) from the dataanlysis directory.
 
+#### Wordcloud of most common names
+<a href="https://github.com/frederikme/TinderBot/blob/master/data/geomatches/wordclouds/name_of_age_all.jpg">
+    <img src="https://github.com/frederikme/TinderBot/blob/master/data/geomatches/wordclouds/name_of_age_all.jpg">
+ </a>
+
+#### Heatmap of the geomatches location 
+Locations of users is based on multiple scrapes from different locations by taking the intersections of the circles (based on the 'distance away')
+<a href="https://github.com/frederikme/TinderBot/blob/master/data/geomatches/maps/Heatmap.png">
+    <img src="https://github.com/frederikme/TinderBot/blob/master/data/geomatches/maps/Heatmap.png">
+ </a>
+
 ## Support the Repository
 Feel free to make a pull request and contribute to this project.</br>
 If you feel like buying me a drink:
