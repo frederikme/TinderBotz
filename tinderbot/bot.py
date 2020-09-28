@@ -106,7 +106,7 @@ class TinderBot:
             return helper.unMatch(chatid)
 
     def refresh(self):
-        print("Refreshing url: {}".format(self.browser.current_url))
+        print("Refreshing url: {}\n".format(self.browser.current_url))
         self.browser.get(self.browser.current_url)
 
     def isLoggedIn(self):
@@ -118,5 +118,5 @@ class TinderBot:
         if "tinder.com/app/" in self.browser.current_url:
             return True
         else:
-            print("User is not logged in yet.")
+            print("User is not logged in yet.\n")
             return False

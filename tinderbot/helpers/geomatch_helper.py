@@ -14,12 +14,15 @@ class GeomatchHelper:
     def __init__(self, browser):
         self.browser = browser
         if "/app/recs" not in self.browser.current_url:
-            self.browser.get(self.HOME_URL)
+            self.getHomePage()
 
     def like(self, amount):
         for _ in range(amount):
             try:
-                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[4]/button'
+                if 'profile' in self.browser.current_url:
+                    xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[4]/button'
+                else:
+                    xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[4]/button'
 
                 # wait for element to appear
                 WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
@@ -35,13 +38,13 @@ class GeomatchHelper:
                 # popup is blocking the like button -> reload page to find button again
                 print("YOU GOT A NEW MATCH")
                 # reload page so pop up of match disappears
-                self.browser.get(self.HOME_URL)
+                self.handlePopup()
                 continue
             except TimeoutException:
                 # like button not found in time -> reload page to find button again
-                print("dislike button not found -> reloading home page to find button again")
-                self.browser.get(self.HOME_URL)
-                self.dislike(amount=amount)
+                print("like button not found -> reloading home page to find button again")
+                self.getHomePage()
+                self.like(amount=amount)
                 break
             except Exception as e:
                 print("Another, not handled, exception occurred at like")
@@ -70,12 +73,12 @@ class GeomatchHelper:
             # popup is blocking the dislike button -> reload page to find button again
             print("Needs to reload page")
             # reload page so pop up of match disappears
-            self.browser.get(self.HOME_URL)
+            self.getHomePage()
 
         except TimeoutException:
             # dislike button not found in time -> reload page to find button again
             print("dislike button not found in time -> reloading home page to find button again")
-            self.browser.get(self.HOME_URL)
+            self.getHomePage()
             self.dislike(amount=amount)
 
         except Exception as e:
@@ -100,12 +103,12 @@ class GeomatchHelper:
             # popup is blocking the superlike button -> reload page to find button again
             print("Needs to reload page")
             # reload page so pop up of match disappears
-            self.browser.get(self.HOME_URL)
+            self.getHomePage()
 
         except TimeoutException:
             # superlike button not found in time -> reload page to find button again
             print("superlike button not found in time -> reloading page and trying again")
-            self.browser.get(self.HOME_URL)
+            self.getHomePage()
             self.superlike(amount=amount)
 
         except Exception as e:
@@ -135,12 +138,54 @@ class GeomatchHelper:
                 print("timeout exception")
 
         except Exception as e:
-            print("Needs to reload {}".format(self.HOME_URL))
-            self.browser.get(self.HOME_URL)
+            self.handlePopup()
+
+    def handlePopup(self):
+        # try to deny 'add tinder to homescreen'
+        try:
+            xpath = '//*[@id="modal-manager"]/div/div/div[2]/button[2]'
+            WebDriverWait(self.browser, self.delay).until(
+                EC.presence_of_element_located((By.XPATH, xpath)))
+
+            add_to_home_popup = self.browser.find_element_by_xpath(xpath)
+            add_to_home_popup.click()
+            return
+        except Exception as e:
+            print("Deny Tinder to homescreen")
+
+        # try to dismiss match
+        try:
+            xpath = '//*[@id="modal-manager-canvas"]/div/div/div[1]/div/div[3]/button'
+            WebDriverWait(self.browser, self.delay).until(
+                EC.presence_of_element_located((By.XPATH, xpath)))
+
+            match_popup = self.browser.find_element_by_xpath(xpath)
+            match_popup.click()
+            return
+        except Exception as e:
+            print("Dismiss match not found")
+
+        # try to deny see who liked you
+        try:
+            xpath = '//*[@id="modal-manager"]/div/div/div/div[3]/button[2]'
+
+            WebDriverWait(self.browser, self.delay).until(
+                EC.presence_of_element_located((By.XPATH, xpath)))
+
+            denyBtn = self.browser.find_element_by_xpath(xpath)
+            denyBtn.click()
+            return
+        except:
+            print("Deny see who liked you not found")
+
+        # let's try refresh page
+        self.getHomePage()
+
 
     def getName(self):
         if not self.isProfileOpened():
             self.openProfile()
+            return self.getName()
 
         try:
             xpath = '//h1[@itemprop="name"]'
@@ -255,6 +300,10 @@ class GeomatchHelper:
             print("unhandled exception getImageUrls in geomatch_helper")
             print(e)
             return image_urls
+
+    def getHomePage(self):
+        self.browser.get(self.HOME_URL)
+        time.sleep(3)
 
     def isProfileOpened(self):
         if '/profile' in self.browser.current_url:

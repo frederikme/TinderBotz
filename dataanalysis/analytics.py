@@ -6,7 +6,7 @@ from geoplotlib.utils import read_csv
 
 class Analytics:
 
-    location_data = "../data/locationdata.csv"
+    location_data = "data/locationdata.csv"
 
     def __init__(self, path_file):
         self.path_file = path_file
@@ -60,7 +60,7 @@ class Analytics:
 
     def getWordCloudOfNames(self, age="all"):
         names = ""
-        directory = '../data/geomatches/wordclouds'
+        directory = 'data/geomatches/wordclouds'
 
         if not os.path.exists(directory):
             os.makedirs(directory)
@@ -82,9 +82,9 @@ class Analytics:
 
     def getWordCloudOfBio(self, age="all"):
         bios = ""
-        directory = '../data/geomatches/wordclouds'
+        directory = 'data/geomatches/wordclouds'
 
-        ignore_list = ["een", "de", "le", "la", "het", "ben", "ook", "maar", "en", "et", "maar"]
+        ignore_list = ["een", "de", "le", "la", "het", "ben", "suis", "ook", "maar", "en", "et", "maar"]
 
         if not os.path.exists(directory):
             os.makedirs(directory)
@@ -115,7 +115,7 @@ class Analytics:
         image.save("{}/{}/{}.jpg".format(os.getcwd(), directory, "bio_of_age_{}".format(age)), "png")
 
     def getDotMapOfMatches(self):
-        self.updateLocationDataFile()
+        #self.updateLocationDataFile()
 
         data = read_csv(self.location_data)
         print(data)
@@ -123,7 +123,7 @@ class Analytics:
         geoplotlib.show()
 
     def getHistogramOfMatches(self):
-        self.updateLocationDataFile()
+        #self.updateLocationDataFile()
 
         data = read_csv(self.location_data)
         print(data)
@@ -132,7 +132,7 @@ class Analytics:
         geoplotlib.show()
 
     def getHeatmapOfMatches(self):
-        self.updateLocationDataFile()
+        #self.updateLocationDataFile()
 
         data = read_csv(self.location_data)
         print(data)
@@ -141,7 +141,7 @@ class Analytics:
         geoplotlib.show()
 
     def getDelaunayTriangulation(self):
-        self.updateLocationDataFile()
+        #self.updateLocationDataFile()
 
         data = read_csv(self.location_data)
         print(data)
@@ -150,6 +150,7 @@ class Analytics:
         geoplotlib.show()
 
     def updateLocationDataFile(self):
+        '''
         import random
 
         with open(self.location_data, "w+") as locations_file:
@@ -170,15 +171,28 @@ class Analytics:
                 locations_file.write(line)
 
             locations_file.close()
-
+        '''
         # look for two same users by comparing their image hashes
         # convert distance into a function of a circle
-        '''
-        users = []
         
         # bad timecomplexity but will do in a minute or two, since data is not enormously large
+        lines = self.crossMatchTest()
+        with open(self.location_data, "w+") as locations_file:
+            locations_file.write('name,lat,lon\n')
+
+            for line in lines:
+                locations_file.write(line)
+
+            locations_file.close()
+
+    def crossMatchTest(self):
+        users = []
+        lines = []
+
+        # bad timecomplexity but will do in a minute or two, since data is not enormously large
         for index, id in enumerate(self.data):
-            print("{} of the {}".format(index+1, len(self.data)))
+            if index % 500 == 0:
+                print("{} of the {}".format(index + 1, len(self.data)))
             user = self.data[id]
             hashes = user['images_by_hashes']
             for id_2 in self.data:
@@ -187,33 +201,40 @@ class Analytics:
                     hashes_2 = user_2['images_by_hashes']
                     if Analytics.haveCommonElement(hashes, hashes_2) is not None:
                         users.append((user, user_2))
-                        print("USER FOUND")
-                         # -> will return locations of intersections
+                        # -> will return locations of intersections
                         intersections = Analytics.getIntersections(
-                            x0=user['distance']['scrapers_latitude'], y0=user['distance']['scrapers_longitude'], 
+                            x0=user['distance']['scrapers_latitude'], y0=user['distance']['scrapers_longitude'],
                             r0=user['distance']['radius'],
                             x1=user_2['distance']['scrapers_latitude'], y1=user_2['distance']['scrapers_longitude'],
                             r1=user_2['distance']['radius']
                         )
-                        # add both intersections to the location file 
+                        # add both intersections to the location file
                         # (we actually need 3 different scrapes of a user to determine their exact location)
                         if intersections is not None:
-                            line = "Location,{},{}\n".format(intersections[0], intersections[1])
-                            line2 = "Location,{},{}\n".format(intersections[3], intersections[4])
-                            locations_file.write(line)
-                            locations_file.write(line2)
-                            
-                        
-        print(users)
-        '''
 
+                            if Analytics.isValidLocation(intersections[0], intersections[1]):
+                                line = "Location,{},{}\n".format(intersections[0], intersections[1])
+                                lines.append(line)
+
+                            if Analytics.isValidLocation(intersections[2], intersections[3]):
+                                line2 = "Location,{},{}\n".format(intersections[2], intersections[3])
+                                lines.append(line2)
+
+        print(len(users))
+        return lines
+
+    '''
+    def modify(self):
+        for id in self.data:
+            self.data[id]['distance']['radius'] = int(self.data[id]['distance']['radius'])
+
+        with open(self.path_file, 'w') as f:
+            json.dump(self.data, f)
+    '''
     @staticmethod
     def haveCommonElement(list1, list2):
-        result = False
-
         # traverse in the 1st list
         for x in list1:
-
             # traverse in the 2nd list
             for y in list2:
 
@@ -224,30 +245,40 @@ class Analytics:
         return None
 
     @staticmethod
+    def isValidLocation(lat, long):
+        if abs(lat) > 90 or abs(long) > 180:
+            return False
+        else:
+            return True
+
+    @staticmethod
     def getIntersections(x0, y0, r0, x1, y1, r1):
         # circle 1: (x0, y0), radius r0
         # circle 2: (x1, y1), radius r1
+        try:
+            d = math.sqrt((x1 - x0) ** 2 + (y1 - y0) ** 2)
 
-        d = math.sqrt((x1 - x0) ** 2 + (y1 - y0) ** 2)
+            # non intersecting
+            if d > r0 + r1:
+                return None
+            # One circle within other
+            if d < abs(r0 - r1):
+                return None
+            # coincident circles
+            if d == 0 and r0 == r1:
+                return None
+            else:
+                a = (r0 ** 2 - r1 ** 2 + d ** 2) / (2 * d)
+                h = math.sqrt(r0 ** 2 - a ** 2)
+                x2 = x0 + a * (x1 - x0) / d
+                y2 = y0 + a * (y1 - y0) / d
+                x3 = x2 + h * (y1 - y0) / d
+                y3 = y2 - h * (x1 - x0) / d
 
-        # non intersecting
-        if d > r0 + r1:
-            return None
-        # One circle within other
-        if d < abs(r0 - r1):
-            return None
-        # coincident circles
-        if d == 0 and r0 == r1:
-            return None
-        else:
-            a = (r0 ** 2 - r1 ** 2 + d ** 2) / (2 * d)
-            h = math.sqrt(r0 ** 2 - a ** 2)
-            x2 = x0 + a * (x1 - x0) / d
-            y2 = y0 + a * (y1 - y0) / d
-            x3 = x2 + h * (y1 - y0) / d
-            y3 = y2 - h * (x1 - x0) / d
+                x4 = x2 - h * (y1 - y0) / d
+                y4 = y2 + h * (x1 - x0) / d
 
-            x4 = x2 - h * (y1 - y0) / d
-            y4 = y2 + h * (x1 - x0) / d
-
-            return (x3, y3, x4, y4)
+                return (x3, y3, x4, y4)
+        except:
+            print(x0, y0, r0, x1, y1, r1)
+            assert False

@@ -10,8 +10,8 @@ import constants
 email = constants.email_facebook
 password = constants.password_facebook
 
-latitude = constants.lat_kam
-longitude = constants.lon_kam
+latitude = constants.lat_perk
+longitude = constants.lon_perk
 
 if __name__ == "__main__":
 

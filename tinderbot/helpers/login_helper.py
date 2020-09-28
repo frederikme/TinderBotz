@@ -90,12 +90,8 @@ class LoginHelper:
         except Exception as e:
             print("def login(self): 4: %s" % str(e))
 
-        self.acceptLocationNotification()
-        self.denyOverlayedNotifications()
-        self.acceptCookies()
-        self.denySeeWhoLikedYou()
+        self.handlePopups()
 
-    # TODO: needs adjustments and further implementation
     def loginByFacebook(self, email, password):
         self.clickLoginButton()
 
@@ -141,9 +137,13 @@ class LoginHelper:
         except Exception as e:
             print("def login(self): 4: %s" % str(e))
 
+        self.handlePopups()
+
+    def handlePopups(self):
+        time.sleep(2)
+        self.acceptCookies()
         self.acceptLocationNotification()
         self.denyOverlayedNotifications()
-        self.acceptCookies()
         self.denySeeWhoLikedYou()
 
     def acceptLocationNotification(self):
@@ -214,7 +214,6 @@ class LoginHelper:
                 "DENYING SEE WHO LIKES YOU: Loading took too much time! Element probably not presented, so we continue.")
         except Exception as e:
             print("def login(self): 8: %s" % str(e))
-
 
     def changeFocusToPopUp(self):
         max_tries = 50

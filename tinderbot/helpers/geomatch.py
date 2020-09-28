@@ -25,11 +25,11 @@ class Geomatch:
 
         # store its images
         for url in self.image_urls:
-            hashed_image = StorageHelper.storeImageAs(url=url, directory='../data/{}/images'.format(filename))
+            hashed_image = StorageHelper.storeImageAs(url=url, directory='data/{}/images'.format(filename))
             self.images_by_hashes.append(hashed_image)
 
         # store its userdata
-        StorageHelper.storeMatch(match=self, directory='../data/{}'.format(filename), filename=filename)
+        StorageHelper.storeMatch(match=self, directory='data/{}'.format(filename), filename=filename)
 
     def getName(self):
         return self.name
