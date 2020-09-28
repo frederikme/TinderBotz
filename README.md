@@ -31,7 +31,7 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-* [Usage](#usage)
+* [Usage](#usage-tinderbot)
   * [Tinderbot](#usage-tinderbot)
   * [Data Analysis](#usage-data-analysis)
 * [Support the Repository](#support-the-repository)
@@ -73,8 +73,7 @@ I decided to add some data analysis and plotting of data to the project. Star th
 pip3 install -r requirements.txt
 ```
 
-## Usage
-### Usage: Tinderbot
+## Usage of Tinderbot
 
 For now, 
 1. Open the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/quickstart.py) from the tinderbot directory.
@@ -84,7 +83,7 @@ For now,
 If you want to scrape as much profiles as possible,</br>
 then [scraper.py](https://github.com/frederikme/TinderBot/blob/master/scraper.py) will be suiting your needs better.
 
-### Usage: Data Analysis
+## Usage of Data Analysis
 
 For now,
 1. Make sure you already scraped some data.
