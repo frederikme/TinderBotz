@@ -33,6 +33,8 @@
   * [Installation](#installation)
 * [Usage](#usage-of-tinderbot)
   * [Tinderbot](#usage-of-tinderbot)
+    * [Settings](#settings)
+    * [Actions](#actions)
   * [Data Analysis](#usage-of-data-analysis)
 * [Support the Repository](#support-the-repository)
 
@@ -82,6 +84,10 @@ For now,
 
 If you want to scrape as much profiles as possible,</br>
 then [scraper.py](https://github.com/frederikme/TinderBot/blob/master/scraper.py) will be suiting your needs better.
+
+### Settings
+
+### Actions
 
 ## Usage of Data Analysis
 
