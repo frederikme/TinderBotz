@@ -75,13 +75,7 @@ pip3 install -r requirements.txt
 
 ## Usage of Tinderbot
 Features of Tinderbot can be found here: [Tinderbot features](https://github.com/frederikme/TinderBot/blob/master/DOCUMENTATION.md)
-For now, 
-1. Open the [quickstart_tinderbot.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_tinderbot.py) from the tinderbot directory.
-2. Fill in your credentials (email and password) to be able to login to Tinder.
-3. Change the quickstart script to your needs.
-
-If you want to scrape as much profiles as possible,</br>
-then [scraper.py](https://github.com/frederikme/TinderBot/blob/master/scraper.py) will be suiting your needs better.
+Quickstart script can be found here: [quickstart_tinderbot.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_tinderbot.py)
 
 ## Usage of Data Analysis
 
