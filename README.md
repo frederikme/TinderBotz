@@ -74,7 +74,7 @@ pip3 install -r requirements.txt
 ```
 
 ## Usage of Tinderbot
-Features of Tinderbot can be found here: [Tinderbot features](https://github.com/frederikme/TinderBot/blob/master/DOCUMENTATION.md)
+Features of Tinderbot can be found here: [Tinderbot features](https://github.com/frederikme/TinderBot/blob/master/DOCUMENTATION.md) </br>
 Quickstart script can be found here: [quickstart_tinderbot.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_tinderbot.py)
 
 ## Usage of Data Analysis
