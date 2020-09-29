@@ -76,16 +76,16 @@ pip3 install -r requirements.txt
 ```
 
 ## Usage of Tinderbot
-Features of Tinderbot can be found here: [Tinderbot features](https://github.com/frederikme/TinderBot/blob/master/TINDERBOTDOC.md) </br>
+Features of Tinderbot can be found here: [Tinderbot features](https://github.com/frederikme/TinderBot/blob/master/TINDERBOTDOC.md)</br>
 Quickstart script can be found here: [quickstart_tinderbot.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_tinderbot.py)
 
 ### DEMO of Tinderbot
 TODO: Add demo video's and gifs :)
 
 ## Usage of Data Analysis
-For now,
-1. Make sure you already scraped some data.
-2. Take a look at the [quickstart_analytics.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_analytics.py) from the analysis directory.
+***Make sure you already scraped some data!***</br>
+Features of the Data Analysis can be found here: [Analysis features](https://github.com/frederikme/TinderBot/blob/master/ANALYTICSDOC.md)</br>
+Quickstart script can be found here: [quickstart_analytics.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_analytics.py)
 
 ### DEMO of Data Analysis
 #### Terminal as printout
