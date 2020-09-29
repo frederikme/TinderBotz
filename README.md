@@ -32,7 +32,7 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage-of-tinderbot)
-  * [Tinderbot](https://github.com/frederikme/TinderBot/blob/master/documentation.md)
+  * [Tinderbot](https://github.com/frederikme/TinderBot/blob/master/DOCUMENTATION.md)
   * [Data Analysis](#usage-of-data-analysis)
 * [Support the Repository](#support-the-repository)
 
