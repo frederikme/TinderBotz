@@ -4,5 +4,7 @@ constants.py
 data/locationdata.csv
 data/geomatches/images
 data/geomatches/geomatches.json
+data/matches/images
+data/matches/matches.json
 tutorial.txt
 analysis

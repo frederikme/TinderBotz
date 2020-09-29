@@ -3,46 +3,43 @@ Created by Frederikme (TeetiFM)
 Examples of usage are demonstrated in this quickstart_analytics.py file
 '''
 import random, time
-from tinderbot.bot import TinderBot
+from tinderbot.session import Session
 import constants
-
-
-email = constants.email_facebook
-password = constants.password_facebook
-
-latitude = constants.lat_perk
-longitude = constants.lon_perk
 
 if __name__ == "__main__":
 
-    # creates instance of bot
-    bot = TinderBot()
+    # creates instance of session
+    session = Session()
 
     # login using your google or facebook account
-    # bot.loginUsingGoogle(email=email, password=password)
-    bot.loginUsingFacebook(email=email, password=password)
+    # session.loginUsingGoogle(email=constants.email_google, password=constants.password_google)
+    session.loginUsingFacebook(email=constants.email_facebook, password=constants.password_facebook)
+
+    # Setting location of scraper is recommended, but not necessary
+    session.setScrapersLocation(latitude=constants.lat_kort, longitude=constants.lon_kort)
 
     # start scraping as much geomatches as possible
     while True:
         # get user
-        geomatch = bot.getGeomatch(latitude=latitude, longitude=longitude)
+        geomatch = session.getGeomatch()
 
         # check if crucial data is not being skipped
         if geomatch.getName() is not None \
                 and geomatch.getImageURLS() != []:
 
             # let's store the data of the geomatch locally
-            geomatch.storeLocal()
+            session.storeLocal(geomatch)
 
-            # display data in terminal
+            # display the saved data in terminal
             print(geomatch.getDictionary())
 
             # account is scraped, now dislike and go next (since dislikes are infinite)
-            bot.dislike(amount=1)
+            # by default dislike(amount=1)
+            session.dislike()
 
         else:
             # refresh webpage, and go for another geomatch
-            bot.refresh()
+            session.refresh()
 
         # make a random sleep between dislikes between 0 and 4 seconds so it looks human-like behaviour
         sleepy_time = random.random() * 4

@@ -21,7 +21,7 @@ class StorageHelper:
         if not os.path.exists(directory):
             os.makedirs(directory)
 
-        # make 'undetectable' header, doesnt completly work
+        # make 'undetectable' header to avoid being seen as scraper
         headers = {
             'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -37,7 +37,7 @@ class StorageHelper:
         except Exception as e:
             if amount_of_attempts < 20:
                 sleepy_time = amount_of_attempts * 30
-                print("Attempt: {}, sleeping for {} seconds ...".format(amount_of_attempts, sleepy_time))
+                print("Attempt number {}: sleeping for {} seconds ...".format(amount_of_attempts, sleepy_time))
                 time.sleep(sleepy_time)
                 return StorageHelper.storeImageAs(url, directory, amount_of_attempts+1)
             else:
@@ -45,7 +45,7 @@ class StorageHelper:
                 error = "Amount of attempts exceeded in storage_helper\n" \
                         "attempting to get url: {}\n" \
                         "resulted in error: {}".format(url, e)
-                StorageHelper.logError(error)
+                print(error)
                 return None
 
         temp_name = "temporary"
@@ -76,8 +76,7 @@ class StorageHelper:
 
             error = "URL DOES NOT CONTAIN .JPG OR .WEBP EXTENSION: {}\n" \
                     "Please add extension needed in storage_helper".format(url)
-
-            StorageHelper.logError(error)
+            print(error)
 
         # rename saved image to their hashvalue, so it's easy to compare (hashes of) images later on
         im = Image.open('{}/{}/{}.jpg'.format(os.getcwd(), directory, temp_name))
@@ -86,7 +85,7 @@ class StorageHelper:
         os.rename('{}/{}/{}.jpg'.format(os.getcwd(), directory, temp_name),
                   '{}/{}/{}.jpg'.format(os.getcwd(), directory, hashvalue))
 
-        print("saved as {}/{}/{}.jpg".format(os.getcwd(), directory, hashvalue))
+        print("Image saved as {}/{}/{}.jpg".format(os.getcwd(), directory, hashvalue))
 
         return hashvalue
 
@@ -109,9 +108,3 @@ class StorageHelper:
 
         with open(filepath, 'w+') as file:
             json.dump(data, file)
-
-    @staticmethod
-    def logError(error):
-        # write to error logfile
-        with open("ERRORS.txt", "w+") as text_file:
-            text_file.write(error)
