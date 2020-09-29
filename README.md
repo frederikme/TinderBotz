@@ -32,7 +32,7 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage-of-tinderbot)
-  * [Tinderbot](#usage-of-tinderbot)
+  * [Tinderbot](https://github.com/frederikme/TinderBot/blob/master/DOCUMENTATION.md)
   * [Data Analysis](#usage-of-data-analysis)
 * [Support the Repository](#support-the-repository)
 
@@ -74,14 +74,8 @@ pip3 install -r requirements.txt
 ```
 
 ## Usage of Tinderbot
-
-For now, 
-1. Open the [quickstart_tinderbot.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_tinderbot.py) from the tinderbot directory.
-2. Fill in your credentials (email and password) to be able to login to Tinder.
-3. Change the quickstart script to your needs.
-
-If you want to scrape as much profiles as possible,</br>
-then [scraper.py](https://github.com/frederikme/TinderBot/blob/master/scraper.py) will be suiting your needs better.
+Features of Tinderbot can be found here: [Tinderbot features](https://github.com/frederikme/TinderBot/blob/master/DOCUMENTATION.md) </br>
+Quickstart script can be found here: [quickstart_tinderbot.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_tinderbot.py)
 
 ## Usage of Data Analysis
 
@@ -90,9 +84,8 @@ For now,
 2. Take a look at the [quickstart_analytics.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_analytics.py) from the dataanlysis directory.
 
 ### Terminal as printout
-<a href="https://user-images.githubusercontent.com/60892381/94479341-f03a9e00-01d4-11eb-9a10-70a8aa8208ea.png">
-    <img src="https://user-images.githubusercontent.com/60892381/94479341-f03a9e00-01d4-11eb-9a10-70a8aa8208ea.png">
- </a>
+<img src="https://user-images.githubusercontent.com/60892381/94479341-f03a9e00-01d4-11eb-9a10-70a8aa8208ea.png">
+
 
 ### Wordcloud of most common names
 <a href="https://github.com/frederikme/TinderBot/blob/master/data/geomatches/wordclouds/name_of_age_all.jpg">
