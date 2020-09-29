@@ -32,7 +32,7 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage-of-tinderbot)
-  * [Tinderbot](https://github.com/frederikme/TinderBot/blob/master/quickstart_analytics.py) from the dataanlysis directory.)
+  * [Tinderbot](https://github.com/frederikme/TinderBot/blob/master/documentation.md)
   * [Data Analysis](#usage-of-data-analysis)
 * [Support the Repository](#support-the-repository)
 
