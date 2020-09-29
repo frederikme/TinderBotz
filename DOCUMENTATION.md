@@ -20,6 +20,7 @@
     * [Sending Songs](#sending-songs)
     * [Sending Socials](#sending-socials)
     * [Unmatching](#unmatching)
+  * [JUST LET ME START ALREADY YES PLS TY](#just-let-me-start-already-yes-pls-ty)
 * [Data Analysis](#data-analysis)
 
 ## Tinderbot
@@ -160,7 +161,7 @@ id = match.getChatID()
 session.unMatch(chatid=id)
 ```
 
-### JUST LET ME START NOW YES PLS TY
+## ***JUST LET ME START ALREADY YES PLS TY***
 If you feel like you just want to dive right into the code and get started right away, this is where you need to be. :) </br>
 
 1. Open the [quickstart_tinderbot.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_tinderbot.py) from the tinderbot directory.
