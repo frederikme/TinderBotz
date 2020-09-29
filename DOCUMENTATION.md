@@ -18,7 +18,7 @@
 * [Data Analysis](#data-analysis)
 
 ## Tinderbot
-### Creating a Session
+## Creating a Session
 First thing you'll have to do is import Session from tinderbot.session and create an active session.</br>
 In this session we can adjust settings or take actions, such as liking or scraping data.
 ```
@@ -27,8 +27,8 @@ from tinderbot.session import Session
 session = Session()
 ```
 
-### Settings
-#### Scrapers Location
+## Settings
+### Scrapers Location
 This setting is only required when you want to reverse engineer the profiles location out of multiple scrapes.</br>
 This latitude and longitude will be stored with the distance in the scraped profile. </br>
 To get the latitude and longitude (location) of this profile you will need multiple scrapes from different locations.</br>
@@ -36,8 +36,8 @@ Then you can look for the intersections of the circles (distance) around your lo
 ```
 session.setScrapersLocation(latitude, longitude)
 ```
-### Actions
-#### Logging in to Tinder
+## Actions
+### Logging in to Tinder
 Logging in can be done in one of the following ways.
 1. Using your Google-account: MAKE SURE YOU HAVE A VERIFIED EMAIL
 2. Using your Facebook-account: MAKE SURE YOUR TINDER IS CONNECTED TO YOUR FACEBOOK
@@ -45,28 +45,28 @@ Logging in can be done in one of the following ways.
 session.loginUsingGoogle(email, password)
 session.loginUsingFacebook(email, password)
 ```
-#### Liking Geomatches
+### Liking Geomatches
 ```
 session.like()
 ```
 **Optional parameters**</br>
 ```amount```: The amount of profiles that must get liked
 
-#### Disliking Geomatches
+### Disliking Geomatches
 ```
 session.dislike()
 ```
 **Optional parameters**</br>
 ```amount```: The amount of profiles that must get disliked
 
-#### Superliking Geomatches
+### Superliking Geomatches
 ```
 session.superlike()
 ```
 **Optional parameters**</br>
 ```amount```: The amount of profiles that must get superliked
 
-#### Getting Matches
+### Getting Matches
 Your matches can be divided into two categories:
 1. New matches with whom you haven't exchanged messages with yet
 2. Messaged matches with whom you have already interacted
@@ -81,14 +81,14 @@ This is because the session will iterate through every match and all their image
 The best way reduce loading time is to store these matches at the first run as illustrated here: [Storing (geo)Matches](#storing-geomatches)</br>
 and load them from there onwards in future runs.</br>
 
-#### Getting Geomatches
+### Getting Geomatches
 Geomatches are users that fulfill **your criteria** and you fullfill **their criteria**, such as distance, age and gender. </br>
 This *first way of matching* if why we name these profiles *geomatches*.</br>
 ```
 # get profile data (name, age, bio, images, ...)
 geomatch = session.getGeomatch()
 ```
-#### Storing (geo)Matches
+### Storing (geo)Matches
 A profile also known as (geo)match can be stored locally. </br>
 Storing data can be usefull for reducing runtime, for exampling when needing to fetch your matches,</br>
 and for performing some data analysis on that data. More about data analysis can be found here: [Data Analysis](#data-analysis)</br>
