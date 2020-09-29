@@ -33,7 +33,9 @@
   * [Installation](#installation)
 * [Usage](#usage-of-tinderbot)
   * [Tinderbot](https://github.com/frederikme/TinderBot/blob/master/TINDERBOTDOC.md)
+    * [DEMO of Tinderbot](#demo-of-tinderbot)
   * [Data Analysis](https://github.com/frederikme/TinderBot/blob/master/ANALYTICSDOC.md)
+    * [DEMO of Data Analysis](#demo-of-data-analysis)
 * [Support the Repository](#support-the-repository)
 
 <!-- ABOUT THE PROJECT -->
@@ -77,20 +79,24 @@ pip3 install -r requirements.txt
 Features of Tinderbot can be found here: [Tinderbot features](https://github.com/frederikme/TinderBot/blob/master/TINDERBOTDOC.md) </br>
 Quickstart script can be found here: [quickstart_tinderbot.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_tinderbot.py)
 
+### DEMO of Tinderbot
+TODO: Add demo video's and gifs :)
+
 ## Usage of Data Analysis
 For now,
 1. Make sure you already scraped some data.
 2. Take a look at the [quickstart_analytics.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_analytics.py) from the analysis directory.
 
-### Terminal as printout
+### DEMO of Data Analysis
+#### Terminal as printout
 <img src="https://user-images.githubusercontent.com/60892381/94479341-f03a9e00-01d4-11eb-9a10-70a8aa8208ea.png">
 
-### Wordcloud of most common names
+#### Wordcloud of most common names
 <a href="https://github.com/frederikme/TinderBot/blob/master/data/geomatches/wordclouds/name_of_age_all.jpg">
     <img src="https://github.com/frederikme/TinderBot/blob/master/data/geomatches/wordclouds/name_of_age_all.jpg">
 </a>
 
-### Heatmap of the geomatches location 
+#### Heatmap of the geomatches location 
 Locations of users is based on multiple scrapes from different locations by taking the intersections of the circles (based on the 'distance away').
 <a href="https://github.com/frederikme/TinderBot/blob/master/data/geomatches/maps/Heatmap.png">
     <img src="https://github.com/frederikme/TinderBot/blob/master/data/geomatches/maps/Heatmap.png">
