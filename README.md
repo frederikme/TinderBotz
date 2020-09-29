@@ -15,7 +15,7 @@
     <a href="https://github.com/frederikme/TinderBot/blob/master/README.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/frederikme/TinderBot">View Demo</a>
+    <a href="#demo-of-tinderbot">View Demo</a>
     ·
     <a href="https://github.com/frederikme/TinderBot/issues/new">Report Bug</a>
     ·
