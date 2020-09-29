@@ -397,7 +397,10 @@ class MatchHelper:
             self.openChat(chatid)
 
         try:
-            element = self.browser.find_element_by_xpath('//span[@itemprop="age"]')
+            xpath = '//span[@itemprop="age"]'
+            element = self.browser.find_element_by_xpath(xpath)
+            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+                (By.XPATH, xpath)))
             return element.text
         except Exception as e:
             print("age")
