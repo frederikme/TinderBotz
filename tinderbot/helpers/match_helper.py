@@ -3,7 +3,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException, StaleElementReferenceException, NoSuchElementException
-import time
+import time, sys
 
 from tinderbot.helpers.match import Match
 from tinderbot.helpers.socials import Socials
@@ -22,6 +22,7 @@ class MatchHelper:
             time.sleep(2)
 
     def getAllMatches(self, lat_scraper, long_scraper):
+        print("\n\nScraping matches can take a while!\n")
         return self.getNewMatches(lat_scraper, long_scraper) + self.getMessagedMatches(lat_scraper, long_scraper)
 
     def getNewMatches(self, lat_scraper, long_scraper):
@@ -66,11 +67,26 @@ class MatchHelper:
                 else:
                     chatids.append(ref.split('/')[-1])
 
-            print("\n\nScraping matches can take a while!\n")
+            print("\nGetting not-interacted-with, NEW MATCHES")
             for index, chatid in enumerate(chatids):
-                print("{}/{} of the new matches scraped".format(index, len(chatids)))
                 matches.append(self.getMatch(chatid, lat_scraper=lat_scraper, long_scraper=long_scraper))
 
+                sys.stdout.write('\r')
+
+                amount_of_loadingbars = 30
+                percentage_loaded = int((index+1/len(chatids))*100)
+
+                # [===>----] 45% of new matches scraped
+                amount_of_equals = int(percentage_loaded/100 * amount_of_loadingbars)
+                amount_of_minus = amount_of_loadingbars - amount_of_equals - 1
+
+                printout = "[{}>{}] {}%% of new matches scraped".format('='*amount_of_equals, '-'*amount_of_minus, percentage_loaded)
+
+                sys.stdout.write(printout)
+                sys.stdout.flush()
+                time.sleep(0.25)
+
+            print("\n")
         except NoSuchElementException:
             pass
 
@@ -116,11 +132,25 @@ class MatchHelper:
                 ref = list_refs[index].get_attribute('href')
                 chatids.append(ref.split('/')[-1])
 
-            print("\n\nScraping matches can take a while!\n")
+            print("\nGetting interacted-with, MESSAGED MATCHES")
             for index, chatid in enumerate(chatids):
-                print("{}/{} of the chatted matches scraped".format(index, len(chatids)))
                 matches.append(self.getMatch(chatid, lat_scraper=lat_scraper, long_scraper=long_scraper))
 
+                sys.stdout.write('\r')
+
+                amount_of_loadingbars = 30
+                percentage_loaded = int((index + 1 / len(chatids)) * 100)
+
+                # [===>----] 45% of new matches scraped
+                amount_of_equals = int(percentage_loaded / 100 * amount_of_loadingbars)
+                amount_of_minus = amount_of_loadingbars - amount_of_equals - 1
+
+                printout = "[{}>{}] {}%% of messaged matches scraped".format('=' * amount_of_equals, '-' * amount_of_minus,
+                                                                        percentage_loaded)
+                sys.stdout.write(printout)
+                sys.stdout.flush()
+                time.sleep(0.25)
+            print("\n")
         except NoSuchElementException:
             pass
 
@@ -338,7 +368,6 @@ class MatchHelper:
 
     def getMatch(self, chatid, lat_scraper, long_scraper):
         if not self.isChatOpened(chatid):
-            print("opening chat %s" % chatid)
             self.openChat(chatid)
 
         name = self.getName(chatid)
@@ -355,7 +384,9 @@ class MatchHelper:
             self.openChat(chatid)
 
         try:
-            element = self.browser.find_element_by_xpath('//h1[@itemprop="name"]')
+            xpath = '//h1[@itemprop="name"]'
+            element = self.browser.find_element_by_xpath(xpath)
+            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
             return element.text
         except Exception as e:
             print("name")
