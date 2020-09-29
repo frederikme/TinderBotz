@@ -33,8 +33,6 @@
   * [Installation](#installation)
 * [Usage](#usage-of-tinderbot)
   * [Tinderbot](#usage-of-tinderbot)
-    * [Settings](#settings)
-    * [Actions](#actions)
   * [Data Analysis](#usage-of-data-analysis)
 * [Support the Repository](#support-the-repository)
 
@@ -76,7 +74,7 @@ pip3 install -r requirements.txt
 ```
 
 ## Usage of Tinderbot
-
+Features of Tinderbot can be found here: [Tinderbot features](https://github.com/frederikme/TinderBot/blob/master/tinderbot/readme.md)
 For now, 
 1. Open the [quickstart_tinderbot.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_tinderbot.py) from the tinderbot directory.
 2. Fill in your credentials (email and password) to be able to login to Tinder.
@@ -84,10 +82,6 @@ For now,
 
 If you want to scrape as much profiles as possible,</br>
 then [scraper.py](https://github.com/frederikme/TinderBot/blob/master/scraper.py) will be suiting your needs better.
-
-### Settings
-
-### Actions
 
 ## Usage of Data Analysis
 
