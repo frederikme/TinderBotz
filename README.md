@@ -31,11 +31,10 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-* [Usage](#usage-of-tinderbot)
-  * [Tinderbot](https://github.com/frederikme/TinderBot/blob/master/TINDERBOTDOC.md)
-    * [DEMO of Tinderbot](#demo-of-tinderbot)
-  * [Data Analysis](https://github.com/frederikme/TinderBot/blob/master/ANALYTICSDOC.md)
-    * [DEMO of Data Analysis](#demo-of-data-analysis)
+* [Usage of Tinderbot](#usage-of-tinderbot)
+  * [DEMO of Tinderbot](#demo-of-tinderbot)
+* [Usage of Data Analysis](#usage-of-data-analysis)
+  * [DEMO of Data Analysis](#demo-of-data-analysis)
 * [Support the Repository](#support-the-repository)
 
 <!-- ABOUT THE PROJECT -->
