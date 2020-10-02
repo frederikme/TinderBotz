@@ -79,7 +79,7 @@ Features of Tinderbot can be found here: [Tinderbot features](https://github.com
 Quickstart script can be found here: [quickstart_tinderbot.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_tinderbot.py)
 
 ### DEMO of Tinderbot
-TODO: Add demo video's and gifs :)
+<img src="https://user-images.githubusercontent.com/60892381/94933110-368c4780-04ca-11eb-93ba-6e16a5b03dd6.gif"></src>
 
 ## Usage of Data Analysis
 ***Make sure you already scraped some data!***</br>
