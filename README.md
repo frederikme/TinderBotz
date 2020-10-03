@@ -79,7 +79,7 @@ Features of Tinderbot can be found here: [Tinderbot features](https://github.com
 Quickstart script can be found here: [quickstart_tinderbot.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_tinderbot.py)
 
 ### DEMO of Tinderbot
-#### Liking 10 profiles in row
+#### Liking 10 profiles in row + dismissing potential pop ups
 ```
 session.like(amount=10)
 ```
