@@ -52,8 +52,10 @@ if __name__ == "__main__":
         name = match.getName()
         id = match.getChatID()
 
+        message = pickup_line.format(name)
+
         # send pick up line with their name in it to all my matches
-        session.sendMessage(chatid=id, message=pickup_line.format(name))
+        session.sendMessage(chatid=id, message=message)
 
         # send a funny gif
         session.sendGif(chatid=id, gifname="pizza")
