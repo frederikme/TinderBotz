@@ -80,9 +80,6 @@ Quickstart script can be found here: [quickstart_tinderbot.py](https://github.co
 
 ### DEMO of Tinderbot
 #### Liking 10 profiles in row + dismissing potential pop ups
-```
-session.like(amount=10)
-```
 <img src="https://user-images.githubusercontent.com/60892381/94987708-92a5a900-0568-11eb-88fc-f6be69354d73.gif"></src>
 
 ## Usage of Data Analysis
