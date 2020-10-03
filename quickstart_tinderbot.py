@@ -27,7 +27,7 @@ if __name__ == "__main__":
     session.setScrapersLocation(latitude=constants.lat_kort, longitude=constants.lon_kort)
 
     # spam likes, dislikes and superlikes
-    session.like(amount=1)
+    session.like(amount=10)
     session.dislike(amount=1)
     session.superlike(amount=1)
 
@@ -52,6 +52,7 @@ if __name__ == "__main__":
         name = match.getName()
         id = match.getChatID()
 
+        # Format the match her/his name in your pickup line for a more personal approach.
         message = pickup_line.format(name)
 
         # send pick up line with their name in it to all my matches
