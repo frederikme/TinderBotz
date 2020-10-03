@@ -75,16 +75,19 @@ pip3 install -r requirements.txt
 ```
 
 ## Usage of Tinderbot
-Features of Tinderbot can be found here: [Tinderbot features](https://github.com/frederikme/TinderBot/blob/master/TINDERBOTDOC.md)</br>
+Features of Tinderbot as demonstrated belowed can be found here: [Tinderbot features](https://github.com/frederikme/TinderBot/blob/master/TINDERBOTDOC.md)</br>
 Quickstart script can be found here: [quickstart_tinderbot.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_tinderbot.py)
 
 ### DEMO of Tinderbot
 #### Liking 10 profiles in row + dismissing potential pop ups
 <img src="https://user-images.githubusercontent.com/60892381/94987708-92a5a900-0568-11eb-88fc-f6be69354d73.gif"></src>
 
+#### Scraping your matches (new matches + messaged matches)
+<img src="https://user-images.githubusercontent.com/60892381/94995711-702f8200-05a0-11eb-9273-bfbb48ce168c.gif"></src>
+
 ## Usage of Data Analysis
 ***Make sure you already scraped some data!***</br>
-Features of the Data Analysis can be found here: [Analysis features](https://github.com/frederikme/TinderBot/blob/master/ANALYTICSDOC.md)</br>
+Features of the Data Analysis demonstrated below can be found here: [Analysis features](https://github.com/frederikme/TinderBot/blob/master/ANALYTICSDOC.md)</br>
 Quickstart script can be found here: [quickstart_analytics.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_analytics.py)
 
 ### DEMO of Data Analysis
