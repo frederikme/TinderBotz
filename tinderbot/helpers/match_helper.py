@@ -7,7 +7,7 @@ import time, sys
 
 from tinderbot.helpers.match import Match
 from tinderbot.helpers.socials import Socials
-
+from tinderbot.helpers.loadingbar import LoadingBar
 
 class MatchHelper:
 
@@ -68,23 +68,10 @@ class MatchHelper:
                     chatids.append(ref.split('/')[-1])
 
             print("\nGetting not-interacted-with, NEW MATCHES")
+            loadingbar = LoadingBar(len(chatids), "new matches")
             for index, chatid in enumerate(chatids):
                 matches.append(self.getMatch(chatid, lat_scraper=lat_scraper, long_scraper=long_scraper))
-
-                sys.stdout.write('\r')
-
-                amount_of_loadingbars = 30
-                percentage_loaded = int((index+1/len(chatids))*100)
-
-                # [===>----] 45% of new matches scraped
-                amount_of_equals = int(percentage_loaded/100 * amount_of_loadingbars)
-                amount_of_minus = amount_of_loadingbars - amount_of_equals - 1
-
-                printout = "[{}>{}] {}%% of new matches scraped".format('='*amount_of_equals, '-'*amount_of_minus, percentage_loaded)
-
-                sys.stdout.write(printout)
-                sys.stdout.flush()
-                time.sleep(0.25)
+                loadingbar.updateLoadingBar(index)
 
             print("\n")
         except NoSuchElementException:
@@ -133,23 +120,11 @@ class MatchHelper:
                 chatids.append(ref.split('/')[-1])
 
             print("\nGetting interacted-with, MESSAGED MATCHES")
+            loadingbar = LoadingBar(len(chatids), "interacted-with-matches")
             for index, chatid in enumerate(chatids):
                 matches.append(self.getMatch(chatid, lat_scraper=lat_scraper, long_scraper=long_scraper))
+                loadingbar.updateLoadingBar(index)
 
-                sys.stdout.write('\r')
-
-                amount_of_loadingbars = 30
-                percentage_loaded = int((index + 1 / len(chatids)) * 100)
-
-                # [===>----] 45% of new matches scraped
-                amount_of_equals = int(percentage_loaded / 100 * amount_of_loadingbars)
-                amount_of_minus = amount_of_loadingbars - amount_of_equals - 1
-
-                printout = "[{}>{}] {}%% of messaged matches scraped".format('=' * amount_of_equals, '-' * amount_of_minus,
-                                                                        percentage_loaded)
-                sys.stdout.write(printout)
-                sys.stdout.flush()
-                time.sleep(0.25)
             print("\n")
         except NoSuchElementException:
             pass

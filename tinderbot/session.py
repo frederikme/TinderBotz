@@ -15,6 +15,7 @@ from tinderbot.helpers.geomatch_helper import GeomatchHelper
 from tinderbot.helpers.match_helper import MatchHelper
 from tinderbot.helpers.login_helper import LoginHelper
 from tinderbot.helpers.storage_helper import StorageHelper
+from tinderbot.helpers.loadingbar import LoadingBar
 
 
 class Session:
@@ -74,23 +75,29 @@ class Session:
     def like(self, amount=1):
         if self.isLoggedIn():
             helper = GeomatchHelper(browser=self.browser)
-            for _ in range(amount):
+            loadingbar = LoadingBar(amount, "likes")
+            for index in range(amount):
                 self.handlePotentialPopups()
                 helper.like()
+                loadingbar.updateLoadingBar(index)
 
     def dislike(self, amount=1):
         if self.isLoggedIn():
             helper = GeomatchHelper(browser=self.browser)
-            for _ in range(amount):
+            loadingbar = LoadingBar(amount, "dislikes")
+            for index in range(amount):
                 self.handlePotentialPopups()
                 helper.dislike()
+                loadingbar.updateLoadingBar(index)
 
     def superlike(self, amount=1):
         if self.isLoggedIn():
             helper = GeomatchHelper(browser=self.browser)
-            for _ in range(amount):
+            loadingbar = LoadingBar(amount, "dislikes")
+            for index in range(amount):
                 self.handlePotentialPopups()
                 helper.superlike()
+                loadingbar.updateLoadingBar(index)
 
     def getGeomatch(self):
         if self.isLoggedIn():
@@ -166,8 +173,8 @@ class Session:
 
             denyBtn = self.browser.find_element_by_xpath(xpath)
             denyBtn.click()
-            print("POPUP: Denied see who liked you")
-            return
+            return "POPUP: Denied see who liked you"
+
         except NoSuchElementException:
             pass
         except TimeoutException:
@@ -179,8 +186,8 @@ class Session:
 
             add_to_home_popup = self.browser.find_element_by_xpath(xpath)
             add_to_home_popup.click()
-            print("POPUP: Denied Tinder to homescreen")
-            return
+            return "POPUP: Denied Tinder to homescreen"
+
         except NoSuchElementException:
             pass
 
@@ -190,8 +197,8 @@ class Session:
 
             match_popup = self.browser.find_element_by_xpath(xpath)
             match_popup.click()
-            print("POPUP: Dismissed NEW MATCH")
-            return
+            return "POPUP: Dismissed NEW MATCH"
+
         except NoSuchElementException:
             pass
 
@@ -200,11 +207,12 @@ class Session:
             xpath = '//*[@id="modal-manager"]/div/div/div[3]/button[2]'
             denyBtn = self.browser.find_element_by_xpath(xpath)
             denyBtn.click()
-            print("POPUP: Denied buying more superlikes")
-            return
+            return "POPUP: Denied buying more superlikes"
 
         except NoSuchElementException:
             pass
+
+        return None
 
     def refresh(self):
         print("Refreshing url: {}\n".format(self.browser.current_url))
