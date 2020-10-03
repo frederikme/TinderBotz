@@ -85,6 +85,9 @@ Quickstart script can be found here: [quickstart_tinderbot.py](https://github.co
 #### Scraping your matches (new matches + messaged matches)
 <img src="https://user-images.githubusercontent.com/60892381/94995711-702f8200-05a0-11eb-9273-bfbb48ce168c.gif"></src>
 
+#### Sending personal messages to your matches
+<img src="https://user-images.githubusercontent.com/60892381/94997724-43ce3280-05ad-11eb-8a94-0a66f0afbf93.gif"></src>
+
 ## Usage of Data Analysis
 ***Make sure you already scraped some data!***</br>
 Features of the Data Analysis demonstrated below can be found here: [Analysis features](https://github.com/frederikme/TinderBot/blob/master/ANALYTICSDOC.md)</br>
