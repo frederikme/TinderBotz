@@ -49,7 +49,8 @@ class LoginHelper:
             btn = self.browser.find_element_by_xpath(xpath)
 
             btn.send_keys(Keys.ENTER)
-            print("Sleeping 3 seconds for pop up to come through")
+
+            # sleeping 3 seconds for pop up to come through
             time.sleep(3)
         except TimeoutException:
             print("Loading took too much time! Let's try again.")
@@ -58,6 +59,7 @@ class LoginHelper:
 
         if not self.changeFocusToPopUp():
             print("FAILED TO CHANGE FOCUS TO POPUP")
+            assert False
         try:
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, "//input[@type='email']")))
@@ -65,7 +67,7 @@ class LoginHelper:
             emailfield = self.browser.find_element_by_xpath("//input[@type='email']")
             emailfield.send_keys(email)
             emailfield.send_keys(Keys.ENTER)
-            print("Sleeping 3 seconds for passwordfield to come through")
+            # sleeping 3 seconds for passwordfield to come through
             time.sleep(3)
         except TimeoutException:
             print("EMAIL: Loading took too much time! Let's try again.")
@@ -83,7 +85,7 @@ class LoginHelper:
 
             self.changeFocusToMainWindow()
 
-            print("Sleeping 3 seconds before returning to main view")
+            # sleeping 3 seconds before returning to main view
             time.sleep(3)
         except TimeoutException:
             print("PASSWORD: Loading took too much time! Let's try again.")
@@ -105,7 +107,7 @@ class LoginHelper:
             btn = self.browser.find_element_by_xpath(xpath)
 
             btn.send_keys(Keys.ENTER)
-            print("Sleeping 3 seconds for pop up to come through")
+            # sleeping 3 seconds for pop up to come through
             time.sleep(3)
         except TimeoutException:
             print("Loading took too much time! Let's try again.")
@@ -114,6 +116,7 @@ class LoginHelper:
 
         if not self.changeFocusToPopUp():
             print("FAILED TO CHANGE FOCUS TO POPUP")
+            assert False
         try:
 
             xpath_email = '//*[@id="email"]'
@@ -130,7 +133,7 @@ class LoginHelper:
 
             self.changeFocusToMainWindow()
 
-            print("Sleeping 3 seconds before returning to main view")
+            # sleeping 3 seconds before returning to main view
             time.sleep(3)
         except TimeoutException:
             print("PASSWORD: Loading took too much time! Let's try again.")
@@ -155,8 +158,6 @@ class LoginHelper:
             locationBtn = self.browser.find_element_by_xpath(xpath)
             locationBtn.click()
             print("ACCEPTED LOCATION")
-            print("Sleeping 2 seconds to load new view")
-            time.sleep(2)
         except TimeoutException:
             print(
                 "ACCEPTING LOCATION: Loading took too much time! Element probably not presented, so we continue.")
@@ -172,8 +173,6 @@ class LoginHelper:
             denyNotificationsBtn = self.browser.find_element_by_xpath(xpath)
             denyNotificationsBtn.click()
             print("DENIED NOTIFICATIONS")
-            print("Sleeping 2 seconds to load new view")
-            time.sleep(2)
         except TimeoutException:
             print(
                 "DENYING NOTIFICATIONS: Loading took too much time! Element probably not presented, so we continue.")
@@ -189,8 +188,6 @@ class LoginHelper:
             acceptCookiesBtn = self.browser.find_element_by_xpath(xpath)
             acceptCookiesBtn.click()
             print("ACCEPTED COOKIES")
-            print("Sleeping 2 seconds to load new view")
-            time.sleep(2)
         except TimeoutException:
             print(
                 "ACCEPTING COOKIES: Loading took too much time! Element probably not presented, so we continue.")
@@ -207,8 +204,6 @@ class LoginHelper:
             denyBtn = self.browser.find_element_by_xpath(xpath)
             denyBtn.click()
             print("DENIED SEE WHO LIKED YOU")
-            print("Sleeping 2 seconds to load new view")
-            time.sleep(2)
         except TimeoutException:
             print(
                 "DENYING SEE WHO LIKES YOU: Loading took too much time! Element probably not presented, so we continue.")
