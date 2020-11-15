@@ -21,11 +21,11 @@ class MatchHelper:
             self.browser.get(self.HOME_URL)
             time.sleep(2)
 
-    def getAllMatches(self, lat_scraper, long_scraper):
+    def getAllMatches(self):
         print("\n\nScraping matches can take a while!\n")
-        return self.getNewMatches(lat_scraper, long_scraper) + self.getMessagedMatches(lat_scraper, long_scraper)
+        return self.getNewMatches() + self.getMessagedMatches()
 
-    def getNewMatches(self, lat_scraper, long_scraper):
+    def getNewMatches(self):
 
         # Make sure we're in the 'new matches' tab
         try:
@@ -40,7 +40,7 @@ class MatchHelper:
             print("match tab could not be found, trying again")
             self.browser.get(self.HOME_URL)
             time.sleep(1)
-            return self.getNewMatches(lat_scraper, long_scraper)
+            return self.getNewMatches()
         except Exception as e:
             print("An unhandled exception occured in getNewMatches:")
             print(e)
@@ -67,10 +67,12 @@ class MatchHelper:
                 else:
                     chatids.append(ref.split('/')[-1])
 
+            chatids = [chatids[0]]
+
             print("\nGetting not-interacted-with, NEW MATCHES")
             loadingbar = LoadingBar(len(chatids), "new matches")
             for index, chatid in enumerate(chatids):
-                matches.append(self.getMatch(chatid, lat_scraper=lat_scraper, long_scraper=long_scraper))
+                matches.append(self.getMatch(chatid))
                 loadingbar.updateLoadingBar(index)
 
             print("\n")
@@ -79,7 +81,7 @@ class MatchHelper:
 
         return matches
 
-    def getMessagedMatches(self, lat_scraper, long_scraper):
+    def getMessagedMatches(self):
         # Make sure we're in the 'messaged matches' tab
         try:
             xpath = '//*[@id="messages-tab"]'
@@ -94,7 +96,7 @@ class MatchHelper:
             print("match tab could not be found, trying again")
             self.browser.get(self.HOME_URL)
             time.sleep(1)
-            return self.getMessagedMatches(lat_scraper=lat_scraper, long_scraper=long_scraper)
+            return self.getMessagedMatches()
         except Exception as e:
             print("An unhandled exception occured in getNewMatches:")
             print(e)
@@ -122,7 +124,7 @@ class MatchHelper:
             print("\nGetting interacted-with, MESSAGED MATCHES")
             loadingbar = LoadingBar(len(chatids), "interacted-with-matches")
             for index, chatid in enumerate(chatids):
-                matches.append(self.getMatch(chatid, lat_scraper=lat_scraper, long_scraper=long_scraper))
+                matches.append(self.getMatch(chatid))
                 loadingbar.updateLoadingBar(index)
 
             print("\n")
@@ -341,7 +343,7 @@ class MatchHelper:
                 print("openchat 3:" + str(e))
         time.sleep(1)
 
-    def getMatch(self, chatid, lat_scraper, long_scraper):
+    def getMatch(self, chatid):
         if not self.isChatOpened(chatid):
             self.openChat(chatid)
 
@@ -351,8 +353,7 @@ class MatchHelper:
         bio = self.getBio(chatid)
         image_urls = self.getImageURLS(chatid)
 
-        return Match(name=name, chatid=chatid, age=age, distance=distance, bio=bio, image_urls=image_urls,
-                     lat_scraper=lat_scraper, long_scraper=long_scraper)
+        return Match(name=name, chatid=chatid, age=age, distance=distance, bio=bio, image_urls=image_urls)
 
     def getName(self, chatid):
         if not self.isChatOpened(chatid):

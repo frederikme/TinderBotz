@@ -2,13 +2,11 @@ from tinderbot.helpers.storage_helper import StorageHelper
 
 class Geomatch:
 
-    def __init__(self, name, age, bio, distance, image_urls, lat_scraper, long_scraper):
+    def __init__(self, name, age, bio, distance, image_urls):
         self.name = name
         self.age = age
         self.bio = bio
-        self.distance = {"radius": distance,
-                         "scrapers_latitude": lat_scraper,
-                         "scrapers_longitude": long_scraper}
+        self.distance = distance
         self.image_urls = image_urls
 
         # create a unique chatid for this person

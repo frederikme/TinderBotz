@@ -34,15 +34,6 @@ class Session:
         print("Getting ChromeDriver ...")
         self.browser = webdriver.Chrome(ChromeDriverManager().install())
 
-        # initialize settings of session
-        self.latitude = None
-        self.longitude = None
-
-    # Settings of the Session
-    def setScrapersLocation(self, latitude, longitude):
-        self.latitude = latitude
-        self.longitude = longitude
-
     # Actions of the session
     def loginUsingGoogle(self, email, password):
         if not self.isLoggedIn():
@@ -93,7 +84,7 @@ class Session:
     def superlike(self, amount=1):
         if self.isLoggedIn():
             helper = GeomatchHelper(browser=self.browser)
-            loadingbar = LoadingBar(amount, "dislikes")
+            loadingbar = LoadingBar(amount, "superlikes")
             for index in range(amount):
                 self.handlePotentialPopups()
                 helper.superlike()
@@ -110,26 +101,25 @@ class Session:
             bio = helper.getBio()
             image_urls = helper.getImageURLS()
 
-            return Geomatch(name=name, age=age, distance=distance, bio=bio, image_urls=image_urls,
-                            lat_scraper=self.latitude, long_scraper=self.longitude)
+            return Geomatch(name=name, age=age, distance=distance, bio=bio, image_urls=image_urls)
 
     def getAllMatches(self):
         if self.isLoggedIn():
             helper = MatchHelper(browser=self.browser)
             self.handlePotentialPopups()
-            return helper.getAllMatches(lat_scraper=self.latitude, long_scraper=self.longitude)
+            return helper.getAllMatches()
 
     def getNewMatches(self):
         if self.isLoggedIn():
             helper = MatchHelper(browser=self.browser)
             self.handlePotentialPopups()
-            return helper.getNewMatches(lat_scraper=self.latitude, long_scraper=self.longitude)
+            return helper.getNewMatches()
 
     def getMessagedMatches(self):
         if self.isLoggedIn():
             helper = MatchHelper(browser=self.browser)
             self.handlePotentialPopups()
-            return helper.getMessagedMatches(lat_scraper=self.latitude, long_scraper=self.longitude)
+            return helper.getMessagedMatches()
 
     def sendMessage(self, chatid, message):
         if self.isLoggedIn():
@@ -210,6 +200,20 @@ class Session:
             return "POPUP: Denied buying more superlikes"
 
         except NoSuchElementException:
+            pass
+
+        # Deny confirmation of email
+        try:
+            xpath = '//*[@id="modal-manager"]/div/div/div[1]/div[2]/button[2]'
+            remindmelater = self.browser.find_element_by_xpath(xpath)
+            remindmelater.click()
+
+            time.sleep(3)
+            # handle other potential popups
+            self.handlePotentialPopups()
+
+            return "POPUP: Deny confirmation of email"
+        except:
             pass
 
         return None

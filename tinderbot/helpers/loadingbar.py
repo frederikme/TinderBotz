@@ -28,3 +28,6 @@ class LoadingBar:
         sys.stdout.write(printout)
         sys.stdout.flush()
         time.sleep(0.25)
+
+        if percentage_loaded == 100:
+            print("\n")

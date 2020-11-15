@@ -3,12 +3,12 @@ from tinderbot.helpers.geomatch import Geomatch
 # A match has the same information as a geomatch, except that you have a chatroom with an id
 class Match(Geomatch):
 
-    def __init__(self, name, chatid, age, bio, distance, image_urls, lat_scraper, long_scraper):
+    def __init__(self, name, chatid, age, bio, distance, image_urls):
 
         self.chatid = chatid
 
         # invoking the __init__ of the parent class
-        Geomatch.__init__(self, name, age, bio, distance, image_urls, lat_scraper=lat_scraper, long_scraper=long_scraper)
+        Geomatch.__init__(self, name, age, bio, distance, image_urls)
 
     def getChatID(self):
         return self.chatid

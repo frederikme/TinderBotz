@@ -15,9 +15,6 @@ if __name__ == "__main__":
     # session.loginUsingGoogle(email=constants.email_google, password=constants.password_google)
     session.loginUsingFacebook(email=constants.email_facebook, password=constants.password_facebook)
 
-    # Setting location of scraper is recommended, but not necessary
-    session.setScrapersLocation(latitude=constants.lat_kort, longitude=constants.lon_kort)
-
     # start scraping as much geomatches as possible
     while True:
         # get user
