@@ -69,8 +69,8 @@ pip3 install -r requirements.txt
 ```
 
 ## Usage of Tinderbot
-Features of Tinderbot as demonstrated belowed can be found here: [Tinderbot features](https://github.com/frederikme/TinderBot/blob/master/TINDERBOTDOC.md)</br>
-Quickstart script can be found here: [quickstart_tinderbot.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_tinderbot.py)
+Features of Tinderbot as demonstrated belowed can be found here: [Tinderbot features](https://github.com/frederikme/TinderBot/blob/master/DOCUMENTATION.md)</br>
+Quickstart script can be found here: [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/quickstart.py)
 
 ### DEMO of Tinderbot
 #### Liking 10 profiles in row + dismissing potential pop ups
