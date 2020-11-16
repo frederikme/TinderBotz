@@ -170,6 +170,15 @@ class Session:
         except TimeoutException:
             pass
 
+        # Try to dismiss a potential 'upgrade like' popup
+        try:
+            # locate "no thanks"-button
+            xpath = '//*[@id="modal-manager"]/div/div/button[2]'
+            self.browser.find_element_by_xpath(xpath).click()
+            return "POPUP: Denied upgrade to superlike"
+        except NoSuchElementException:
+            pass
+
         # try to deny 'add tinder to homescreen'
         try:
             xpath = '//*[@id="modal-manager"]/div/div/div[2]/button[2]'
@@ -183,7 +192,7 @@ class Session:
 
         # try to dismiss match
         try:
-            xpath = '//*[@id="modal-manager-canvas"]/div/div/div[1]/div/div[3]/button'
+            xpath = '//*[@id="modal-manager-canvas"]/div/div/div[1]/div/div[4]/button'
 
             match_popup = self.browser.find_element_by_xpath(xpath)
             match_popup.click()

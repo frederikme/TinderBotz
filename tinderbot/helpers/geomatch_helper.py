@@ -35,7 +35,7 @@ class GeomatchHelper:
             time.sleep(1)
 
         except ElementClickInterceptedException:
-            self.dismissPopUps()
+            self.browser.refresh()
 
         except TimeoutException:
             # like button not found in time -> reload page to find button again
@@ -45,21 +45,6 @@ class GeomatchHelper:
         except Exception as e:
             print("Another, not handled, exception occurred at like")
             print(e)
-
-    def dismissPopUps(self):
-        # Try to dismiss a potential 'upgrade like' popup
-        try:
-            xpath = '//*[@id="modal-manager"]/div/div/button[2]'
-            # wait for element to appear
-            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
-                (By.XPATH, xpath)))
-            # locate "no thanks"-button
-            self.browser.find_element_by_xpath(xpath).click()
-
-        except TimeoutException:
-            pass
-        except Exception as e:
-            print("unknown exception {}".format(e))
 
     def dislike(self):
         try:
@@ -79,7 +64,7 @@ class GeomatchHelper:
             time.sleep(1)
 
         except ElementClickInterceptedException:
-            self.dismissPopUps()
+            self.browser.refresh()
 
         except TimeoutException:
             # dislike button not found in time -> reload page to find button again
@@ -105,7 +90,7 @@ class GeomatchHelper:
             superlike_button.click()
 
         except ElementClickInterceptedException:
-            self.dismissPopUps()
+            self.browser.refresh()
 
         except TimeoutException:
             # superlike button not found in time -> reload page to find button again
@@ -130,7 +115,7 @@ class GeomatchHelper:
             time.sleep(1)
 
         except ElementClickInterceptedException:
-            self.dismissPopUps()
+            self.browser.refresh()
 
         except TimeoutException:
             if not second_try:
