@@ -11,8 +11,6 @@ Seeing these profiles and thus '*breaking the first barrier of matching*' is why
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 * [Creating a Session](#creating-a-session)
-* [Settings](#settings)
-  * [Scrapers Location](#scrapers-location)
 * [Actions](#actions)
   * [Logging in to Tinder](#logging-in-to-tinder)
   * [Liking Geomatches](#liking-geomatches)
@@ -37,15 +35,6 @@ from tinderbot.session import Session
 session = Session()
 ```
 
-# Settings
-## Scrapers Location
-This setting is only required when you want to reverse engineer the profiles location out of multiple scrapes.</br>
-This latitude and longitude will be stored with the distance in the scraped profile. </br>
-To get the latitude and longitude (location) of this profile you will need multiple scrapes from different locations.</br>
-Then you can look for the intersections of the circles (distance) around your locations and know their location. (more or less)</br>
-```
-session.setScrapersLocation(latitude, longitude)
-```
 # Actions
 ## Logging in to Tinder
 Logging in can be done in one of the following ways.
@@ -55,6 +44,7 @@ Logging in can be done in one of the following ways.
 session.loginUsingGoogle(email, password)
 session.loginUsingFacebook(email, password)
 ```
+
 ## Liking Geomatches
 ```
 session.like()
@@ -100,8 +90,7 @@ geomatch = session.getGeomatch()
 ```
 ## Storing (geo)Matches
 Every profile, also known as a (geo)match, can be stored locally. </br>
-Storing data can be useful for reducing runtime, for exampling when needing to fetch your matches,</br>
-and for performing some data analysis. More about data analysis can be found here: [Data Analysis](#data-analysis)</br>
+Storing data can be useful for reducing runtime, for exampling when needing to fetch your matches.</br>
 ```
 matches = session.getAllMatches()
 for match in matches:
@@ -159,7 +148,7 @@ session.unMatch(chatid=id)
 # ***JUST LET ME START ALREADY YES PLS TY***
 If you feel like you just want to dive right into the code and get started right away, this is where you need to be. :) </br>
 
-1. Open the [quickstart_tinderbot.py](https://github.com/frederikme/TinderBot/blob/master/quickstart_tinderbot.py) from the tinderbot directory.
+1. Open the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/quickstart.py) from the tinderbot directory.
 2. Fill in your credentials (email and password) to be able to login to Tinder.
 3. Change the quickstart script to your needs.
 4. Run the code.
