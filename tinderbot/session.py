@@ -7,6 +7,7 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 import pyfiglet
 import os
+from sys import platform
 import time
 
 from tinderbot.helpers.geomatch import Geomatch
@@ -24,7 +25,13 @@ class Session:
 
     def __init__(self):
         # clear the console and show some basic info
-        os.system("clear")
+        if platform == "linux" or platform == "linux2" or "darwin":
+            # Linux or MacOS
+            os.system("clear")
+        elif platform == "win32":
+            # Windows
+            os.system("cls")
+
         text = "Tinderbot"
         print(pyfiglet.figlet_format(text))
         print("-> Made by Frederikme")
