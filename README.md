@@ -75,13 +75,15 @@ Features of Tinderbot as demonstrated belowed can be found here: [Tinderbot feat
 Quickstart script can be found here: [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/quickstart.py)
 
 ### Demonstration
+### Setting a custom location
+TODO make a GIF
 #### Liking 10 profiles in row + dismissing potential pop ups
 <img src="https://user-images.githubusercontent.com/60892381/94987708-92a5a900-0568-11eb-88fc-f6be69354d73.gif"></src>
 
 #### Scraping your matches (new matches + messaged matches)
 <img src="https://user-images.githubusercontent.com/60892381/94995711-702f8200-05a0-11eb-9273-bfbb48ce168c.gif"></src>
 
-#### Sending personal messages to your matches
+#### Sending personalized messages to your matches
 <img src="https://user-images.githubusercontent.com/60892381/94997724-43ce3280-05ad-11eb-8a94-0a66f0afbf93.gif"></src>
 
 ## Support the Repository
