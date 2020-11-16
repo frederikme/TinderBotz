@@ -32,6 +32,7 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage-of-tinderbot)
+  * [Features](documentation.md)
   * [Demo](#demonstration)
 * [Support the Repository](#support-the-repository)
 
