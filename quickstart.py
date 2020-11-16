@@ -21,8 +21,6 @@ if __name__ == "__main__":
 
     # Alternatively you can login using facebook with a connected profile!
     session.loginUsingFacebook(email=constants.email_facebook, password=constants.password_facebook)
-    import time
-    time.sleep(1000)
 
     # spam likes, dislikes and superlikes
     session.like(amount=1)

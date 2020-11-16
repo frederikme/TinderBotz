@@ -64,8 +64,11 @@ class LocationHelper:
         # Make sure to use the city level
         self.setPrivacyLevel(self.FIXED)
 
-    def setRealLocation(self):
+        self.onEnd()
+
+    def setRealtimeLocation(self):
         self.setPrivacyLevel(self.REAL)
+        self.onEnd()
 
     def setPrivacyLevel(self, level):
         if self.browser.current_url != self.OPTIONS_URL:
@@ -78,3 +81,8 @@ class LocationHelper:
             if level in element.get_attribute('value'):
                 element.click()
                 break
+
+    def onEnd(self):
+        # check if restoring the session is needed
+        if 'http' in self.initial_url:
+            self.browser.get(self.initial_url)

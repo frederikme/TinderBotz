@@ -59,7 +59,8 @@ class LoginHelper:
 
         if not self.changeFocusToPopUp():
             print("FAILED TO CHANGE FOCUS TO POPUP")
-            assert False
+            time.sleep(5)
+            return self.loginByGoogle(email, password)
         try:
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, "//input[@type='email']")))

@@ -63,9 +63,9 @@ class Session:
         helper = LocationHelper(browser=self.browser)
         helper.setCustomLocation(location_name)
 
-    def setRealLocation(self):
+    def setRealtimeLocation(self):
         helper = LocationHelper(browser=self.browser)
-        helper.setRealLocation()
+        helper.setRealtimeLocation()
 
     # Actions of the session
     def loginUsingGoogle(self, email, password):
