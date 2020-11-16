@@ -11,6 +11,9 @@ Seeing these profiles and thus '*breaking the first barrier of matching*' is why
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 * [Creating a Session](#creating-a-session)
+* [Settings](#settings)
+  * [Custom Location](#custom-location)
+  * [Realtime Location](#realtime-location)
 * [Actions](#actions)
   * [Logging in to Tinder](#logging-in-to-tinder)
   * [Liking Geomatches](#liking-geomatches)
@@ -33,6 +36,21 @@ In this session we can adjust settings or take actions, such as liking or scrapi
 from tinderbot.session import Session
 
 session = Session()
+```
+
+# Settings
+## Custom Location
+Changing location used to be a paid for ***Tinder Plus*** feature. But no more!</br>
+Using the Location Guard extension for Chrome, we are now able to mask our position.</br>
+In this example we set the location to the city Leuven in Belgium.
+```
+session.setCustomLocation("Leuven, Belgium")
+```
+
+## Realtime Location
+The realtime location is used by default. However if you want to swap from the custom location to your realtime location, you will need to call this function.
+```
+session.setRealtimeLocation()
 ```
 
 # Actions
