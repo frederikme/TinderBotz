@@ -53,6 +53,7 @@ After succesfully creating a bot that could:</br>
 
 * [Python](https://www.python.org/)
 * [Selenium](https://selenium.dev)
+* [LocationGuard](https://chrome.google.com/webstore/detail/location-guard/cfohepagpmnodfdmjliccbbigdkfcgia)
 
 <!-- Getting Started -->
 ## Getting Started
