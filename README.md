@@ -38,11 +38,12 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About the Project
+**IMPORTANT: Starring the project indicates you appreciate the project and will result in new features being added!**</br>
 This project started with the motivation of learning web automation further and scraping with Python.</br>
 I managed to succesfully create a bot that could: </br>
 
 * Open a browser and login to Tinder.com
-* Setting a custom location for FREE (which is normally a paid-for-***Tinder Plus***-feature)
+* Setting a custom location for **FREE** (which is normally a paid-for-***Tinder Plus***-feature)
 * Accept all notifications and dismiss pop-ups
 * Swiping x amount of profiles left or right
 * Scraping data of the profiles displayed, including, yet not limited to, name, age, bio, images, ...
@@ -50,6 +51,10 @@ I managed to succesfully create a bot that could: </br>
 * Sending you social media cards, like Instagram, Snapchat, Phonenumber and Facebook
 * Sending GIFS and songs
 * Unmatching
+
+If you feel like diving right in, the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/quickstart.py) will help you be right on track.</br>
+*Feel free to make a pull request and contribute to this project!*</br>
+**Enjoy! :)**
 
 ### Built with
 
@@ -72,8 +77,8 @@ pip3 install -r requirements.txt
 ```
 
 ## Usage of Tinderbot
-Features of Tinderbot as demonstrated belowed can be found here: [Tinderbot features](https://github.com/frederikme/TinderBot/blob/master/DOCUMENTATION.md)</br>
-Quickstart script can be found here: [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/quickstart.py)
+### Features
+Features of Tinderbot as demonstrated belowed can be found here: **[Tinderbot features](https://github.com/frederikme/TinderBot/blob/master/DOCUMENTATION.md)**</br>
 
 ### Demonstration
 #### Setting a custom location
