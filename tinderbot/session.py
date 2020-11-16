@@ -10,6 +10,8 @@ import os
 from sys import platform
 import time
 
+from tinderbot.helpers.location_helper import LocationHelper
+
 from tinderbot.helpers.geomatch import Geomatch
 from tinderbot.helpers.match import Match
 from tinderbot.helpers.geomatch_helper import GeomatchHelper
@@ -39,7 +41,31 @@ class Session:
 
         # getting chromedriver from cache or download from internet
         print("Getting ChromeDriver ...")
-        self.browser = webdriver.Chrome(ChromeDriverManager().install())
+        print("Adding Location Guard extension ...")
+        options = webdriver.ChromeOptions()
+        options.add_extension('./LocationGuardExtension.crx')
+
+        self.browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+        time.sleep(2)
+        self.closeTabs()
+
+    def closeTabs(self):
+        # close all other tabs
+        while len(self.browser.window_handles) > 1:
+            current_window = self.browser.current_window_handle
+            other_window = self.browser.window_handles[1]
+            self.browser.switch_to.window(other_window)
+            self.browser.close()
+            self.browser.switch_to.window(current_window)
+
+    # Setting the users location using the downloaded chrome extension Location Guard
+    def setCustomLocation(self, location_name):
+        helper = LocationHelper(browser=self.browser)
+        helper.setCustomLocation(location_name)
+
+    def setRealLocation(self):
+        helper = LocationHelper(browser=self.browser)
+        helper.setRealLocation()
 
     # Actions of the session
     def loginUsingGoogle(self, email, password):

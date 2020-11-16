@@ -13,11 +13,16 @@ if __name__ == "__main__":
     # creates instance of session
     session = Session()
 
+    # set location
+    session.setCustomLocation("Leuven, Belgium")
+
     # login using your google account with a verified email!
     session.loginUsingGoogle(email=constants.email_google, password=constants.password_google)
 
     # Alternatively you can login using facebook with a connected profile!
     session.loginUsingFacebook(email=constants.email_facebook, password=constants.password_facebook)
+    import time
+    time.sleep(1000)
 
     # spam likes, dislikes and superlikes
     session.like(amount=1)
