@@ -38,10 +38,10 @@
 <!-- ABOUT THE PROJECT -->
 ## About the Project
 This project started with the motivation of learning web automation further and scraping with Python.</br>
-After succesfully creating a bot that could:</br>
+I managed to succesfully create a bot that could: </br>
 
 * Open a browser and login to Tinder.com
-* Setting a custom location (which is normally a Tinder+ Feature)
+* Setting a custom location for FREE (Normally a paid-for-***Tinder Plus***-feature)
 * Accept all notifications and dismiss pop-ups
 * Swiping x amount of profiles left or right
 * Scraping data of the profiles displayed, including, yet not limited to, name, age, bio, images, ...
