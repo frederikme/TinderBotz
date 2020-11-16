@@ -15,7 +15,7 @@
     <a href="https://github.com/frederikme/TinderBot/blob/master/README.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="#demo-of-tinderbot">View Demo</a>
+    <a href="#demonstration">View Demo</a>
     ·
     <a href="https://github.com/frederikme/TinderBot/issues/new?assignees=&labels=&template=bug_report.md&title=">Report Bug</a>
     ·
@@ -31,8 +31,8 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-* [Usage of Tinderbot](#usage-of-tinderbot)
-  * [DEMO of Tinderbot](#demo-of-tinderbot)
+* [Usage](#usage-of-tinderbot)
+  * [Demo](#demonstration)
 * [Support the Repository](#support-the-repository)
 
 <!-- ABOUT THE PROJECT -->
@@ -74,7 +74,7 @@ pip3 install -r requirements.txt
 Features of Tinderbot as demonstrated belowed can be found here: [Tinderbot features](https://github.com/frederikme/TinderBot/blob/master/DOCUMENTATION.md)</br>
 Quickstart script can be found here: [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/quickstart.py)
 
-### DEMO of Tinderbot
+### Demonstration
 #### Liking 10 profiles in row + dismissing potential pop ups
 <img src="https://user-images.githubusercontent.com/60892381/94987708-92a5a900-0568-11eb-88fc-f6be69354d73.gif"></src>
 
