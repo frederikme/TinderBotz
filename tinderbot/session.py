@@ -49,9 +49,9 @@ class Session:
 
         self.browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
         time.sleep(2)
-        self.closeTabs()
+        self.closeAbundantTabs()
 
-    def closeTabs(self):
+    def closeAbundantTabs(self):
         # close all other tabs
         while len(self.browser.window_handles) > 1:
             current_window = self.browser.current_window_handle
