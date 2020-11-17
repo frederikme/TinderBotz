@@ -272,10 +272,6 @@ class Session:
 
         return None
 
-    def refresh(self):
-        print("Refreshing url: {}\n".format(self.browser.current_url))
-        self.browser.get(self.browser.current_url)
-
     def isLoggedIn(self):
         # make sure tinder website is loaded for the first time
         if not "tinder" in self.browser.current_url:
