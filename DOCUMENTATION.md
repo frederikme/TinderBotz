@@ -14,6 +14,7 @@ Seeing these profiles and thus '*breaking the first barrier of matching*' is why
 * [Settings](#settings)
   * [Custom Location](#custom-location)
   * [Realtime Location](#realtime-location)
+  * [Distance Radius](#distance-radius)
 * [Actions](#actions)
   * [Logging in to Tinder](#logging-in-to-tinder)
   * [Liking Geomatches](#liking-geomatches)
@@ -51,6 +52,14 @@ session.setCustomLocation("Leuven, Belgium")
 The realtime location is used by default. However if you want to swap from the custom location to your realtime location, you will need to call this function.
 ```
 session.setRealtimeLocation()
+```
+
+## Distance Radius
+The distance radius setting allows you to decide how far potential matches can be located.</br>
+This setting requires you to be logged in on Tinder.</br>
+Note: the parameter passed is the distance to you in ***kilometers***.
+```
+session.setDistanceRadius(150)
 ```
 
 # Actions
