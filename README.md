@@ -38,7 +38,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About the Project
-**IMPORTANT: Starring the project indicates you appreciate the project and will result in new features being added!**</br>
+**IMPORTANT: Starring the project indicates shows your appreciation and will result in new features being added!**</br>
 </br>
 This project started with the motivation of learning web automation further and scraping with Python.</br>
 I managed to succesfully create a bot that could: </br>
