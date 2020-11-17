@@ -15,6 +15,7 @@ Seeing these profiles and thus '*breaking the first barrier of matching*' is why
   * [Custom Location](#custom-location)
   * [Realtime Location](#realtime-location)
   * [Distance to Location](#distance-to-location)
+  * [Age Range](#age-range)
 * [Actions](#actions)
   * [Logging in to Tinder](#logging-in-to-tinder)
   * [Liking Geomatches](#liking-geomatches)
@@ -60,6 +61,12 @@ This setting requires you to be logged in on Tinder.</br>
 Note: the parameter passed is the distance to you in ***kilometers***.
 ```
 session.setDistanceRadius(150)
+```
+
+## Age Range
+First parameter is the minimum age, second parameter is the maximum age of the potential matches.</br>
+```
+session.setAgeRange(25, 44)
 ```
 
 # Actions
@@ -117,7 +124,7 @@ geomatch = session.getGeomatch()
 ```
 ## Storing (geo)Matches
 Every profile, also known as a (geo)match, can be stored locally. </br>
-Storing data can be useful for reducing runtime, for exampling when needing to fetch your matches.</br>
+Storing data can be useful for reducing runtime, for example when needing to fetch your matches.</br>
 ```
 matches = session.getAllMatches()
 for match in matches:
