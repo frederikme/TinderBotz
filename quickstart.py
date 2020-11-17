@@ -13,7 +13,7 @@ if __name__ == "__main__":
     # creates instance of session
     session = Session()
 
-    # set location
+    # set location (Don't need to be logged in for this)
     session.setCustomLocation("Leuven, Belgium")
 
     # login using your google account with a verified email!
@@ -21,6 +21,10 @@ if __name__ == "__main__":
 
     # Alternatively you can login using facebook with a connected profile!
     session.loginUsingFacebook(email=constants.email_facebook, password=constants.password_facebook)
+
+    # adjust allowed distance for geomatches
+    # Note: You need to be logged in for this setting
+    session.setDistanceRadius(km=150)
 
     # spam likes, dislikes and superlikes
     session.like(amount=1)

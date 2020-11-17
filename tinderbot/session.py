@@ -11,6 +11,7 @@ from sys import platform
 import time
 
 from tinderbot.helpers.location_helper import LocationHelper
+from tinderbot.helpers.profile_helper import ProfileHelper
 
 from tinderbot.helpers.geomatch import Geomatch
 from tinderbot.helpers.match import Match
@@ -60,6 +61,7 @@ class Session:
             self.browser.switch_to.window(current_window)
 
     # Setting the users location using the downloaded chrome extension Location Guard
+    # Don't need to be logged in for this.
     def setCustomLocation(self, location_name):
         helper = LocationHelper(browser=self.browser)
         helper.setCustomLocation(location_name)
@@ -67,6 +69,11 @@ class Session:
     def setRealtimeLocation(self):
         helper = LocationHelper(browser=self.browser)
         helper.setRealtimeLocation()
+
+    # NOTE: Need to be logged in for this
+    def setDistanceRadius(self, km):
+        helper = ProfileHelper(browser=self.browser)
+        helper.setDistanceRadius(km)
 
     # Actions of the session
     def loginUsingGoogle(self, email, password):
