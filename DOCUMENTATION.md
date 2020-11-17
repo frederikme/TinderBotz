@@ -124,7 +124,7 @@ geomatch = session.getGeomatch()
 ```
 ## Storing (geo)Matches
 Every profile, also known as a (geo)match, can be stored locally. </br>
-Storing data can be useful for reducing runtime, for exampling when needing to fetch your matches.</br>
+Storing data can be useful for reducing runtime, for example when needing to fetch your matches.</br>
 ```
 matches = session.getAllMatches()
 for match in matches:
