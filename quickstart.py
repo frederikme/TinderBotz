@@ -24,7 +24,12 @@ if __name__ == "__main__":
 
     # adjust allowed distance for geomatches
     # Note: You need to be logged in for this setting
-    session.setDistanceRadius(km=150)
+    # Note: PARAMETER IS IN KILOMETERS!
+    session.setDistanceRange(km=150)
+
+    # set range of allowed ages
+    # Note: You need to be logged in for this setting
+    session.setAgeRange(25, 44)
 
     # spam likes, dislikes and superlikes
     session.like(amount=1)

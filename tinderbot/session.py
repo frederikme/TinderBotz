@@ -71,9 +71,13 @@ class Session:
         helper.setRealtimeLocation()
 
     # NOTE: Need to be logged in for this
-    def setDistanceRadius(self, km):
+    def setDistanceRange(self, km):
         helper = ProfileHelper(browser=self.browser)
-        helper.setDistanceRadius(km)
+        helper.setDistanceRange(km)
+
+    def setAgeRange(self, min, max):
+        helper = ProfileHelper(browser=self.browser)
+        helper.setAgeRange(min, max)
 
     # Actions of the session
     def loginUsingGoogle(self, email, password):
