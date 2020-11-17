@@ -44,6 +44,7 @@ class Session:
         print("Adding Location Guard extension ...")
         options = webdriver.ChromeOptions()
         options.add_extension('./LocationGuardExtension.crx')
+        options.add_experimental_option('w3c', False)
 
         self.browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
         time.sleep(2)
