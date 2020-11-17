@@ -1,10 +1,6 @@
 venv
 .idea
 constants.py
-data/locationdata.csv
-data/geomatches/images
-data/geomatches/geomatches.json
-data/matches/images
-data/matches/matches.json
+data/
 tutorial.txt
-analysis
+test.py

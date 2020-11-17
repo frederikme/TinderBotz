@@ -1,6 +1,5 @@
 '''
 Created by Frederikme (TeetiFM)
-Examples of usage are demonstrated in this quickstart_analytics.py file
 '''
 
 from tinderbot.session import Session
