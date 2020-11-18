@@ -5,6 +5,7 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 
 from tinderbot.helpers.constants_helper import Sexuality
+import time
 
 class ProfileHelper:
 
@@ -14,8 +15,6 @@ class ProfileHelper:
 
     def __init__(self, browser):
         self.browser = browser
-        if self.HOME_URL is not self.browser.current_url:
-            self.browser.get(self.HOME_URL)
 
         # open profile
         try:
@@ -23,9 +22,8 @@ class ProfileHelper:
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, xpath)))
             browser.find_element_by_xpath(xpath).click()
-        except TimeoutException:
-            print("Make sure user is logged in before changing settings in profile!")
-            assert False
+        except:
+            pass
 
     def setDistanceRange(self, km):
         # correct out of bounds values
@@ -63,6 +61,7 @@ class ProfileHelper:
             current_percentage = float(link.get_attribute('style').split(' ')[1].split('%')[0])
 
         print("Ended slider with {}% = {}km\n\n".format(current_percentage, current_percentage*1.6))
+        time.sleep(5)
 
     def setAgeRange(self, min, max):
         # locate elements
@@ -136,6 +135,7 @@ class ProfileHelper:
 
         print("Ended slider with ages from {} years old  to {} years old\n\n".format((current_percentage_min/percentage_per_year)+min_age_tinder,
               (current_percentage_max / percentage_per_year) + min_age_tinder))
+        time.sleep(5)
 
     def setSexualitiy(self, type):
         if not isinstance(type, Sexuality):
@@ -158,3 +158,4 @@ class ProfileHelper:
                 break
 
         print("clicked on " + type.value)
+        time.sleep(5)

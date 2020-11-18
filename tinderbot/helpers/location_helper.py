@@ -24,8 +24,6 @@ class LocationHelper:
         self.browser.get(self.HOME_URL)
 
     def setCustomLocation(self, location_name):
-        if self.browser.current_url != self.HOME_URL:
-            self.browser.get(self.HOME_URL)
         # Time to load extension html
         time.sleep(2)
 
@@ -51,10 +49,8 @@ class LocationHelper:
         except TimeoutException:
             print("Setting custom Location failed.")
             print("Location Guard extension failed to access the internet to browse for custom location")
-            print("Will try again in 20 seconds")
-            for x in range(10):
-                time.sleep(2)
-                print("{} of the 20 seconds slept already.".format((x+1) * 2))
+            print("Will try again...")
+            self.browser.refresh()
             return self.setCustomLocation(location_name=location_name)
 
         # Time to relocate map
