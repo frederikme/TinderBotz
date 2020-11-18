@@ -3,7 +3,7 @@ Created by Frederikme (TeetiFM)
 '''
 
 from tinderbot.session import Session
-from tinderbot.helpers.socials import Socials
+from tinderbot.helpers.constants_helper import Socials, Sexuality
 
 import constants
 
@@ -29,6 +29,9 @@ if __name__ == "__main__":
     # set range of allowed ages
     # Note: You need to be logged in for this setting
     session.setAgeRange(25, 44)
+
+    # set interested in gender(s) -> options are: WOMEN, MEN, EVERYONE
+    session.setSexuality(Sexuality.WOMEN)
 
     # spam likes, dislikes and superlikes
     session.like(amount=1)

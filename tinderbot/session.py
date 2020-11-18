@@ -79,6 +79,10 @@ class Session:
         helper = ProfileHelper(browser=self.browser)
         helper.setAgeRange(min, max)
 
+    def setSexuality(self, type):
+        helper = ProfileHelper(browser=self.browser)
+        helper.setSexualitiy(type)
+
     # Actions of the session
     def loginUsingGoogle(self, email, password):
         if not self.isLoggedIn():

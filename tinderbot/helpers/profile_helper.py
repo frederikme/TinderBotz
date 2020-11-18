@@ -1,15 +1,16 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 
+from tinderbot.helpers.constants_helper import Sexuality
 
 class ProfileHelper:
 
     delay = 5
 
-    HOME_URL = "https://www.tinder.com/app/recs"
+    HOME_URL = "https://www.tinder.com/app/profile"
 
     def __init__(self, browser):
         self.browser = browser
@@ -135,3 +136,25 @@ class ProfileHelper:
 
         print("Ended slider with ages from {} years old  to {} years old\n\n".format((current_percentage_min/percentage_per_year)+min_age_tinder,
               (current_percentage_max / percentage_per_year) + min_age_tinder))
+
+    def setSexualitiy(self, type):
+        if not isinstance(type, Sexuality):
+            assert False
+
+        xpath = '//*[@href="/app/settings/gender"]/div/div/div/div'
+        WebDriverWait(self.browser, self.delay).until(
+            EC.presence_of_element_located((By.XPATH, xpath)))
+        element = self.browser.find_element_by_xpath(xpath)
+        element.click()
+
+        xpath = '//*[@aria-pressed="false"]'.format(type.value)
+        WebDriverWait(self.browser, self.delay).until(
+            EC.presence_of_element_located((By.XPATH, xpath)))
+        elements = self.browser.find_elements_by_xpath(xpath)
+
+        for element in elements:
+            if element.find_element_by_xpath('.//div/label').text == type.value:
+                element.click()
+                break
+
+        print("clicked on " + type.value)

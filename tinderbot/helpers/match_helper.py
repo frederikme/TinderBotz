@@ -6,7 +6,7 @@ from selenium.common.exceptions import TimeoutException, StaleElementReferenceEx
 import time
 
 from tinderbot.helpers.match import Match
-from tinderbot.helpers.socials import Socials
+from tinderbot.helpers.constants_helper import Socials
 from tinderbot.helpers.loadingbar import LoadingBar
 
 class MatchHelper:
