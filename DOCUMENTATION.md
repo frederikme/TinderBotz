@@ -17,6 +17,7 @@ Seeing these profiles and thus '*breaking the first barrier of matching*' is why
   * [Distance Range](#distance-range)
   * [Age Range](#age-range)
   * [Sexuality](#sexuality)
+  * [Global](#global)
 * [Actions](#actions)
   * [Logging in to Tinder](#logging-in-to-tinder)
   * [Liking Geomatches](#liking-geomatches)
@@ -47,8 +48,12 @@ Changing location used to be a paid for ***Tinder Plus*** feature. But no more!<
 Using the Location Guard extension for Chrome, we are now able to mask our position.</br>
 In this example we set the location to the city Leuven in Belgium.
 ```
-session.setCustomLocation("Leuven, Belgium")
+session.setCustomLocation(location_name)
 ```
+**Required parameters**</br>
+```location_name```: *string*</br>
+**Example usage**</br>
+```session.setCustomLocation("Leuven, Belgium")```
 
 ## Realtime Location
 The realtime location is used by default. However if you want to swap from the custom location to your realtime location, you will need to call this function.
@@ -61,21 +66,51 @@ The distance radius function allows you to set the maximum allowed distance to y
 This setting requires you to be logged in on Tinder.</br>
 Note: the parameter passed is the distance to you in ***kilometers***.
 ```
-session.setDistanceRadius(150)
+session.setDistanceRadius(km)
 ```
+**Required parameters**</br>
+```km```: *integer*</br>
+**Example usage**</br>
+```session.setDistanceRadius(150)```
 
 ## Age Range
 First parameter is the minimum age, second parameter is the maximum age of the potential matches.</br>
+This setting requires you to be logged in on Tinder.</br>
 ```
-session.setAgeRange(25, 44)
+session.setAgeRange(min, max)
 ```
+**Required parameters**</br>
+```min```: *integer*</br>
+```max```: *integer*</br>
+**Example usage**</br>
+```session.setAgeRange(18, 25)```
 
 ## Sexuality
 [Click here](https://github.com/frederikme/TinderBot/blob/master/tinderbot/helpers/constants_helper.py) to see what sexualities are allowed by Tinder.</br>
-This setting allows you to choose which gender you get to see and thus will be matched with.
+This setting allows you to choose which gender you get to see and thus will be matched with.</br>
+This setting requires you to be logged in on Tinder.</br>
 ```
-session.setSexuality(Sexuality.WOMEN)
+from tinderbot.helpers.constants_helper import Sexuality
+session.setSexuality(type)
 ```
+**Required parameters**</br>
+```type```: *(enum) sexuality*</br>
+**Example usage**</br>
+```session.setSexuality(Sexuality.EVERYONE)```
+
+## Global
+This setting allows you to match other people around the world.</br>
+This setting requires you to be logged in on Tinder.</br>
+```
+session.setGlobal(boolean)
+```
+**Required parameters**</br>
+```boolean```: *boolean*</br>
+**Optional parameters**</br>
+***Note: Currently this option is not available yet in this project. Please open an issue for feature request if you'd want this feature to be made available.***
+```language```: [Click here](https://github.com/frederikme/TinderBot/blob/master/tinderbot/helpers/constants_helper.py) to see what global languages are available.</br>
+**Example usage**</br>
+```session.setGlobal(True)```
 
 # Actions
 ## Logging in to Tinder
@@ -86,27 +121,38 @@ Logging in can be done in one of the following ways.
 session.loginUsingGoogle(email, password)
 session.loginUsingFacebook(email, password)
 ```
+**Required parameters**</br>
+```email```: *string*</br>
+```password```: *string*</br>
+**Example usage**</br>
+```session.loginUsingGoogle("myemail@gmail.com", "password123)```
 
 ## Liking Geomatches
 ```
 session.like()
 ```
 **Optional parameters**</br>
-```amount```: The amount of profiles that must get liked.
+```amount```: ¨*integer*</br>
+**Example usage**</br>
+```session.like(amount=25)```
 
 ## Disliking Geomatches
 ```
 session.dislike()
 ```
 **Optional parameters**</br>
-```amount```: The amount of profiles that must get disliked.
+```amount```: *integer*</br>
+**Example usage**</br>
+```session.dislike(amount=25)```
 
 ## Superliking Geomatches
 ```
 session.superlike()
 ```
 **Optional parameters**</br>
-```amount```: The amount of profiles that must get superliked.
+```amount```: *integer*</br>
+**Example usage**</br>
+```session.superlike(amount=2)```
 
 ## Getting Matches
 Your matches can be divided into two categories:
