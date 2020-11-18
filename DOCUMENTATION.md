@@ -14,8 +14,9 @@ Seeing these profiles and thus '*breaking the first barrier of matching*' is why
 * [Settings](#settings)
   * [Custom Location](#custom-location)
   * [Realtime Location](#realtime-location)
-  * [Distance to Location](#distance-to-location)
+  * [Distance Range](#distance-range)
   * [Age Range](#age-range)
+  * [Sexuality](#sexuality)
 * [Actions](#actions)
   * [Logging in to Tinder](#logging-in-to-tinder)
   * [Liking Geomatches](#liking-geomatches)
@@ -55,7 +56,7 @@ The realtime location is used by default. However if you want to swap from the c
 session.setRealtimeLocation()
 ```
 
-## Distance to Location
+## Distance Range
 The distance radius function allows you to set the maximum allowed distance to your potential matches.</br>
 This setting requires you to be logged in on Tinder.</br>
 Note: the parameter passed is the distance to you in ***kilometers***.
@@ -67,6 +68,13 @@ session.setDistanceRadius(150)
 First parameter is the minimum age, second parameter is the maximum age of the potential matches.</br>
 ```
 session.setAgeRange(25, 44)
+```
+
+## Sexuality
+[Click here](https://github.com/frederikme/TinderBot/blob/master/tinderbot/helpers/constants_helper.py) to see what sexualities are allowed by Tinder.</br>
+This setting allows you to choose which gender you get to see and thus will be matched with.
+```
+session.setSexuality(Sexuality.WOMEN)
 ```
 
 # Actions
@@ -167,7 +175,7 @@ session.sendSong(chatid=id, songname="cutiepie")
 Socials can be sent to matches.</br>
 [Scrape your matches](#getting-matches) or get them from your locally stored json file.</br>
 </br>
-There are different types of socials. [Click here](https://github.com/frederikme/TinderBot/blob/master/tinderbot/helpers/socials.py) to see what types of social media or available.</br> 
+There are different types of socials. [Click here](https://github.com/frederikme/TinderBot/blob/master/tinderbot/helpers/constants_helper.py) to see what types of social media or available.</br> 
 ```
 id = match.getChatID()
 session.sendSocials(chatid=id, media=Socials.INSTAGRAM, value="Teeti.fm")

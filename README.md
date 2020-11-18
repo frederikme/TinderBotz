@@ -45,7 +45,7 @@ I managed to succesfully create a bot that could: </br>
 
 * Open a browser and login to Tinder.com
 * Setting a custom location for **FREE** (which is normally a paid-for-***Tinder Plus***-feature)
-* Setting profile settings and preferences, such as distance radius, minimum and maximum age.
+* Setting profile settings and preferences, such as distance radius, minimum and maximum age, sexuality.
 * Accept all notifications and dismiss pop-ups
 * Swiping x amount of profiles left or right
 * Scraping data of the profiles displayed, including, yet not limited to, name, age, bio, images, ...
@@ -86,6 +86,9 @@ Features of Tinderbot as demonstrated belowed can be found here: **[Tinderbot fe
 ### Demonstration
 #### Setting a custom location
 <img src="https://user-images.githubusercontent.com/60892381/99286075-a8c9a900-2838-11eb-86b6-4b8c028bee63.gif"></src>
+
+#### Setting some Profile settings
+<img src="https://user-images.githubusercontent.com/60892381/99513887-682e7480-298b-11eb-810f-caae7424a792.gif"></src>
 
 #### Liking 10 profiles in row + dismissing potential pop ups
 <img src="https://user-images.githubusercontent.com/60892381/94987708-92a5a900-0568-11eb-88fc-f6be69354d73.gif"></src>
