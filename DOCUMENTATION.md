@@ -16,6 +16,7 @@ Seeing these profiles and thus '*breaking the first barrier of matching*' is why
   * [Realtime Location](#realtime-location)
   * [Distance to Location](#distance-to-location)
   * [Age Range](#age-range)
+  * [Sexuality](#sexuality)
 * [Actions](#actions)
   * [Logging in to Tinder](#logging-in-to-tinder)
   * [Liking Geomatches](#liking-geomatches)
@@ -67,6 +68,13 @@ session.setDistanceRadius(150)
 First parameter is the minimum age, second parameter is the maximum age of the potential matches.</br>
 ```
 session.setAgeRange(25, 44)
+```
+
+## Sexuality
+[Click here](https://github.com/frederikme/TinderBot/blob/master/tinderbot/helpers/constants_helper.py) to see what sexualities are allowed by Tinder.</br>
+This setting allows you to choose which gender you get to see and thus will be matched with.
+```
+session.setSexuality(Sexuality.WOMEN)
 ```
 
 # Actions
