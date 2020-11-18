@@ -14,7 +14,7 @@ Seeing these profiles and thus '*breaking the first barrier of matching*' is why
 * [Settings](#settings)
   * [Custom Location](#custom-location)
   * [Realtime Location](#realtime-location)
-  * [Distance to Location](#distance-to-location)
+  * [Distance Range](#distance-range)
   * [Age Range](#age-range)
   * [Sexuality](#sexuality)
 * [Actions](#actions)
@@ -56,7 +56,7 @@ The realtime location is used by default. However if you want to swap from the c
 session.setRealtimeLocation()
 ```
 
-## Distance to Location
+## Distance Range
 The distance radius function allows you to set the maximum allowed distance to your potential matches.</br>
 This setting requires you to be logged in on Tinder.</br>
 Note: the parameter passed is the distance to you in ***kilometers***.
