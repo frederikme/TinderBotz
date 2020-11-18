@@ -50,11 +50,13 @@ session.loginUsingGoogle(email, password)
 session.loginUsingFacebook(email, password)
 ```
 **Required parameters**</br>
-```email```: *string*</br>
-```password```: *string*</br>
+`email`: *string*</br>
+`password`: *string*</br>
 
 **Example usage**</br>
-```session.loginUsingGoogle("myemail@gmail.com", "password123")```
+```
+session.loginUsingGoogle("myemail@gmail.com", "password123")
+```
 
 # Settings
 ## Custom Location
@@ -64,11 +66,13 @@ Using the Location Guard extension for Chrome, we are now able to mask our posit
 session.setCustomLocation(location_name)
 ```
 **Required parameters**</br>
-```location_name```: *string*</br>
+`location_name`: *string*</br>
 
 **Example usage**</br>
 In this example we set the location to the city Leuven in Belgium.</br>
-```session.setCustomLocation("Leuven, Belgium")```
+```
+session.setCustomLocation("Leuven, Belgium")
+```
 
 ## Realtime Location
 The realtime location is used by default. However if you want to swap from the custom location to your realtime location, you will need to call this function.
@@ -84,10 +88,12 @@ Note: the parameter passed is the distance to you in ***kilometers***.
 session.setDistanceRadius(km)
 ```
 **Required parameters**</br>
-```km```: *integer*</br>
+`km`: *integer*</br>
 
 **Example usage**</br>
-```session.setDistanceRadius(150)```
+```
+session.setDistanceRadius(150)
+```
 
 ## Age Range
 First parameter is the minimum age, second parameter is the maximum age of the potential matches.</br>
@@ -96,11 +102,13 @@ This setting requires you to be logged in on Tinder.</br>
 session.setAgeRange(min, max)
 ```
 **Required parameters**</br>
-```min```: *integer*</br>
-```max```: *integer*</br>
+`min`: *integer*</br>
+`max`: *integer*</br>
 
 **Example usage**</br>
-```session.setAgeRange(18, 25)```
+```
+session.setAgeRange(18, 25)
+```
 
 ## Sexuality
 [Click here](https://github.com/frederikme/TinderBot/blob/master/tinderbot/helpers/constants_helper.py) to see what sexualities are allowed by Tinder.</br>
@@ -111,10 +119,12 @@ from tinderbot.helpers.constants_helper import Sexuality
 session.setSexuality(type)
 ```
 **Required parameters**</br>
-```type```: *(enum) sexuality*</br>
+`type`: *(enum) sexuality*</br>
 
 **Example usage**</br>
-```session.setSexuality(Sexuality.EVERYONE)```
+```
+session.setSexuality(Sexuality.EVERYONE)
+```
 
 ## Global
 This setting allows you to match other people around the world.</br>
@@ -123,14 +133,16 @@ This setting requires you to be logged in on Tinder.</br>
 session.setGlobal(boolean)
 ```
 **Required parameters**</br>
-```boolean```: *boolean*</br>
+`boolean`: *boolean*</br>
 
 **Optional parameters**</br>
 ***Note: Currently this option is not available yet in this project. Please open an issue for feature request if you'd want this feature to be made available.***
-```language```: [Click here](https://github.com/frederikme/TinderBot/blob/master/tinderbot/helpers/constants_helper.py) to see what global languages are available.</br>
+`language`: [Click here](https://github.com/frederikme/TinderBot/blob/master/tinderbot/helpers/constants_helper.py) to see what global languages are available.</br>
 
 **Example usage**</br>
-```session.setGlobal(True)```
+```
+session.setGlobal(True)
+```
 
 # Actions
 ## Liking Geomatches
@@ -138,30 +150,36 @@ session.setGlobal(boolean)
 session.like()
 ```
 **Optional parameters**</br>
-```amount```: ¨*integer*</br>
+`amount`: ¨*integer*</br>
 
 **Example usage**</br>
-```session.like(amount=25)```
+```
+session.like(amount=25)
+```
 
 ## Disliking Geomatches
 ```
 session.dislike()
 ```
 **Optional parameters**</br>
-```amount```: *integer*</br>
+`amount`: *integer*</br>
 
 **Example usage**</br>
-```session.dislike(amount=25)```
+```
+session.dislike(amount=25)
+```
 
 ## Superliking Geomatches
 ```
 session.superlike()
 ```
 **Optional parameters**</br>
-```amount```: *integer*</br>
+`amount`: *integer*</br>
 
 **Example usage**</br>
-```session.superlike(amount=2)```
+```
+session.superlike(amount=2)
+```
 
 ## Getting Matches
 Your matches can be divided into two categories:
