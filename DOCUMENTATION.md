@@ -167,7 +167,7 @@ session.sendSong(chatid=id, songname="cutiepie")
 Socials can be sent to matches.</br>
 [Scrape your matches](#getting-matches) or get them from your locally stored json file.</br>
 </br>
-There are different types of socials. [Click here](https://github.com/frederikme/TinderBot/blob/master/tinderbot/helpers/socials.py) to see what types of social media or available.</br> 
+There are different types of socials. [Click here](https://github.com/frederikme/TinderBot/blob/master/tinderbot/helpers/constants_helper.py) to see what types of social media or available.</br> 
 ```
 id = match.getChatID()
 session.sendSocials(chatid=id, media=Socials.INSTAGRAM, value="Teeti.fm")
