@@ -87,6 +87,9 @@ Features of Tinderbot as demonstrated belowed can be found here: **[Tinderbot fe
 #### Setting a custom location
 <img src="https://user-images.githubusercontent.com/60892381/99286075-a8c9a900-2838-11eb-86b6-4b8c028bee63.gif"></src>
 
+#### Setting some Profile settings
+<img src="https://user-images.githubusercontent.com/60892381/99513887-682e7480-298b-11eb-810f-caae7424a792.gif"></src>
+
 #### Liking 10 profiles in row + dismissing potential pop ups
 <img src="https://user-images.githubusercontent.com/60892381/94987708-92a5a900-0568-11eb-88fc-f6be69354d73.gif"></src>
 
