@@ -11,6 +11,7 @@ Seeing these profiles and thus '*breaking the first barrier of matching*' is why
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 * [Creating a Session](#creating-a-session)
+  * [Logging in to Tinder](#logging-in-to-tinder)
 * [Settings](#settings)
   * [Custom Location](#custom-location)
   * [Realtime Location](#realtime-location)
@@ -19,7 +20,6 @@ Seeing these profiles and thus '*breaking the first barrier of matching*' is why
   * [Sexuality](#sexuality)
   * [Global](#global)
 * [Actions](#actions)
-  * [Logging in to Tinder](#logging-in-to-tinder)
   * [Liking Geomatches](#liking-geomatches)
   * [Disliking Geomatches](#disliking-geomatches)
   * [Superliking Geomatches](#superliking-geomatches)
@@ -41,18 +41,33 @@ from tinderbot.session import Session
 
 session = Session()
 ```
+## Logging in to Tinder
+Logging in can be done in one of the following ways.
+1. Using your Google-account: *Your email must be verified*
+2. Using your Facebook-account: *Your Tinder must be connected to your Facebook*
+```
+session.loginUsingGoogle(email, password)
+session.loginUsingFacebook(email, password)
+```
+**Required parameters**</br>
+```email```: *string*</br>
+```password```: *string*</br>
+
+**Example usage**</br>
+```session.loginUsingGoogle("myemail@gmail.com", "password123")```
 
 # Settings
 ## Custom Location
 Changing location used to be a paid for ***Tinder Plus*** feature. But no more!</br>
 Using the Location Guard extension for Chrome, we are now able to mask our position.</br>
-In this example we set the location to the city Leuven in Belgium.
 ```
 session.setCustomLocation(location_name)
 ```
 **Required parameters**</br>
 ```location_name```: *string*</br>
+
 **Example usage**</br>
+In this example we set the location to the city Leuven in Belgium.</br>
 ```session.setCustomLocation("Leuven, Belgium")```
 
 ## Realtime Location
@@ -70,6 +85,7 @@ session.setDistanceRadius(km)
 ```
 **Required parameters**</br>
 ```km```: *integer*</br>
+
 **Example usage**</br>
 ```session.setDistanceRadius(150)```
 
@@ -82,6 +98,7 @@ session.setAgeRange(min, max)
 **Required parameters**</br>
 ```min```: *integer*</br>
 ```max```: *integer*</br>
+
 **Example usage**</br>
 ```session.setAgeRange(18, 25)```
 
@@ -95,6 +112,7 @@ session.setSexuality(type)
 ```
 **Required parameters**</br>
 ```type```: *(enum) sexuality*</br>
+
 **Example usage**</br>
 ```session.setSexuality(Sexuality.EVERYONE)```
 
@@ -106,33 +124,22 @@ session.setGlobal(boolean)
 ```
 **Required parameters**</br>
 ```boolean```: *boolean*</br>
+
 **Optional parameters**</br>
 ***Note: Currently this option is not available yet in this project. Please open an issue for feature request if you'd want this feature to be made available.***
 ```language```: [Click here](https://github.com/frederikme/TinderBot/blob/master/tinderbot/helpers/constants_helper.py) to see what global languages are available.</br>
+
 **Example usage**</br>
 ```session.setGlobal(True)```
 
 # Actions
-## Logging in to Tinder
-Logging in can be done in one of the following ways.
-1. Using your Google-account: *Your email must be verified*
-2. Using your Facebook-account: *Your Tinder must be connected to your Facebook*
-```
-session.loginUsingGoogle(email, password)
-session.loginUsingFacebook(email, password)
-```
-**Required parameters**</br>
-```email```: *string*</br>
-```password```: *string*</br>
-**Example usage**</br>
-```session.loginUsingGoogle("myemail@gmail.com", "password123)```
-
 ## Liking Geomatches
 ```
 session.like()
 ```
 **Optional parameters**</br>
 ```amount```: ¨*integer*</br>
+
 **Example usage**</br>
 ```session.like(amount=25)```
 
@@ -142,6 +149,7 @@ session.dislike()
 ```
 **Optional parameters**</br>
 ```amount```: *integer*</br>
+
 **Example usage**</br>
 ```session.dislike(amount=25)```
 
@@ -151,6 +159,7 @@ session.superlike()
 ```
 **Optional parameters**</br>
 ```amount```: *integer*</br>
+
 **Example usage**</br>
 ```session.superlike(amount=2)```
 
