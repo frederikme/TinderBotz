@@ -159,3 +159,36 @@ class ProfileHelper:
 
         print("clicked on " + type.value)
         time.sleep(5)
+
+    def setGlobal(self, boolean, language=None):
+        # check if global is already activated
+        # Global is activated when the href to preferred languages is visible
+        is_activated = False
+        try:
+            xpath = '//*[@href="/app/settings/global/languages"]/div'
+            WebDriverWait(self.browser, self.delay).until(
+                EC.presence_of_element_located((By.XPATH, xpath)))
+            languages_element = self.browser.find_element_by_xpath(xpath)
+            is_activated = True
+
+        except:
+            pass
+
+        if boolean != is_activated:
+            xpath = '//*[@name="global"]'
+            element = self.browser.find_element_by_xpath(xpath)
+            element.click()
+
+        if is_activated and language:
+            print("\nUnfortunately, Languages setting feature does not yet exist")
+            print("If needed anyways:\nfeel free to open an issue and ask for the feature")
+            print("or contribute by making a pull request.\n")
+
+            '''
+            languages_element.click()
+            xpath = "//*[contains(text(), {})]".format(language)
+            WebDriverWait(self.browser, self.delay).until(
+                    EC.presence_of_element_located((By.XPATH, xpath)))
+            self.browser.find_elements_by_xpath(xpath).click()
+            '''
+            time.sleep(5)

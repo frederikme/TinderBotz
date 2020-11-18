@@ -83,6 +83,10 @@ class Session:
         helper = ProfileHelper(browser=self.browser)
         helper.setSexualitiy(type)
 
+    def setGlobal(self, boolean):
+        helper = ProfileHelper(browser=self.browser)
+        helper.setGlobal(boolean)
+
     # Actions of the session
     def loginUsingGoogle(self, email, password):
         if not self.isLoggedIn():

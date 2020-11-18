@@ -33,6 +33,9 @@ if __name__ == "__main__":
     # set interested in gender(s) -> options are: WOMEN, MEN, EVERYONE
     session.setSexuality(Sexuality.WOMEN)
 
+    # Allow profiles from all over the world to appear
+    session.setGlobal(True)
+
     # spam likes, dislikes and superlikes
     session.like(amount=1)
     session.dislike(amount=1)
