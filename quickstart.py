@@ -3,7 +3,7 @@ Created by Frederikme (TeetiFM)
 '''
 
 from tinderbotz.session import Session
-from tinderbotz.helpers.constants_helper import Socials, Sexuality
+from tinderbotz.helpers.constants_helper import *
 
 import constants
 
