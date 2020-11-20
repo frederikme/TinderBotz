@@ -6,7 +6,7 @@ setup(
   packages=['tinderbotz'],   # Chose the same as "name"
   version='1.0',      # Start with a small number and increase it with every change you make
   license='MIT',        # Chose a license from here: https://help.github.com/articles/licensing-a-repository
-  description='Tool for displaying loading processes',   # Give a short description about your library
+  description='Tinder automated bot and data scraper',   # Give a short description about your library
   author='Frederik Mees',                   # Type in your name
   author_email='frederik.mees@gmail.com',      # Type in your E-Mail
   url='https://github.com/frederikme/TinderBot',   # Provide either the link to your github or to your website
