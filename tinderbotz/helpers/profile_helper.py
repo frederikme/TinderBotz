@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 
-from tinderbot.helpers.constants_helper import Sexuality
+from tinderbotz.helpers.constants_helper import Sexuality
 import time
 
 class ProfileHelper:

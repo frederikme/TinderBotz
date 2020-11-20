@@ -2,8 +2,8 @@
 Created by Frederikme (TeetiFM)
 '''
 
-from tinderbot.session import Session
-from tinderbot.helpers.constants_helper import Socials, Sexuality
+from tinderbotz.session import Session
+from tinderbotz.helpers.constants_helper import Socials, Sexuality
 
 import constants
 
@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
     # set range of allowed ages
     # Note: You need to be logged in for this setting
-    session.setAgeRange(25, 44)
+    session.setAgeRange(18, 55)
 
     # set interested in gender(s) -> options are: WOMEN, MEN, EVERYONE
     session.setSexuality(Sexuality.WOMEN)

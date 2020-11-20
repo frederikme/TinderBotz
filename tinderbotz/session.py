@@ -10,16 +10,16 @@ import os
 from sys import platform
 import time
 
-from tinderbot.helpers.location_helper import LocationHelper
-from tinderbot.helpers.profile_helper import ProfileHelper
+from tinderbotz.helpers.location_helper import LocationHelper
+from tinderbotz.helpers.profile_helper import ProfileHelper
 
-from tinderbot.helpers.geomatch import Geomatch
-from tinderbot.helpers.match import Match
-from tinderbot.helpers.geomatch_helper import GeomatchHelper
-from tinderbot.helpers.match_helper import MatchHelper
-from tinderbot.helpers.login_helper import LoginHelper
-from tinderbot.helpers.storage_helper import StorageHelper
-from tinderbot.helpers.loadingbar import LoadingBar
+from tinderbotz.helpers.geomatch import Geomatch
+from tinderbotz.helpers.match import Match
+from tinderbotz.helpers.geomatch_helper import GeomatchHelper
+from tinderbotz.helpers.match_helper import MatchHelper
+from tinderbotz.helpers.login_helper import LoginHelper
+from tinderbotz.helpers.storage_helper import StorageHelper
+from tinderbotz.helpers.loadingbar import LoadingBar
 
 
 class Session:
@@ -44,7 +44,7 @@ class Session:
         print("Getting ChromeDriver ...")
         print("Adding Location Guard extension ...")
         options = webdriver.ChromeOptions()
-        options.add_extension('./tinderbot/LocationGuardExtension.crx')
+        options.add_extension('./tinderbotz/LocationGuardExtension.crx')
         options.add_experimental_option('w3c', False)
 
         self.browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)

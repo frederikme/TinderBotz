@@ -5,9 +5,9 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException, StaleElementReferenceException, NoSuchElementException
 import time
 
-from tinderbot.helpers.match import Match
-from tinderbot.helpers.constants_helper import Socials
-from tinderbot.helpers.loadingbar import LoadingBar
+from tinderbotz.helpers.match import Match
+from tinderbotz.helpers.constants_helper import Socials
+from tinderbotz.helpers.loadingbar import LoadingBar
 
 class MatchHelper:
 
