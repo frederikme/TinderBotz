@@ -44,7 +44,7 @@ class Session:
         print("Getting ChromeDriver ...")
         print("Adding Location Guard extension ...")
         options = webdriver.ChromeOptions()
-        options.add_extension('./LocationGuardExtension.crx')
+        options.add_extension('./tinderbot/LocationGuardExtension.crx')
         options.add_experimental_option('w3c', False)
 
         self.browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
