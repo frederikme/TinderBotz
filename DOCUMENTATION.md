@@ -148,7 +148,7 @@ session.setGlobal(True)
 ## Liking Geomatches
 Liking method has 2 optional parameters.</br>
 The amount, which is by default equal to 1, specifies how many times the like button should be pressed.</br>
-The ratio, which is by default 100%, is the chance the bot should press like and else dislike.</br>
+The ratio, which is by default 100%, is the chance the bot should press like or else dislike.</br>
 This should make sure you don't get banned. :)
 ```
 session.like()
