@@ -9,6 +9,7 @@ import pyfiglet
 import os
 from sys import platform
 import time
+import random
 
 from tinderbotz.helpers.location_helper import LocationHelper
 from tinderbotz.helpers.profile_helper import ProfileHelper
@@ -48,6 +49,7 @@ class Session:
         options.add_experimental_option('w3c', False)
 
         self.browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+        self.browser.set_window_size(1000, 750)
         time.sleep(2)
         self.closeAbundantTabs()
 
@@ -116,14 +118,21 @@ class Session:
         # store its userdata
         StorageHelper.storeMatch(match=match, directory='data/{}'.format(filename), filename=filename)
 
-    def like(self, amount=1):
+    def like(self, amount=1, ratio=1):
         if self.isLoggedIn():
             helper = GeomatchHelper(browser=self.browser)
             loadingbar = LoadingBar(amount, "likes")
-            for index in range(amount):
+            amount_liked = 0
+            while amount_liked < amount:
                 self.handlePotentialPopups()
-                helper.like()
-                loadingbar.updateLoadingBar(index)
+
+                if random.random() <= ratio:
+                    helper.like()
+                    amount_liked += 1
+                    loadingbar.updateLoadingBar(amount_liked)
+
+                else:
+                    helper.dislike()
 
     def dislike(self, amount=1):
         if self.isLoggedIn():

@@ -37,7 +37,8 @@ if __name__ == "__main__":
     session.setGlobal(True)
 
     # spam likes, dislikes and superlikes
-    session.like(amount=1)
+    # to avoid being banned, it's best to apply a randomness in your liking by sometimes disliking.
+    session.like(amount=10, ratio=0.7)
     session.dislike(amount=1)
     session.superlike(amount=1)
 
