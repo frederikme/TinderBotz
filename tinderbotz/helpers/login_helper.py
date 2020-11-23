@@ -14,19 +14,17 @@ class LoginHelper:
         self.browser = browser
 
     def clickLoginButton(self):
-        # check if there is a login button, if there is, that means user is not logged in yet
         try:
-            xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/header/div[1]/div[2]/div/button'
-
+            xpath = '//*[@type="button"]'
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                 (By.XPATH, xpath)))
+            buttons = self.browser.find_elements_by_xpath(xpath)
 
-            btn = self.browser.find_element_by_xpath(xpath)
-
-            btn.click()
-
-            time.sleep(2)
-
+            for button in buttons:
+                text_span = button.find_element_by_xpath('.//span').text
+                if 'log in' in text_span.lower():
+                    button.click()
+                    break
         except Exception as e:
             print(e)
 
@@ -35,17 +33,13 @@ class LoginHelper:
 
         # wait for google button to appear
         try:
-            xpath = '//*[@id="modal-manager"]/div/div/div[1]/div/div[3]/span/div[1]/div/button'
-
+            xpath = '//*[@aria-label="Log in with Google"]'
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                 (By.XPATH, xpath)))
 
             btn = self.browser.find_element_by_xpath(xpath)
+            btn.click()
 
-            btn.send_keys(Keys.ENTER)
-
-            # sleeping 3 seconds for pop up to come through
-            time.sleep(3)
         except TimeoutException:
             print("Loading took too much time! Let's try again.")
         except Exception as e:
