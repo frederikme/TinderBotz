@@ -38,6 +38,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About the Project
+**INFO: now also available as a PIP INSTALL as illustrated [here](#installation)**</br>
 **IMPORTANT: Starring the project indicates shows your appreciation and will result in new features being added!**</br>
 </br>
 This project started with the motivation of learning web automation further and scraping with Python.</br>
@@ -73,6 +74,12 @@ If you feel like diving right in, the [quickstart.py](https://github.com/frederi
 - Tinder account with Google or Facebook login enabled
 
 ### Installation
+#### PyPi
+You can now install the project as a pip package.
+```
+pip3 install tinderbotz
+```
+#### Github
 1. Clone or download the project
 2. Install the required packages
 ```
