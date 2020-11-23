@@ -118,7 +118,10 @@ class Session:
         # store its userdata
         StorageHelper.storeMatch(match=match, directory='data/{}'.format(filename), filename=filename)
 
-    def like(self, amount=1, ratio=1):
+    def like(self, amount=1, ratio='100%'):
+
+        ratio = float(ratio.split('%')[0]) / 100
+
         if self.isLoggedIn():
             helper = GeomatchHelper(browser=self.browser)
             loadingbar = LoadingBar(amount, "likes")
