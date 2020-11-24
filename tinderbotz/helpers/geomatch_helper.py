@@ -18,10 +18,7 @@ class GeomatchHelper:
 
     def like(self):
         try:
-            if 'profile' in self.browser.current_url:
-                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[4]/button'
-            else:
-                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[4]/button'
+            xpath = '//*[@aria-label="Like"]'
 
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
@@ -47,11 +44,7 @@ class GeomatchHelper:
 
     def dislike(self):
         try:
-            # TODO handle by aria-label, cleaner and no need to diverse between profile selected or not
-            if 'profile' in self.browser.current_url:
-                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[2]/button'
-            else:
-                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[2]/button'
+            xpath = '//*[@aria-label="Nope"]'
 
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
@@ -76,10 +69,8 @@ class GeomatchHelper:
 
     def superlike(self):
         try:
-            if 'profile' in self.browser.current_url:
-                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[3]/div/div/div/button'
-            else:
-                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[3]/div/div/div/button'
+            xpath = '//*[@aria-label="Super Like"]'
+
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                 (By.XPATH, xpath)))
@@ -103,29 +94,32 @@ class GeomatchHelper:
     def openProfile(self, second_try=False):
         if self.isProfileOpened(): return;
         try:
-            xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[1]/div[3]/div[3]/button'
-            # wait for element to appear
+            xpath = '//button'
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                 (By.XPATH, xpath)))
+            buttons = self.browser.find_elements_by_xpath(xpath)
 
-            full_profile_button = self.browser.find_element_by_xpath(xpath)
+            for button in buttons:
+                # some buttons might not have a span as subelement
+                try:
+                    text_span = button.find_element_by_xpath('.//span').text
+                    print(text_span)
+                    if 'open profile' in text_span.lower():
+                        print("click button")
+                        button.click()
+                        break
+                except:
+                    continue
 
-            full_profile_button.click()
             time.sleep(1)
 
-        except ElementClickInterceptedException:
-            self.browser.refresh()
-
-        except TimeoutException:
+        except ElementClickInterceptedException or TimeoutException:
             if not second_try:
                 print("Trying again to locate the profile info button in a few seconds")
                 time.sleep(2)
                 self.openProfile(second_try=True)
             else:
-                print("timeout exception")
-
-        except Exception as e:
-            print(e)
+                self.browser.refresh()
 
     def getName(self):
         if not self.isProfileOpened():
