@@ -38,7 +38,6 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About the Project
-**INFO: now also available as a PIP INSTALL as illustrated [here](#installation)**</br>
 **IMPORTANT: Starring the project indicates shows your appreciation and will result in new features being added!**</br>
 </br>
 This project started with the motivation of learning web automation further and scraping with Python.</br>
@@ -58,7 +57,9 @@ I managed to succesfully create a bot that could: </br>
 If you feel like diving right in, the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/quickstart.py) will help you be right on track.</br>
 *Feel free to make a pull request and contribute to this project!*</br>
 </br>
-***Enjoy! :)***
+***Enjoy! :)***</br>
+</br>
+**INFO: now also available as a PIP INSTALL as illustrated [here](#installation)**</br>
 
 ### Built with
 
