@@ -1,9 +1,10 @@
 from selenium import webdriver
+from selenium.webdriver import ActionChains
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException, ElementNotVisibleException
 
 import pyfiglet
 import os
@@ -22,6 +23,7 @@ from tinderbotz.helpers.login_helper import LoginHelper
 from tinderbotz.helpers.storage_helper import StorageHelper
 from tinderbotz.helpers.loadingbar import LoadingBar
 
+from tinderbotz.helpers.email_helper import EmailHelper
 
 class Session:
 
@@ -40,6 +42,9 @@ class Session:
         print(pyfiglet.figlet_format(text))
         print("-> Made by Frederikme")
         print("-----------------------------------\n\n")
+
+        self.email = None
+        self.can_send_email = False
 
         # getting chromedriver from cache or download from internet
         print("Getting ChromeDriver ...")
@@ -89,13 +94,19 @@ class Session:
         helper = ProfileHelper(browser=self.browser)
         helper.setGlobal(boolean)
 
+    # This will send notification when you get a match to your email used to logged in.
+    def setEmailNotifications(self, boolean):
+        self.can_send_email = boolean
+
     # Actions of the session
     def loginUsingGoogle(self, email, password):
+        self.email = email
         if not self.isLoggedIn():
             helper = LoginHelper(browser=self.browser)
             helper.loginByGoogle(email, password)
 
     def loginUsingFacebook(self, email, password):
+        self.email = email
         if not self.isLoggedIn():
             helper = LoginHelper(browser=self.browser)
             helper.loginByFacebook(email, password)
@@ -126,8 +137,9 @@ class Session:
             helper = GeomatchHelper(browser=self.browser)
             loadingbar = LoadingBar(amount, "likes")
             amount_liked = 0
+            # handle one time up front, from then on check after every action instead of before
+            self.handlePotentialPopups()
             while amount_liked < amount:
-                self.handlePotentialPopups()
 
                 if random.random() <= ratio:
                     helper.like()
@@ -136,6 +148,8 @@ class Session:
 
                 else:
                     helper.dislike()
+
+                self.handlePotentialPopups()
 
     def dislike(self, amount=1):
         if self.isLoggedIn():
@@ -256,23 +270,37 @@ class Session:
             pass
 
         # try to dismiss match
+        matched = False
         try:
             xpath = '//*[@id="modal-manager-canvas"]/div/div/div[1]/div/div[4]/button'
 
             match_popup = self.browser.find_element_by_xpath(xpath)
             match_popup.click()
-            return "POPUP: Dismissed NEW MATCH"
+            matched = True
 
         except NoSuchElementException:
             pass
 
-        # try to say 'no thanks' to buy more superlikes
+        if matched and self.can_send_email:
+
+            try:
+                EmailHelper.sendMailMatchFound(self.email)
+            except:
+                print("Some error occurred when trying to send mail.")
+                print("Consider opening an Issue on Github.")
+                pass
+            return "POPUP: Dismissed NEW MATCH"
+
+        # try to say 'no thanks' to buy more (super)likes
         try:
             xpath = '//*[@id="modal-manager"]/div/div/div[3]/button[2]'
             denyBtn = self.browser.find_element_by_xpath(xpath)
             denyBtn.click()
             return "POPUP: Denied buying more superlikes"
 
+        except ElementNotVisibleException:
+            # element is not clickable, probably cuz it's out of view but still there
+            self.browser.refresh()
         except NoSuchElementException:
             pass
 

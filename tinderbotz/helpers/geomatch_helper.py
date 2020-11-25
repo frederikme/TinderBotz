@@ -18,7 +18,8 @@ class GeomatchHelper:
 
     def like(self):
         try:
-            xpath = '//*[@aria-label="Like"]'
+            # need to find better way
+            xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[4]/button'
 
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
@@ -44,7 +45,7 @@ class GeomatchHelper:
 
     def dislike(self):
         try:
-            xpath = '//*[@aria-label="Nope"]'
+            xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[2]/button'
 
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
@@ -69,7 +70,7 @@ class GeomatchHelper:
 
     def superlike(self):
         try:
-            xpath = '//*[@aria-label="Super Like"]'
+            xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[3]/div/div/div/button'
 
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
@@ -103,9 +104,7 @@ class GeomatchHelper:
                 # some buttons might not have a span as subelement
                 try:
                     text_span = button.find_element_by_xpath('.//span').text
-                    print(text_span)
                     if 'open profile' in text_span.lower():
-                        print("click button")
                         button.click()
                         break
                 except:

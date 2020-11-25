@@ -166,6 +166,8 @@ class MatchHelper:
         try:
             xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[1]/button'
 
+            #xpath = '//*[@alt="GIF"]'
+
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, xpath)))
             gif_btn = self.browser.find_element_by_xpath(xpath)
