@@ -35,6 +35,10 @@
   * [Features](DOCUMENTATION.md)
   * [Demo](#demonstration)
 * [Coming Soon Features](#coming-soon-features)
+  * [Picture is Worth a Thousand Words](#a-picture-is-worth-a-thousand-words)
+  * [Finally a Worthy Opponent](#finally-a-worthy-opponent)
+  * [Integrating Scraping](#integrating-scraping-better)
+  * [Statistics Overview](#because-we-all-like-some-juicy-statistics)
 * [Support the Repository](#support-the-repository)
 
 <!-- ABOUT THE PROJECT -->
@@ -120,7 +124,7 @@ Then only like those profiles that come womewhat close to your looks. </br>
 Find a cleaner way to scrape geomatches while liking or disliking.</br>
 Then try to get some wordclouds out of most common names, bio's...</br>
 
-### Because we all like some juicy statistics, don't we ;-)
+### Because we all like some juicy statistics
 When the script is done running, an overview must be shown with all the actions done.
 1. Logged in
 2. Set custom location to ...
