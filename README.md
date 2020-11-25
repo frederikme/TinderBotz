@@ -109,18 +109,18 @@ Features of Tinderbot as demonstrated belowed can be found here: **[Tinderbot fe
 <img src="https://user-images.githubusercontent.com/60892381/94997724-43ce3280-05ad-11eb-8a94-0a66f0afbf93.gif"></src>
 
 ## Coming Soon Features
-### Email image of match
+### A picture is worth a thousand words
 Instead of just sending an email with 'you have a match', let's add an image so you know if it's worth opening the app manually.</br>
 
-### Liking based on Pretty or Ugly
-Writing/integrating a face recognition tool that would rate an image of yourself and the image of the geomatch.</br>
-Then only like those profiles that come near your looks. </br>
+### Finally a worthy opponent
+Integrating a face recognition tool that would rate an image of yourself and an image of the geomatch.</br>
+Then only like those profiles that come womewhat close to your looks. </br>
 
-### Invest more options into scraped matches.
+### Integrating Scraping (better)
 Find a cleaner way to scrape geomatches while liking or disliking.</br>
 Then try to get some wordclouds out of most common names, bio's...</br>
 
-### When the script stops running, show an overview
+### Because we all like some juicy statistics, don't we ;-)
 When the script is done running, an overview must be shown with all the actions done.
 1. Logged in
 2. Set custom location to ...
