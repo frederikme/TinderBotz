@@ -12,6 +12,7 @@ class LoginHelper:
 
     def __init__(self, browser):
         self.browser = browser
+        self.acceptCookies()
 
     def clickLoginButton(self):
         try:
@@ -86,7 +87,7 @@ class LoginHelper:
 
         # wait for facebook button to appear
         try:
-            xpath = '//*[@aria-label="Login with Facebook"]'
+            xpath = '//*[@aria-label="Log in with Facebook"]'
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                 (By.XPATH, xpath)))
 
