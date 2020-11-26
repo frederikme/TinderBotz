@@ -15,6 +15,7 @@ Seeing these profiles and thus '*breaking the first barrier of matching*' is why
 * [Settings](#settings)
   * [Custom Location](#custom-location)
   * [Realtime Location](#realtime-location)
+  * [Email Notifications](#email-notifications)
   * [Distance Range](#distance-range)
   * [Age Range](#age-range)
   * [Sexuality](#sexuality)
@@ -78,6 +79,21 @@ session.setCustomLocation("Leuven, Belgium")
 The realtime location is used by default. However if you want to swap from the custom location to your realtime location, you will need to call this function.
 ```
 session.setRealtimeLocation()
+```
+
+## Email Notifications
+You can activate the option to receive an email whenever you get a match. The email, which you've used to login with, is being used as recepient.
+By default no emails are being sent. If you wish to receive emails you need to set this setting to **True**.
+```
+session.setEmailNotifications(boolean)
+```
+
+**Required parameters**</br>
+`boolean`: *boolean*</br>
+
+**Example usage**</br>
+```
+session.setEmailNotifications(True)
 ```
 
 ## Distance Range
