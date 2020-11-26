@@ -40,8 +40,11 @@ if __name__ == "__main__":
     session.setGlobal(True)
 
     # spam likes, dislikes and superlikes
-    # to avoid being banned, it's best to apply a randomness in your liking by sometimes disliking.
-    session.like(amount=10, ratio="72.5%")
+    # to avoid being banned:
+    #   - it's best to apply a randomness in your liking by sometimes disliking.
+    #   - some sleeping between two actions is recommended
+    # NOTE: these recommendations apply mostly to large amounts of swiping (+100 likes)
+    session.like(amount=10, ratio="72.5%", sleep=1)
     session.dislike(amount=1)
     session.superlike(amount=1)
 

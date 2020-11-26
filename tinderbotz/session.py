@@ -128,7 +128,7 @@ class Session:
         # store its userdata
         StorageHelper.storeMatch(match=match, directory='data/{}'.format(filename), filename=filename)
 
-    def like(self, amount=1, ratio='100%'):
+    def like(self, amount=1, ratio='100%', sleep=0):
 
         ratio = float(ratio.split('%')[0]) / 100
 
@@ -139,7 +139,6 @@ class Session:
             # handle one time up front, from then on check after every action instead of before
             self.handlePotentialPopups()
             while amount_liked < amount:
-
                 if random.random() <= ratio:
                     helper.like()
                     amount_liked += 1
@@ -149,6 +148,7 @@ class Session:
                     helper.dislike()
 
                 self.handlePotentialPopups()
+                time.sleep(sleep)
 
     def dislike(self, amount=1):
         if self.isLoggedIn():
