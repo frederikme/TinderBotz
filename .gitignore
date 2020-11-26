@@ -4,3 +4,6 @@ constants.py
 data/
 tutorial.txt
 test.py
+tinderbotz.egg-info
+dist
+build
