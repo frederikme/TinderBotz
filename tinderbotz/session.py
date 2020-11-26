@@ -1,5 +1,4 @@
 from selenium import webdriver
-from selenium.webdriver import ActionChains
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -323,7 +322,8 @@ class Session:
     def isLoggedIn(self):
         # make sure tinder website is loaded for the first time
         if not "tinder" in self.browser.current_url:
-            self.browser.get(self.HOME_URL)
+            # enforce english language
+            self.browser.get("https://tinder.com/?lang=en")
             time.sleep(1.5)
 
         if "tinder.com/app/" in self.browser.current_url:

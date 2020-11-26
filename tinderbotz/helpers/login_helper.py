@@ -90,9 +90,7 @@ class LoginHelper:
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                 (By.XPATH, xpath)))
 
-            btn = self.browser.find_element_by_xpath(xpath)
-            time.sleep(2)
-            btn.click()
+            self.browser.find_element_by_xpath(xpath).click()
         except TimeoutException:
             self.exitByTimeOut()
 
@@ -102,9 +100,10 @@ class LoginHelper:
             return self.loginByFacebook(email, password)
 
         try:
-
             xpath_email = '//*[@id="email"]'
             xpath_password = '//*[@id="pass"]'
+            xpath_button = '//*[@id="loginbutton"]'
+
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, xpath_email)))
 
@@ -113,7 +112,9 @@ class LoginHelper:
 
             pwdfield = self.browser.find_element_by_xpath(xpath_password)
             pwdfield.send_keys(password)
-            pwdfield.send_keys(Keys.ENTER)
+
+            loginbutton = self.browser.find_element_by_xpath(xpath_button)
+            loginbutton.click()
 
         except TimeoutException:
             self.exitByTimeOut()
@@ -129,7 +130,7 @@ class LoginHelper:
 
     def acceptLocationNotification(self):
         try:
-            xpath = '//*[@data-testid="allow"]'#'//*[@aria-label="Allow"]'
+            xpath = '//*[@data-testid="allow"]'
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, xpath)))
 
@@ -216,6 +217,6 @@ class LoginHelper:
         self.browser.switch_to.window(main_window)
 
     def exitByTimeOut(self):
-        print("Loading took an element too much time!. Please check your internet connection.")
+        print("Loading an element took too much time!. Please check your internet connection.")
         print("Alternatively, you can add a sleep or higher the delay class variable.")
         exit(1)
