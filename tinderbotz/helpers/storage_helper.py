@@ -98,7 +98,7 @@ class StorageHelper:
         filepath = directory + "/{}.json".format(filename)
 
         try:
-            with open(filepath, "r", encoding='utf-8-sig') as fp:
+            with open(filepath, "r", encoding='utf-8') as fp:
                 data = json.load(fp)
         except IOError:
             print("Could not read file, starting from scratch")
@@ -106,5 +106,5 @@ class StorageHelper:
 
         data[match.getID()] = match.getDictionary()
 
-        with open(filepath, 'w+', encoding="utf-8-sig") as file:
+        with open(filepath, 'w+', encoding="utf-8") as file:
             json.dump(data, file)
