@@ -1,3 +1,4 @@
+# Selenium: automation of browser
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
@@ -5,55 +6,91 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, ElementNotVisibleException
 
-import pyfiglet
+# some
+import pyfiglet # Let's us create
 import os
 from sys import platform
 import time
 import random
+import atexit
 
-from tinderbotz.helpers.location_helper import LocationHelper
-from tinderbotz.helpers.profile_helper import ProfileHelper
-
+# Tinderbotz: helper classes
 from tinderbotz.helpers.geomatch import Geomatch
 from tinderbotz.helpers.match import Match
+from tinderbotz.helpers.location_helper import LocationHelper
+from tinderbotz.helpers.profile_helper import ProfileHelper
 from tinderbotz.helpers.geomatch_helper import GeomatchHelper
 from tinderbotz.helpers.match_helper import MatchHelper
 from tinderbotz.helpers.login_helper import LoginHelper
 from tinderbotz.helpers.storage_helper import StorageHelper
 from tinderbotz.helpers.loadingbar import LoadingBar
-
 from tinderbotz.helpers.email_helper import EmailHelper
+
 
 class Session:
 
     HOME_URL = "https://www.tinder.com/app/recs"
 
     def __init__(self):
-        # clear the console and show some basic info
+        # clear the console based on the operating system you're using
         if platform == "linux" or platform == "linux2" or "darwin":
-            # Linux or MacOS
             os.system("clear")
         elif platform == "win32":
-            # Windows
             os.system("cls")
 
-        text = "Tinderbot"
-        print(pyfiglet.figlet_format(text))
-        print("-> Made by Frederikme")
-        print("-----------------------------------\n\n")
+        # Cool banner
+        title = ''' 
+         _____ _           _           _           _       
+        |_   _(_)_ __   __| | ___ _ __| |__   ___ | |_ ____
+          | | | | '_ \ / _` |/ _ \ '__| '_ \ / _ \| __|_  /
+          | | | | | | | (_| |  __/ |  | |_) | (_) | |_ / / 
+          |_| |_|_| |_|\__,_|\___|_|  |_.__/ \___/ \__/___|
+        ----------------------------------------------------'''
+        print(title)
+        print("Made by Frederikme")
+        y = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        print("Started session: {}\n\n".format(y))
 
         self.email = None
-        self.can_send_email = False
+        self.may_send_email = False
+        self.session_data = {
+            "duration": 0,
+            "like": 0,
+            "dislike": 0,
+            "superlike": 0
+        }
 
-        # getting chromedriver from cache or download from internet
-        print("Getting ChromeDriver ...")
+        start_session = time.time()
+
+        # this function will run when the session ends
+        @atexit.register
+        def cleanup():
+            # End session duration
+            seconds = int(time.time() - start_session)
+            self.session_data["duration"] = seconds
+
+            # add key's to list
+            lines = []
+            for key in self.session_data:
+                message = "{}: {}".format(key, self.session_data[key])
+                lines.append(message)
+
+            # print out stats of the session
+            print(self.msg_box(lines=lines, title="Tinderbotz"))
+
+        # Go further with the initialisation
+        # add location guard extension as option parameter
         print("Adding Location Guard extension ...")
         options = webdriver.ChromeOptions()
         options.add_extension('./tinderbotz/LocationGuardExtension.crx')
         options.add_experimental_option('w3c', False)
 
+        # getting chromedriver from cache or download from internet
+        print("Getting ChromeDriver ...")
         self.browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
-        self.browser.set_window_size(1000, 750)
+        self.browser.set_window_size(1250, 750)
+
+        # wait some time, before location guard extension pops up in second tab then close it
         time.sleep(2)
         self.closeAbundantTabs()
 
@@ -76,6 +113,10 @@ class Session:
         helper = LocationHelper(browser=self.browser)
         helper.setRealtimeLocation()
 
+    # This will send notification when you get a match to your email used to logged in.
+    def setEmailNotifications(self, boolean):
+        self.may_send_email = boolean
+
     # NOTE: Need to be logged in for this
     def setDistanceRange(self, km):
         helper = ProfileHelper(browser=self.browser)
@@ -92,10 +133,6 @@ class Session:
     def setGlobal(self, boolean):
         helper = ProfileHelper(browser=self.browser)
         helper.setGlobal(boolean)
-
-    # This will send notification when you get a match to your email used to logged in.
-    def setEmailNotifications(self, boolean):
-        self.can_send_email = boolean
 
     # Actions of the session
     def loginUsingGoogle(self, email, password):
@@ -142,10 +179,18 @@ class Session:
                 if random.random() <= ratio:
                     helper.like()
                     amount_liked += 1
+
+                    # update for stats after session ended
+                    self.session_data['like'] += 1
+
+                    # update loadingbar display
                     loadingbar.updateLoadingBar(amount_liked)
 
                 else:
                     helper.dislike()
+
+                    # update for stats after session ended
+                    self.session_data['dislike'] += 1
 
                 self.handlePotentialPopups()
                 time.sleep(sleep)
@@ -157,6 +202,11 @@ class Session:
             for index in range(amount):
                 self.handlePotentialPopups()
                 helper.dislike()
+
+                # update for stats after session ended
+                self.session_data['dislike'] += 1
+
+                # update loadingbar display
                 loadingbar.updateLoadingBar(index)
 
     def superlike(self, amount=1):
@@ -166,6 +216,10 @@ class Session:
             for index in range(amount):
                 self.handlePotentialPopups()
                 helper.superlike()
+                # update for stats after session ended
+                self.session_data['dislike'] += 1
+
+                # update loadingbar display
                 loadingbar.updateLoadingBar(index)
 
     def getGeomatch(self):
@@ -203,31 +257,31 @@ class Session:
         if self.isLoggedIn():
             helper = MatchHelper(browser=self.browser)
             self.handlePotentialPopups()
-            return helper.sendMessage(chatid, message)
+            helper.sendMessage(chatid, message)
 
     def sendGif(self, chatid, gifname):
         if self.isLoggedIn():
             helper = MatchHelper(browser=self.browser)
             self.handlePotentialPopups()
-            return helper.sendGif(chatid, gifname)
+            helper.sendGif(chatid, gifname)
 
     def sendSong(self, chatid, songname):
         if self.isLoggedIn():
             helper = MatchHelper(browser=self.browser)
             self.handlePotentialPopups()
-            return helper.sendSong(chatid, songname)
+            helper.sendSong(chatid, songname)
 
     def sendSocials(self, chatid, media, value):
         if self.isLoggedIn():
             helper = MatchHelper(browser=self.browser)
             self.handlePotentialPopups()
-            return helper.sendSocials(chatid, media, value)
+            helper.sendSocials(chatid, media, value)
 
     def unMatch(self, chatid):
         if self.isLoggedIn():
             helper = MatchHelper(browser=self.browser)
             self.handlePotentialPopups()
-            return helper.unMatch(chatid)
+            helper.unMatch(chatid)
 
     # Utilities
     def handlePotentialPopups(self):
@@ -280,7 +334,7 @@ class Session:
         except NoSuchElementException:
             pass
 
-        if matched and self.can_send_email:
+        if matched and self.may_send_email:
 
             try:
                 EmailHelper.sendMailMatchFound(self.email)
@@ -331,3 +385,17 @@ class Session:
         else:
             print("User is not logged in yet.\n")
             return False
+
+    def msg_box(self, lines, indent=1, width=None, title=None):
+        """Print message-box with optional title."""
+        space = " " * indent
+        if not width:
+            width = max(map(len, lines))
+        box = f'╔{"═" * (width + indent * 2)}╗\n'  # upper_border
+        if title:
+            box += f'║{space}{title:<{width}}{space}║\n'  # title
+            box += f'║{space}{"-" * len(title):<{width}}{space}║\n'  # underscore
+        box += ''.join([f'║{space}{line:<{width}}{space}║\n' for line in lines])
+        box += f'╚{"═" * (width + indent * 2)}╝'  # lower_border
+        return box
+

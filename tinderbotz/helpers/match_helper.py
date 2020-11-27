@@ -13,11 +13,11 @@ class MatchHelper:
 
     delay = 5
 
-    HOME_URL = "https://www.tinder.com/app/recs"
+    HOME_URL = "https://tinder.com/app/recs"
 
     def __init__(self, browser):
         self.browser = browser
-        if self.HOME_URL is not self.browser.current_url:
+        if '/app/recs' not in self.browser.current_url:
             self.browser.get(self.HOME_URL)
             time.sleep(2)
 
@@ -62,20 +62,18 @@ class MatchHelper:
 
             for index in range(len(list_refs)):
                 ref = list_refs[index].get_attribute('href')
-                if index == 0 and ref == "https://tinder.com/app/likes-you":
+                if "likes-you" in ref:
                     continue
                 else:
                     chatids.append(ref.split('/')[-1])
-
-            chatids = [chatids[0]]
 
             print("\nGetting not-interacted-with, NEW MATCHES")
             loadingbar = LoadingBar(len(chatids), "new matches")
             for index, chatid in enumerate(chatids):
                 matches.append(self.getMatch(chatid))
                 loadingbar.updateLoadingBar(index)
-
             print("\n")
+
         except NoSuchElementException:
             pass
 
@@ -351,7 +349,7 @@ class MatchHelper:
 
         name = self.getName(chatid)
         age = self.getAge(chatid)
-        distance = self.getDistance(chatid)
+        distance = None #self.getDistance(chatid) needs fix
         bio = self.getBio(chatid)
         image_urls = self.getImageURLS(chatid)
 
