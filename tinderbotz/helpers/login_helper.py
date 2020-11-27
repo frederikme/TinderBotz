@@ -8,7 +8,7 @@ import time
 
 class LoginHelper:
 
-    delay = 5
+    delay = 7
 
     def __init__(self, browser):
         self.browser = browser
@@ -125,11 +125,9 @@ class LoginHelper:
 
     def handlePopups(self):
         time.sleep(2)
-        # Depending on Tinder, location could be before or after notifications pop up
         self.acceptCookies()
         self.acceptLocationNotification()
         self.denyOverlayedNotifications()
-        self.acceptLocationNotification()
 
     def acceptLocationNotification(self):
         try:

@@ -76,8 +76,12 @@ class Session:
                 lines.append(message)
 
             # print out stats of the session
-            box = self.msg_box(lines=lines, title="Tinderbotz")
-            print(box)
+            try:
+                box = self.msg_box(lines=lines, title="Tinderbotz")
+                print(box)
+            finally:
+                y = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+                print("Ended session: {}".format(y))
 
         # Go further with the initialisation
         # add location guard extension as option parameter
@@ -228,7 +232,14 @@ class Session:
             helper = GeomatchHelper(browser=self.browser)
             self.handlePotentialPopups()
 
-            name = helper.getName()
+            name = None
+            attempts = 0
+            max_attempts = 20
+            while not name and attempts < max_attempts:
+                attempts += 1
+                name = helper.getName()
+                time.sleep(2)
+
             age = helper.getAge()
             distance = helper.getDistance()
             bio = helper.getBio()

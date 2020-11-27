@@ -119,11 +119,14 @@ class GeomatchHelper:
                 self.openProfile(second_try=True)
             else:
                 self.browser.refresh()
+        except:
+            self.browser.get(self.HOME_URL)
+            if not second_try:
+                self.openProfile(second_try=True)
 
     def getName(self):
         if not self.isProfileOpened():
             self.openProfile()
-            return self.getName()
 
         try:
             xpath = '//h1[@itemprop="name"]'
@@ -135,8 +138,7 @@ class GeomatchHelper:
             element = self.browser.find_element_by_xpath(xpath)
             return element.text
         except Exception as e:
-            print("name")
-            print(e)
+            pass
 
     def getAge(self):
         if not self.isProfileOpened():
@@ -156,8 +158,7 @@ class GeomatchHelper:
                 return None
 
         except Exception as e:
-            print("age")
-            print(e)
+            pass
 
     def getDistance(self):
         if not self.isProfileOpened():
@@ -165,7 +166,7 @@ class GeomatchHelper:
 
         try:
 
-            xpath = "//*[contains(text(), 'kilometres away')]"
+            xpath = "//*[contains(text(), 'away')]"
 
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
@@ -184,8 +185,7 @@ class GeomatchHelper:
             return distance
 
         except Exception as e:
-            print("distance")
-            print(e)
+            pass
 
     def getBio(self):
         if not self.isProfileOpened():
@@ -196,8 +196,6 @@ class GeomatchHelper:
             return self.browser.find_element_by_xpath(xpath).text
 
         except Exception as e:
-            # no bio included?
-            print(e)
             return None
 
     def getImageURLS(self):

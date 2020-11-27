@@ -349,7 +349,7 @@ class MatchHelper:
 
         name = self.getName(chatid)
         age = self.getAge(chatid)
-        distance = None #self.getDistance(chatid) needs fix
+        distance = self.getDistance(chatid)
         bio = self.getBio(chatid)
         image_urls = self.getImageURLS(chatid)
 
@@ -387,7 +387,7 @@ class MatchHelper:
             self.openChat(chatid)
 
         try:
-            element = self.browser.find_element_by_xpath("//*[contains(text(), 'kilometres away')]")
+            element = self.browser.find_element_by_xpath("//*[contains(text(), 'away')]")
             return element.text.split(' ')[0]
         except Exception as e:
             print("distance")
