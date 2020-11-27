@@ -106,5 +106,5 @@ class StorageHelper:
 
         data[match.getID()] = match.getDictionary()
 
-        with open(filepath, 'w+') as file:
+        with open(filepath, 'w+', encoding="utf-8-sig") as file:
             json.dump(data, file)
