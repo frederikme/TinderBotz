@@ -76,7 +76,8 @@ class Session:
                 lines.append(message)
 
             # print out stats of the session
-            print(self.msg_box(lines=lines, title="Tinderbotz"))
+            box = self.msg_box(lines=lines, title="Tinderbotz")
+            print(box)
 
         # Go further with the initialisation
         # add location guard extension as option parameter
@@ -386,7 +387,7 @@ class Session:
             print("User is not logged in yet.\n")
             return False
 
-    def msg_box(self, lines, indent=1, width=None, title=None):
+    '''def msg_box(self, lines, indent=1, width=None, title=None):
         """Print message-box with optional title."""
         space = " " * indent
         if not width:
@@ -397,5 +398,17 @@ class Session:
             box += f'║{space}{"-" * len(title):<{width}}{space}║\n'  # underscore
         box += ''.join([f'║{space}{line:<{width}}{space}║\n' for line in lines])
         box += f'╚{"═" * (width + indent * 2)}╝'  # lower_border
-        return box
+        return box'''
 
+    def msg_box(self, lines, indent=1, width=None, title=None):
+        """Print message-box with optional title."""
+        space = " " * indent
+        if not width:
+            width = max(map(len, lines))
+        box = f'/{"=" * (width + indent * 2)}\\\n'  # upper_border
+        if title:
+            box += f'|{space}{title:<{width}}{space}|\n'  # title
+            box += f'|{space}{"-" * len(title):<{width}}{space}|\n'  # underscore
+        box += ''.join([f'|{space}{line:<{width}}{space}|\n' for line in lines])
+        box += f'\\{"=" * (width + indent * 2)}/'  # lower_border
+        return box
