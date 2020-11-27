@@ -98,7 +98,7 @@ class StorageHelper:
         filepath = directory + "/{}.json".format(filename)
 
         try:
-            with open(filepath, "r") as fp:
+            with open(filepath, "r", encoding='utf-8-sig') as fp:
                 data = json.load(fp)
         except IOError:
             print("Could not read file, starting from scratch")
