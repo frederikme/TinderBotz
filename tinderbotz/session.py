@@ -7,7 +7,6 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, ElementNotVisibleException
 
 # some
-import pyfiglet # Let's us create
 import os
 from sys import platform
 import time
@@ -33,10 +32,7 @@ class Session:
 
     def __init__(self):
         # clear the console based on the operating system you're using
-        if platform == "linux" or platform == "linux2" or "darwin":
-            os.system("clear")
-        elif platform == "win32":
-            os.system("cls")
+        os.system('cls' if os.name=='nt' else 'clear')
 
         # Cool banner
         title = ''' 

@@ -124,14 +124,6 @@ Then only like those profiles that come womewhat close to your looks. </br>
 Find a cleaner way to scrape geomatches while liking or disliking.</br>
 Then try to get some wordclouds out of most common names, bio's...</br>
 
-### Because we all like some juicy statistics
-When the script is done running, an overview must be shown with all the actions done.
-1. Logged in
-2. Set custom location to ...
-3. Likes 45 geomatches
-4. Dislikes 5 geomatches
-...
-
 ## Support the Repository
 Feel free to make a pull request and contribute to this project.</br>
 If you feel like buying me a drink:
