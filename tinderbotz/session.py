@@ -48,8 +48,8 @@ class Session:
         ----------------------------------------------------'''
         print(title)
         print("Made by Frederikme")
-        y = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-        print("Started session: {}\n\n".format(y))
+        self.started = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        print("Started session: {}\n\n".format(self.started))
 
         self.email = None
         self.may_send_email = False
@@ -80,6 +80,7 @@ class Session:
                 box = self.msg_box(lines=lines, title="Tinderbotz")
                 print(box)
             finally:
+                print("Started session: {}".format(self.started))
                 y = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
                 print("Ended session: {}".format(y))
 
@@ -145,6 +146,7 @@ class Session:
         if not self.isLoggedIn():
             helper = LoginHelper(browser=self.browser)
             helper.loginByGoogle(email, password)
+            time.sleep(3)
 
     def loginUsingFacebook(self, email, password):
         self.email = email
@@ -170,7 +172,7 @@ class Session:
         # store its userdata
         StorageHelper.storeMatch(match=match, directory='data/{}'.format(filename), filename=filename)
 
-    def like(self, amount=1, ratio='100%', sleep=0):
+    def like(self, amount=1, ratio='100%', sleep=1):
 
         ratio = float(ratio.split('%')[0]) / 100
 
@@ -297,7 +299,7 @@ class Session:
 
     # Utilities
     def handlePotentialPopups(self):
-        delay = 2
+        delay = 0.25
 
         # try to deny see who liked you
         try:
@@ -345,9 +347,11 @@ class Session:
 
         except NoSuchElementException:
             pass
+        except:
+            matched = True
+            self.browser.refresh()
 
         if matched and self.may_send_email:
-
             try:
                 EmailHelper.sendMailMatchFound(self.email)
             except:

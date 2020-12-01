@@ -49,9 +49,8 @@ class LocationHelper:
         except TimeoutException:
             print("Setting custom Location failed.")
             print("Location Guard extension failed to access the internet to browse for custom location")
-            print("Will try again...")
-            self.browser.refresh()
-            return self.setCustomLocation(location_name=location_name)
+            print("Will use real location anyways. :/")
+            return
 
         # Time to relocate map
         time.sleep(2)
