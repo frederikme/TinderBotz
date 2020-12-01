@@ -31,17 +31,8 @@ class GeomatchHelper:
             like_button.click()
             time.sleep(1)
 
-        except ElementClickInterceptedException:
-            self.browser.refresh()
-
-        except TimeoutException:
-            # like button not found in time -> reload page to find button again
-            print("like button not found -> reloading home page to find button again")
+        except (TimeoutException, ElementClickInterceptedException):
             self.getHomePage()
-
-        except Exception as e:
-            print("Another, not handled, exception occurred at like")
-            print(e)
 
     def dislike(self):
         try:
@@ -56,17 +47,8 @@ class GeomatchHelper:
             dislike_button.click()
             time.sleep(1)
 
-        except ElementClickInterceptedException:
-            self.browser.refresh()
-
-        except TimeoutException:
-            # dislike button not found in time -> reload page to find button again
-            print("dislike button not found in time -> reloading home page to find button again")
+        except (TimeoutException, ElementClickInterceptedException):
             self.getHomePage()
-
-        except Exception as e:
-            print("Another, not handled, exception occurred at dislike")
-            print(e)
 
     def superlike(self):
         try:
@@ -80,17 +62,8 @@ class GeomatchHelper:
 
             superlike_button.click()
 
-        except ElementClickInterceptedException:
-            self.browser.refresh()
-
-        except TimeoutException:
-            # superlike button not found in time -> reload page to find button again
-            print("superlike button not found in time -> reloading page")
+        except (TimeoutException, ElementClickInterceptedException):
             self.getHomePage()
-
-        except Exception as e:
-            print("Another, not handled, exception occurred at superlike")
-            print(e)
 
     def openProfile(self, second_try=False):
         if self.isProfileOpened(): return;
@@ -112,7 +85,7 @@ class GeomatchHelper:
 
             time.sleep(1)
 
-        except ElementClickInterceptedException or TimeoutException:
+        except (ElementClickInterceptedException, TimeoutException):
             if not second_try:
                 print("Trying again to locate the profile info button in a few seconds")
                 time.sleep(2)
@@ -247,7 +220,7 @@ class GeomatchHelper:
 
     def getHomePage(self):
         self.browser.get(self.HOME_URL)
-        time.sleep(3)
+        time.sleep(5)
 
     def isProfileOpened(self):
         if '/profile' in self.browser.current_url:
