@@ -39,7 +39,6 @@
   * [Picture is Worth a Thousand Words](#a-picture-is-worth-a-thousand-words)
   * [Finally a Worthy Opponent](#finally-a-worthy-opponent)
   * [Integrating Scraping](#integrating-scraping-better)
-  * [Statistics Overview](#because-we-all-like-some-juicy-statistics)
 * [Support the Repository](#support-the-repository)
 
 <!-- ABOUT THE PROJECT -->
