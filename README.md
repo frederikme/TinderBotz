@@ -73,7 +73,7 @@ If you feel like diving right in, the [quickstart.py](https://github.com/frederi
 * [LocationGuard](https://chrome.google.com/webstore/detail/location-guard/cfohepagpmnodfdmjliccbbigdkfcgia)
 
 ### Breaking Record
-Currently at 5000 matches using this script!</br>
+Currently at 6500 matches using this script!</br>
 Reached 1000 matches in the first 24hours, now attempting to break the world record of most matches which is 14500.</br>
 Illustrating GIFS will come soon, but I need to blur all the faces first for privacy reason :') </br>
 
