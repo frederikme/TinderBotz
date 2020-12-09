@@ -133,4 +133,5 @@ Then try to get some wordclouds out of most common names, bio's...</br>
 Feel free to make a pull request and contribute to this project.</br>
 If you feel like buying me a drink:
 * [Paypal](https://paypal.me/frederikmees)
+* [Patreon](https://www.patreon.com/frederikme)
 
