@@ -34,15 +34,18 @@ class ProfileHelper:
         else:
             final_percentage = (km / 160) * 100
 
-        try:
-            xpath = '//*[@aria-label="Maximum distance in kilometres"]'
-            WebDriverWait(self.browser, self.delay).until(
-                EC.presence_of_element_located((By.XPATH, xpath)))
-            link = self.browser.find_element_by_xpath(xpath)
-        except TimeoutException:
-            # element not found in time, so let's try the american metric system
-                xpath = '//*[@aria-label="Maximum distance in miles"]'
+        possible_xpaths = ['//*[@aria-label="Maximum distance in kilometres"]',
+                           '//*[@aria-label="Maximum distance in kilometers"]',
+                           '//*[@aria-label="Maximum distance in miles"]']
+
+        for xpath in possible_xpaths:
+            try:
+                WebDriverWait(self.browser, self.delay).until(
+                    EC.presence_of_element_located((By.XPATH, xpath)))
                 link = self.browser.find_element_by_xpath(xpath)
+                break
+            except TimeoutException:
+                continue
 
         print("\nSlider of distance will be adjusted...")
         current_percentage = float(link.get_attribute('style').split(' ')[1].split('%')[0])
