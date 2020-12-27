@@ -13,8 +13,11 @@ class LoadingBar:
 
     def updateLoadingBar(self, index):
         sys.stdout.write('\r')
-
-        percentage_loaded = int((index + 1)*100 / self.length_of_loop)
+        
+        if self.length_of_loop == 0:
+            percentage_loaded = 100
+        else:
+            percentage_loaded = int((index + 1)*100 / self.length_of_loop)
 
         if percentage_loaded > 100:
             percentage_loaded = 100
