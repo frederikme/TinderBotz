@@ -15,9 +15,6 @@ if __name__ == "__main__":
     # set location (Don't need to be logged in for this)
     session.setCustomLocation("Leuven, Belgium")
 
-    # Will send you an email when you have a match.
-    session.setEmailNotifications(True)
-
     # login using your google account with a verified email!
     session.loginUsingGoogle(email=constants.email_google, password=constants.password_google)
 
