@@ -33,7 +33,7 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage-of-tinderbot)
-  * [Features](DOCUMENTATION.md)
+  * [Documentation](DOCUMENTATION.md)
   * [Demo](#demonstration)
 * [Coming Soon Features](#coming-soon-features)
   * [Picture is Worth a Thousand Words](#a-picture-is-worth-a-thousand-words)
@@ -123,17 +123,6 @@ Features of Tinderbot as demonstrated belowed can be found here: **[Tinderbot fe
 #### Sending personalized messages to your matches
 <img src="https://user-images.githubusercontent.com/60892381/94997724-43ce3280-05ad-11eb-8a94-0a66f0afbf93.gif"></src>
 
-## Coming Soon Features
-### A picture is worth a thousand words
-Instead of just sending an email with 'you have a match', let's add an image so you know if it's worth opening the app manually.</br>
-
-### Finally a worthy opponent
-Integrating a face recognition tool that would rate an image of yourself and an image of the geomatch.</br>
-Then only like those profiles that come womewhat close to your looks. </br>
-
-### Integrating Scraping (better)
-Find a cleaner way to scrape geomatches while liking or disliking.</br>
-Then try to get some wordclouds out of most common names, bio's...</br>
 
 ## Support the Repository
 Feel free to make a pull request and contribute to this project.</br>
