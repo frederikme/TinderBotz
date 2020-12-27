@@ -33,7 +33,7 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage-of-tinderbot)
-  * [Features](DOCUMENTATION.md)
+  * [Documentation](DOCUMENTATION.md)
   * [Demo](#demonstration)
 * [Coming Soon Features](#coming-soon-features)
   * [Picture is Worth a Thousand Words](#a-picture-is-worth-a-thousand-words)
@@ -73,9 +73,15 @@ If you feel like diving right in, the [quickstart.py](https://github.com/frederi
 * [LocationGuard](https://chrome.google.com/webstore/detail/location-guard/cfohepagpmnodfdmjliccbbigdkfcgia)
 
 ### Breaking Record
-Currently at 14000 matches using this script!</br>
-Reached 1000 matches in the first 24hours, now attempting to break the world record of most matches which is 14500.</br>
-Illustrating GIFS will come soon, but I need to blur all the faces first for privacy reason :') </br>
+**I broke the world record most matches using this script!**</br>
+Reached 1000 matches in the first 24hours.</br>
+Currently at 19500 matches!</br>
+
+<p align="center">
+  <a href="https://user-images.githubusercontent.com/60892381/102367974-a46ce900-3fba-11eb-9ff8-733ba98a5996.jpg">
+    <img src="https://user-images.githubusercontent.com/60892381/102367974-a46ce900-3fba-11eb-9ff8-733ba98a5996.jpg">
+  </a>
+</p>
 
 <!-- Getting Started -->
 ## Getting Started
@@ -117,17 +123,6 @@ Features of Tinderbot as demonstrated belowed can be found here: **[Tinderbot fe
 #### Sending personalized messages to your matches
 <img src="https://user-images.githubusercontent.com/60892381/94997724-43ce3280-05ad-11eb-8a94-0a66f0afbf93.gif"></src>
 
-## Coming Soon Features
-### A picture is worth a thousand words
-Instead of just sending an email with 'you have a match', let's add an image so you know if it's worth opening the app manually.</br>
-
-### Finally a worthy opponent
-Integrating a face recognition tool that would rate an image of yourself and an image of the geomatch.</br>
-Then only like those profiles that come womewhat close to your looks. </br>
-
-### Integrating Scraping (better)
-Find a cleaner way to scrape geomatches while liking or disliking.</br>
-Then try to get some wordclouds out of most common names, bio's...</br>
 
 ## Support the Repository
 Feel free to make a pull request and contribute to this project.</br>
