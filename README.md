@@ -75,7 +75,7 @@ If you feel like diving right in, the [quickstart.py](https://github.com/frederi
 ### Breaking Record
 **I broke the world record most matches using this script!**</br>
 Reached 1000 matches in the first 24hours.</br>
-Currently at 19500 matches!</br>
+Currently at 21000 matches!</br>
 
 <p align="center">
   <a href="https://user-images.githubusercontent.com/60892381/102367974-a46ce900-3fba-11eb-9ff8-733ba98a5996.jpg">
