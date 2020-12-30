@@ -19,7 +19,10 @@ class GeomatchHelper:
     def like(self):
         try:
             # need to find better way
-            xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[4]/button'
+            if 'profile' in self.browser.current_url:
+                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[4]/button'
+            else:
+                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[4]/button'
 
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
@@ -36,7 +39,10 @@ class GeomatchHelper:
 
     def dislike(self):
         try:
-            xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[2]/button'
+            if 'profile' in self.browser.current_url:
+                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[2]/button'
+            else:
+                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[2]/button'
 
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
@@ -52,7 +58,10 @@ class GeomatchHelper:
 
     def superlike(self):
         try:
-            xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[3]/div/div/div/button'
+            if 'profile' in self.browser.current_url:
+                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[3]/div/div/div/button'
+            else:
+                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[3]/div/div/div/button'
 
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(

@@ -37,7 +37,7 @@ if __name__ == "__main__":
 
         else:
             # refresh webpage, and go for another geomatch
-            session.refresh()
+            session.browser.refresh()
 
         # make a random sleep between dislikes between 0 and 4 seconds to mimic looks human-like, not spammy behaviour
         sleepy_time = random.random() * 4

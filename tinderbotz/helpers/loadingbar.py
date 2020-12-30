@@ -13,7 +13,8 @@ class LoadingBar:
 
     def updateLoadingBar(self, index):
         sys.stdout.write('\r')
-        
+
+        # To avoid dividing by Zero, let's do a check
         if self.length_of_loop == 0:
             percentage_loaded = 100
         else:
