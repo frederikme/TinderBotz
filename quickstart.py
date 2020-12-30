@@ -20,7 +20,16 @@ if __name__ == "__main__":
 
     # Alternatively you can login using facebook with a connected profile!
     session.loginUsingFacebook(email=constants.email_facebook, password=constants.password_facebook)
-
+    
+    # spam likes, dislikes and superlikes
+    # to avoid being banned:
+    #   - it's best to apply a randomness in your liking by sometimes disliking.
+    #   - some sleeping between two actions is recommended
+    # NOTE: these recommendations apply mostly to large amounts of swiping (+100 likes)
+    session.like(amount=10, ratio="72.5%", sleep=1)
+    session.dislike(amount=1)
+    session.superlike(amount=1)
+    
     # adjust allowed distance for geomatches
     # Note: You need to be logged in for this setting
     # Note: PARAMETER IS IN KILOMETERS!
@@ -35,15 +44,6 @@ if __name__ == "__main__":
 
     # Allow profiles from all over the world to appear
     session.setGlobal(True)
-
-    # spam likes, dislikes and superlikes
-    # to avoid being banned:
-    #   - it's best to apply a randomness in your liking by sometimes disliking.
-    #   - some sleeping between two actions is recommended
-    # NOTE: these recommendations apply mostly to large amounts of swiping (+100 likes)
-    session.like(amount=10, ratio="72.5%", sleep=1)
-    session.dislike(amount=1)
-    session.superlike(amount=1)
 
     # Getting matches takes a while, so recommended you load as much as possible from local storage
     # get new matches, with whom you haven't interacted yet
