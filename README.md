@@ -35,10 +35,6 @@
 * [Usage](#usage-of-tinderbot)
   * [Documentation](DOCUMENTATION.md)
   * [Demo](#demonstration)
-* [Coming Soon Features](#coming-soon-features)
-  * [Picture is Worth a Thousand Words](#a-picture-is-worth-a-thousand-words)
-  * [Finally a Worthy Opponent](#finally-a-worthy-opponent)
-  * [Integrating Scraping](#integrating-scraping-better)
 * [Support the Repository](#support-the-repository)
 
 <!-- ABOUT THE PROJECT -->
