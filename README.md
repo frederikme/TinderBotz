@@ -56,6 +56,7 @@ I managed to succesfully create a bot that could: </br>
 * Unmatching
 
 If you feel like diving right in, the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/quickstart.py) will help you be right on track.</br>
+If you're new to coding and just want the script to automatically like, the [auto_swipe.py](https://github.com/frederikme/TinderBot/blob/master/auto_swipe.py) would be what you're looking for!</br>
 *Feel free to make a pull request and contribute to this project!*</br>
 </br>
 ***Enjoy! :)***</br>
