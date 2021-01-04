@@ -5,8 +5,6 @@ Created by Frederikme (TeetiFM)
 from tinderbotz.session import Session
 from tinderbotz.helpers.constants_helper import *
 
-import constants
-
 if __name__ == "__main__":
 
     # creates instance of session
@@ -14,12 +12,16 @@ if __name__ == "__main__":
 
     # set location (Don't need to be logged in for this)
     session.setCustomLocation("Leuven, Belgium")
-
+    
+    # replace this with your own email and password!
+    email = "example@gmail.com"
+    password = "password123"
+    
     # login using your google account with a verified email!
-    session.loginUsingGoogle(email=constants.email_google, password=constants.password_google)
+    session.loginUsingGoogle(email, password)
 
     # Alternatively you can login using facebook with a connected profile!
-    session.loginUsingFacebook(email=constants.email_facebook, password=constants.password_facebook)
+    session.loginUsingFacebook(email, password)
     
     # spam likes, dislikes and superlikes
     # to avoid being banned:
