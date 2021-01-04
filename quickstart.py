@@ -6,7 +6,6 @@ from tinderbotz.session import Session
 from tinderbotz.helpers.constants_helper import *
 
 if __name__ == "__main__":
-
     # creates instance of session
     session = Session()
 
