@@ -11,9 +11,13 @@ if __name__ == "__main__":
 
     # set a custom location
     session.setCustomLocation("Leuven, Belgium")
-
+    
+    # replace this with your own email and password!
+    email = "example@gmail.com"
+    password = "password123"
+    
     # login using your google account with a verified email! Alternatively, you can use Facebook login
-    session.loginUsingGoogle(email="myemail@gmail.com", password="password123")
+    session.loginUsingGoogle(email, password)
 
     # start scraping as much geomatches as possible
     while True:
