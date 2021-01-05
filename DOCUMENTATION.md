@@ -1,4 +1,4 @@
-# Tinderbot Documentation
+# Tinderbotz Documentation
 Tinderbot exists around interacting with two types of users.</br>
 1. ***Matches***</br>
 Matches are profiles you have liked and whom have liked you back.</br>
@@ -127,7 +127,7 @@ session.setAgeRange(18, 25)
 ```
 
 ## Sexuality
-[Click here](https://github.com/frederikme/TinderBot/blob/master/tinderbot/helpers/constants_helper.py) to see what sexualities are allowed by Tinder.</br>
+[Click here](https://github.com/frederikme/TinderBotz/blob/master/tinderbotz/helpers/constants_helper.py) to see what sexualities are allowed by Tinder.</br>
 This setting allows you to choose which gender you get to see and thus will be matched with.</br>
 This setting requires you to be logged in on Tinder.</br>
 ```
@@ -153,7 +153,7 @@ session.setGlobal(boolean)
 
 **Optional parameters**</br>
 ***Note: Currently this option is not available yet in this project. Please open an issue for feature request if you'd want this feature to be made available.***
-`language`: [Click here](https://github.com/frederikme/TinderBot/blob/master/tinderbot/helpers/constants_helper.py) to see what global languages are available.</br>
+`language`: [Click here](https://github.com/frederikme/TinderBotz/blob/master/tinderbotz/helpers/constants_helper.py) to see what global languages are available.</br>
 
 **Example usage**</br>
 ```
@@ -208,7 +208,7 @@ session.superlike(amount=2)
 Your matches can be divided into two categories:
 1. New matches with whom you haven't exchanged messages with yet.
 2. Messaged matches with whom you have already interacted.
-These matches will be a list of objects of the [class Match](https://github.com/frederikme/TinderBot/blob/master/tinderbot/helpers/match.py) which is a childclass of the [class Geomatch](https://github.com/frederikme/TinderBot/blob/master/tinderbot/helpers/geomatch.py).
+These matches will be a list of objects of the [class Match](https://github.com/frederikme/TinderBotz/blob/master/tinderbotz/helpers/match.py) which is a childclass of the [class Geomatch](https://github.com/frederikme/TinderBotz/blob/master/tinderbotz/helpers/geomatch.py).
 ```
 new_matches = session.getNewMatches()    
 old_matches = session.getMessagedMatches()
@@ -222,7 +222,7 @@ The best way to reduce loading time is to store these matches at the first run a
 and load them from there in future runs.</br>
 
 ## Getting Geomatches
-Get data *name, age, bio, images...* of the displayed geomatch and store it inside an object of the [class Geomatch()](https://github.com/frederikme/TinderBot/blob/master/tinderbot/helpers/geomatch.py).
+Get data *name, age, bio, images...* of the displayed geomatch and store it inside an object of the [class Geomatch()](https://github.com/frederikme/TinderBotz/blob/master/tinderbotz/helpers/geomatch.py).
 ```
 geomatch = session.getGeomatch()
 ```
@@ -271,7 +271,7 @@ session.sendSong(chatid=id, songname="cutiepie")
 Socials can be sent to matches.</br>
 [Scrape your matches](#getting-matches) or get them from your locally stored json file.</br>
 </br>
-There are different types of socials. [Click here](https://github.com/frederikme/TinderBot/blob/master/tinderbot/helpers/constants_helper.py) to see what types of social media or available.</br> 
+There are different types of socials. [Click here](https://github.com/frederikme/TinderBotz/blob/master/tinderbotz/helpers/constants_helper.py) to see what types of social media or available.</br> 
 ```
 id = match.getChatID()
 session.sendSocials(chatid=id, media=Socials.INSTAGRAM, value="Teeti.fm")
@@ -286,10 +286,10 @@ session.unMatch(chatid=id)
 # ***JUST LET ME START ALREADY YES PLS TY***
 If you feel like you just want to dive right into the code and get started right away, this is where you need to be. :) </br>
 
-1. Open the [quickstart.py](https://github.com/frederikme/TinderBot/blob/master/quickstart.py) from the tinderbot directory.
+1. Open the [quickstart.py](https://github.com/frederikme/TinderBotz/blob/master/quickstart.py) from the tinderbot directory.
 2. Fill in your credentials (email and password) to be able to login to Tinder.
 3. Change the quickstart script to your needs.
 4. Run the code.
 
 If you want to scrape as much *geomatches* as possible,</br>
-then [scraper.py](https://github.com/frederikme/TinderBot/blob/master/scraper.py) will be suiting your needs better.
+then [scraper.py](https://github.com/frederikme/TinderBotz/blob/master/scraper.py) will be suiting your needs better.
