@@ -46,6 +46,8 @@ session = Session()
 Logging in can be done in one of the following ways.
 1. Using your Google-account: *Your email must be verified*
 2. Using your Facebook-account: *Your Tinder must be connected to your Facebook*
+3. Using your phone number: *This will require you to manually enter your received code*
+### Login by Google & Facebook (RECOMMENDED)
 ```
 session.loginUsingGoogle(email, password)
 session.loginUsingFacebook(email, password)
@@ -57,7 +59,26 @@ session.loginUsingFacebook(email, password)
 **Example usage**</br>
 ```
 session.loginUsingGoogle("myemail@gmail.com", "password123")
+session.loginUsingFacebook("myemail@gmail.com", "password123")
 ```
+
+### Login by SMS
+```
+session.loginUsingSMS(country, phone_number)
+```
+**Required parameters**</br>
+`country`: *string*</br>
+`phone_number`: *string*</br>
+
+**Example usage**</br>
+Let's say your phone_number is +32401234567, then </br>
+***country*** is needed to get the right prefix, in my case +32</br>
+***phone_number*** is everything after the prefix (+32)</br>
+```
+session.loginUsingSMS("Belgium", "401234567")
+```
+**NOTE**: this is not my phone number :)</br>
+
 
 # Settings
 ## Custom Location
