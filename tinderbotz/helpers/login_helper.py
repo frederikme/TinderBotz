@@ -123,6 +123,68 @@ class LoginHelper:
         self.changeFocusToMainWindow()
         self.handlePopups()
 
+    def loginBySMS(self, country, phone_number):
+        self.clickLoginButton()
+
+        # wait for facebook button to appear
+        try:
+            xpath = '//*[@aria-label="Log in with phone number"]'
+            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+                (By.XPATH, xpath)))
+
+            btn = self.browser.find_element_by_xpath(xpath)
+            btn.click()
+        except TimeoutException:
+            self.exitByTimeOut()
+
+        self.handlePrefix(country)
+
+        # Fill in sms
+        try:
+            xpath = '//*[@name="phone_number"]'
+            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+                    (By.XPATH, xpath)))
+
+            field = self.browser.find_element_by_xpath(xpath)
+            field.send_keys(phone_number)
+            field.send_keys(Keys.ENTER)
+
+        except TimeoutException:
+            self.exitByTimeOut()
+
+        print("\n\nPROCEED MANUALLY BY ENTERING SMS CODE\n")
+        # check every second if user has bypassed sms-code barrier
+        while not self.isLoggedIn():
+            time.sleep(1)
+
+        self.handlePopups()
+
+    def handlePrefix(self, country):
+        self.acceptCookies()
+
+        xpath = '//div[@aria-describedby="phoneErrorMessage"]/div/div'
+        WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+            (By.XPATH, xpath)))
+        btn = self.browser.find_element_by_xpath(xpath)
+        btn.click()
+
+        els = self.browser.find_elements_by_xpath('//div')
+        for el in els:
+            try:
+                span = el.find_element_by_xpath('.//span')
+                if span.text.lower() == country.lower():
+                    print("clicked")
+                    el.click()
+                    break
+                else:
+                    print(span.text)
+            except:
+                continue
+
+    # checks if user is logged in by checking the url
+    def isLoggedIn(self):
+        return 'app' in self.browser.current_url
+
     def handlePopups(self):
         time.sleep(2)
         self.acceptCookies()

@@ -150,6 +150,11 @@ class Session:
             helper = LoginHelper(browser=self.browser)
             helper.loginByFacebook(email, password)
 
+    def loginUsingSMS(self, country, phone_number):
+        if not self.isLoggedIn():
+            helper = LoginHelper(browser=self.browser)
+            helper.loginBySMS(country, phone_number)
+
     def storeLocal(self, match):
         if isinstance(match, Match):
             filename = 'matches'

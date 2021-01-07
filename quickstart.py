@@ -21,7 +21,17 @@ if __name__ == "__main__":
 
     # Alternatively you can login using facebook with a connected profile!
     session.loginUsingFacebook(email, password)
-    
+
+    # Alternatively, you can also use your phone number to login
+    '''
+    - country is needed to get the right prefix, in my case +32
+    - phone_number is everything after the prefix (+32)
+    NOTE: this is not my phone number :)
+    '''
+    country = "Belgium"
+    phone_number = "479011124"
+    session.loginUsingSMS(country, phone_number)
+
     # spam likes, dislikes and superlikes
     # to avoid being banned:
     #   - it's best to apply a randomness in your liking by sometimes disliking.
