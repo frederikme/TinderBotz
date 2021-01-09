@@ -75,8 +75,8 @@ Reached 1000 matches in the first 24hours.</br>
 Currently at 24000 matches!</br>
 
 <p align="center">
-  <a href="https://user-images.githubusercontent.com/60892381/102367974-a46ce900-3fba-11eb-9ff8-733ba98a5996.jpg">
-    <img src="https://user-images.githubusercontent.com/60892381/102367974-a46ce900-3fba-11eb-9ff8-733ba98a5996.jpg">
+  <a href="https://user-images.githubusercontent.com/60892381/104088880-2d014100-526a-11eb-8b6d-ad1da6567778.jpg">
+    <img src="https://user-images.githubusercontent.com/60892381/104088880-2d014100-526a-11eb-8b6d-ad1da6567778.jpg">
   </a>
 </p>
 
