@@ -126,6 +126,7 @@ Features of Tinderbot as demonstrated belowed can be found here: **[Tinderbot fe
 ## Support the Repository
 Feel free to make a pull request and contribute to this project.</br>
 If you feel like buying me a drink:
-* [Paypal](https://paypal.me/frederikmees)
 * [Patreon](https://www.patreon.com/frederikme)
+* [Paypal](https://paypal.me/frederikmees)
+* [Buy Me A Coffee](https://www.buymeacoffee.com/frederikme)
 
