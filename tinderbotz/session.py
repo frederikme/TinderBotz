@@ -179,56 +179,62 @@ class Session:
 
         if self.isLoggedIn():
             helper = GeomatchHelper(browser=self.browser)
-            loadingbar = LoadingBar(amount, "likes")
             amount_liked = 0
             # handle one time up front, from then on check after every action instead of before
             self.handlePotentialPopups()
+            print("\nLiking profiles started.")
             while amount_liked < amount:
                 if random.random() <= ratio:
                     helper.like()
                     amount_liked += 1
-
                     # update for stats after session ended
                     self.session_data['like'] += 1
-
-                    # update loadingbar display
-                    loadingbar.updateLoadingBar(amount_liked)
+                    print(f"{amount_liked}/{amount} liked")
 
                 else:
                     helper.dislike()
-
                     # update for stats after session ended
                     self.session_data['dislike'] += 1
 
                 self.handlePotentialPopups()
                 time.sleep(sleep)
 
+            self.print_liked_stats()
+
+
     def dislike(self, amount=1):
         if self.isLoggedIn():
             helper = GeomatchHelper(browser=self.browser)
-            loadingbar = LoadingBar(amount, "dislikes")
-            for index in range(amount):
+            for _ in range(amount):
                 self.handlePotentialPopups()
                 helper.dislike()
 
                 # update for stats after session ended
                 self.session_data['dislike'] += 1
-
-                # update loadingbar display
-                loadingbar.updateLoadingBar(index)
+            self.print_liked_stats()
 
     def superlike(self, amount=1):
         if self.isLoggedIn():
             helper = GeomatchHelper(browser=self.browser)
-            loadingbar = LoadingBar(amount, "superlikes")
-            for index in range(amount):
+            for _ in range(amount):
                 self.handlePotentialPopups()
                 helper.superlike()
                 # update for stats after session ended
-                self.session_data['dislike'] += 1
+                self.session_data['superlike'] += 1
+            self.print_liked_stats()
 
-                # update loadingbar display
-                loadingbar.updateLoadingBar(index)
+    def print_liked_stats(self):
+        likes = self.session_data['like']
+        dislikes = self.session_data['dislike']
+        superlikes = self.session_data['superlike']
+
+        if superlikes > 0:
+            print(f"You've superliked {self.session_data['superlike']} profiles during this session.")
+        if likes > 0:
+            print(f"You've liked {self.session_data['like']} profiles during this session.")
+        if dislikes > 0:
+            print(f"You've disliked {self.session_data['dislike']} profiles during this session.")
+
 
     def getGeomatch(self):
         if self.isLoggedIn():
