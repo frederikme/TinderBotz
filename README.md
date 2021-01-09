@@ -89,11 +89,13 @@ Currently at 27000 matches!</br>
 
 ### Installation
 #### PyPi
-You can now install the project as a pip package.
+You can now install the project as a pip package.</br>
+This might give you an outdated version.</br>
+If this doesn't work anymore, please open an issue and I'll release a new version.</br>
 ```
 pip3 install tinderbotz
 ```
-#### Github
+#### Github (RECOMMENDED)
 1. Clone or download the project
 2. Install the required packages
 ```
