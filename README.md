@@ -35,6 +35,7 @@
 * [Usage](#usage-of-tinderbot)
   * [Documentation](DOCUMENTATION.md)
   * [Demo](#demonstration)
+* [Avoiding the Ban](#How-to-Avoid-the-Ban)
 * [Support the Repository](#support-the-repository)
 
 <!-- ABOUT THE PROJECT -->
@@ -121,6 +122,37 @@ Features of Tinderbot as demonstrated belowed can be found here: **[Tinderbot fe
 
 #### Sending personalized messages to your matches
 <img src="https://user-images.githubusercontent.com/60892381/94997724-43ce3280-05ad-11eb-8a94-0a66f0afbf93.gif"></src>
+
+## How to Avoid the Ban
+This small section will explain how their bot detection works.</br>
+
+###    1) Go easy with newly created profiles
+Newly created profiles are much more likely to get banned than long-existing ones.</br>
+*So be extra cautious!*</br>
+
+###    2) Avoid the usage of URLS!
+This one is very lethal for your accounts. Avoid sending urls to people in messages and DO NOT place any url in your bio!</br>
+
+###    3) Avoid running the code overnight
+Try to use the code when you can see it running. In case you need to handle something (like a captcha or anything) you can immediatly respond to it.
+I've heard some had to prove they were not bots by some captcha and this could age very poorly when you run it overnight. Myself however, I haven't yet had 'the honour' to be redirected to such a captcha.
+
+###    4) Implement sleeps between swipes 
+This might sounds ridiculous, but most people take a look at the profile before they swipe it. Therefore instantly swiping right on every profile puts you in a 'non humanlike behaviour'-zone, which we try to avoid. Adding a sleep between swipes can be done as described [here](https://github.com/frederikme/TinderBotz/blob/master/DOCUMENTATION.md#liking-geomatches). It is recommended to sleep at least 1 second between every swipe. If you have a rather new profile, then make it 2 or 3.
+
+###    5) Implement randomness of liking
+Same applies as above; most people dislike some profiles and like others. Not liking EVERY profile could help you stay under the radar.
+Example of how to do se can be found [here](https://github.com/frederikme/TinderBotz/blob/master/DOCUMENTATION.md#liking-geomatches).
+
+###    6) Make your profile look as real as possible
+Your profile cannot look in any way like those spambots. Therefore a few things are recommended.
+
+###    6.1) Verify your profile with the blue badge to prove it's really you
+###    6.2) Link your Instagram and/or Spotify
+###    6.3) Write a good bio, preferably with a minimum of 100 characters
+###    6.4) Try to add as many images as possible
+From scraping a few thousand profiles, it concluded that the average amount of pictures someone posts on Tinder is around 5-6.
+If you're profile only has 1 or 2 images, it definilty looks more like a bot than someone with tons of images.
 
 
 ## Support the Repository
