@@ -256,23 +256,29 @@ class Session:
 
             return Geomatch(name=name, age=age, distance=distance, bio=bio, image_urls=image_urls)
 
-    def getAllMatches(self):
+    def getChatIds(self, new=True, messaged=True):
         if self.isLoggedIn():
             helper = MatchHelper(browser=self.browser)
             self.handlePotentialPopups()
-            return helper.getAllMatches()
+            return helper.getChatIds(new, messaged)
 
-    def getNewMatches(self):
+    def getAllMatches(self, quickload=True):
         if self.isLoggedIn():
             helper = MatchHelper(browser=self.browser)
             self.handlePotentialPopups()
-            return helper.getNewMatches()
+            return helper.getAllMatches(quickload)
 
-    def getMessagedMatches(self):
+    def getNewMatches(self, quickload=True):
         if self.isLoggedIn():
             helper = MatchHelper(browser=self.browser)
             self.handlePotentialPopups()
-            return helper.getMessagedMatches()
+            return helper.getNewMatches(quickload)
+
+    def getMessagedMatches(self, quickload=True):
+        if self.isLoggedIn():
+            helper = MatchHelper(browser=self.browser)
+            self.handlePotentialPopups()
+            return helper.getMessagedMatches(quickload)
 
     def sendMessage(self, chatid, message):
         if self.isLoggedIn():

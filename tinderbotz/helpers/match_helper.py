@@ -21,116 +21,118 @@ class MatchHelper:
             self.browser.get(self.HOME_URL)
             time.sleep(2)
 
-    def getAllMatches(self):
-        print("\n\nScraping matches can take a while!\n")
-        return self.getNewMatches() + self.getMessagedMatches()
+    def getChatIds(self, new, messaged):
+        chatids = []
 
-    def getNewMatches(self):
+        if new:
+            # Make sure we're in the 'new matches' tab
+            try:
+                xpath = '//*[@id="match-tab"]'
+                # wait for element to appear
+                WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
 
-        # Make sure we're in the 'new matches' tab
-        try:
-            xpath = '//*[@id="match-tab"]'
-            # wait for element to appear
-            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
+                new_matches_tab = self.browser.find_element_by_xpath(xpath)
+                new_matches_tab.click()
+                time.sleep(1)
+            except TimeoutException:
+                print("match tab could not be found, trying again")
+                self.browser.get(self.HOME_URL)
+                time.sleep(1)
+                return self.getNewMatches()
+            except Exception as e:
+                print("An unhandled exception occured in getNewMatches:")
+                print(e)
 
-            new_matches_tab = self.browser.find_element_by_xpath(xpath)
-            new_matches_tab.click()
-            time.sleep(1)
-        except TimeoutException:
-            print("match tab could not be found, trying again")
-            self.browser.get(self.HOME_URL)
-            time.sleep(1)
-            return self.getNewMatches()
-        except Exception as e:
-            print("An unhandled exception occured in getNewMatches:")
-            print(e)
+            # start scraping new matches
+            try:
+                xpath = '//*[@id="matchListNoMessages"]'
 
-        matches = []
+                # wait for element to appear
+                WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
 
-        # start scraping new matches
-        try:
-            xpath = '//*[@id="matchListNoMessages"]'
+                div = self.browser.find_element_by_xpath(xpath)
 
-            # wait for element to appear
-            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
+                list_refs = div.find_elements_by_class_name('matchListItem')
 
-            div = self.browser.find_element_by_xpath(xpath)
+                for index in range(len(list_refs)):
+                    ref = list_refs[index].get_attribute('href')
+                    if "likes-you" in ref:
+                        continue
+                    else:
+                        chatids.append(ref.split('/')[-1])
 
-            list_refs = div.find_elements_by_class_name('matchListItem')
+            except NoSuchElementException:
+                pass
 
-            chatids = []
+        if messaged:
+            # Make sure we're in the 'messaged matches' tab
+            try:
+                xpath = '//*[@id="messages-tab"]'
+                # wait for element to appear
+                WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
 
-            for index in range(len(list_refs)):
-                ref = list_refs[index].get_attribute('href')
-                if "likes-you" in ref:
-                    continue
-                else:
+                messagesTab = self.browser.find_element_by_xpath(xpath)
+                messagesTab.click()
+                time.sleep(1)
+
+            except TimeoutException:
+                print("match tab could not be found, trying again")
+                self.browser.get(self.HOME_URL)
+                time.sleep(1)
+                return self.getChatIds(new=new, messaged=messaged)
+            except Exception as e:
+                print("An unhandled exception occured in getNewMatches:")
+                print(e)
+
+            # Start scraping the chatted matches
+            try:
+                class_name = 'messageList'
+
+                # wait for element to appear
+                WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+                    (By.CLASS_NAME, class_name)))
+
+                div = self.browser.find_element_by_class_name(class_name)
+
+                list_refs = div.find_elements_by_class_name('messageListItem')
+                for index in range(len(list_refs)):
+                    ref = list_refs[index].get_attribute('href')
                     chatids.append(ref.split('/')[-1])
 
-            print("\nGetting not-interacted-with, NEW MATCHES")
-            loadingbar = LoadingBar(len(chatids), "new matches")
-            for index, chatid in enumerate(chatids):
-                matches.append(self.getMatch(chatid))
-                loadingbar.updateLoadingBar(index)
-            print("\n")
+            except NoSuchElementException:
+                pass
 
-        except NoSuchElementException:
-            pass
+        return chatids
+
+    def getAllMatches(self, quickload):
+        print("\n\nScraping matches can take a while!\n")
+        return self.getNewMatches(quickload) + self.getMessagedMatches(quickload)
+
+    def getNewMatches(self, quickload):
+        matches = []
+
+        chatids = self.getChatIds(new=True, messaged=False)
+
+        print("\nGetting not-interacted-with, NEW MATCHES")
+        loadingbar = LoadingBar(len(chatids), "new matches")
+        for index, chatid in enumerate(chatids):
+            matches.append(self.getMatch(chatid, quickload))
+            loadingbar.updateLoadingBar(index)
+        print("\n")
 
         return matches
 
-    def getMessagedMatches(self):
-        # Make sure we're in the 'messaged matches' tab
-        try:
-            xpath = '//*[@id="messages-tab"]'
-            # wait for element to appear
-            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
-
-            messagesTab = self.browser.find_element_by_xpath(xpath)
-            messagesTab.click()
-            time.sleep(1)
-
-        except TimeoutException:
-            print("match tab could not be found, trying again")
-            self.browser.get(self.HOME_URL)
-            time.sleep(1)
-            return self.getMessagedMatches()
-        except Exception as e:
-            print("An unhandled exception occured in getNewMatches:")
-            print(e)
-
+    def getMessagedMatches(self, quickload):
         matches = []
 
-        # Start scraping the chatted matches
-        try:
-            class_name = 'messageList'
+        chatids = self.getChatIds(new=False, messaged=True)
 
-            # wait for element to appear
-            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
-                (By.CLASS_NAME, class_name)))
-
-            div = self.browser.find_element_by_class_name(class_name)
-
-            list_refs = div.find_elements_by_class_name('messageListItem')
-
-            chatids = []
-
-            for index in range(len(list_refs)):
-                ref = list_refs[index].get_attribute('href')
-                chatids.append(ref.split('/')[-1])
-
-            print("\nGetting interacted-with, MESSAGED MATCHES")
-            loadingbar = LoadingBar(len(chatids), "interacted-with-matches")
-            for index, chatid in enumerate(chatids):
-                matches.append(self.getMatch(chatid))
-                loadingbar.updateLoadingBar(index)
-
-            print("\n")
-        except NoSuchElementException:
-            pass
-
-        except TimeoutException:
-            pass
+        print("\nGetting interacted-with, MESSAGED MATCHES")
+        loadingbar = LoadingBar(len(chatids), "interacted-with-matches")
+        for index, chatid in enumerate(chatids):
+            matches.append(self.getMatch(chatid, quickload))
+            loadingbar.updateLoadingBar(index)
+        print("\n")
 
         return matches
 
@@ -343,7 +345,7 @@ class MatchHelper:
                 print("openchat 3:" + str(e))
         time.sleep(1)
 
-    def getMatch(self, chatid):
+    def getMatch(self, chatid, quickload):
         if not self.isChatOpened(chatid):
             self.openChat(chatid)
 
@@ -351,7 +353,8 @@ class MatchHelper:
         age = self.getAge(chatid)
         distance = self.getDistance(chatid)
         bio = self.getBio(chatid)
-        image_urls = self.getImageURLS(chatid)
+        image_urls = None
+        image_urls = self.getImageURLS(chatid, quickload)
 
         return Match(name=name, chatid=chatid, age=age, distance=distance, bio=bio, image_urls=image_urls)
 
@@ -404,11 +407,24 @@ class MatchHelper:
             # no bio included?
             return None
 
-    def getImageURLS(self, chatid):
+    def getImageURLS(self, chatid, quickload):
         if not self.isChatOpened(chatid):
             self.openChat(chatid)
 
         image_urls = []
+
+        # only get url of first few images, and not click all bullets to get all image
+        elements = self.browser.find_elements_by_xpath("//div[@aria-label='Profile slider']")
+        for element in elements:
+            image_url = element.value_of_css_property('background-image').split('\"')[1]
+            if image_url not in image_urls:
+                image_urls.append(image_url)
+
+
+        if quickload:
+            # return image urls without tapping for all images
+            return image_urls
+
 
         try:
 
