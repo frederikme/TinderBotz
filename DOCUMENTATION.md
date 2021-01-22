@@ -227,7 +227,7 @@ session.superlike(amount=2)
 ```
 
 ## Getting Matches
-Your matches can be divided into two categories:
+Your matches can be placed into two categories:
 1. New matches with whom you haven't exchanged messages with yet.
 2. Messaged matches with whom you have already interacted.
 These matches will be a list of objects of the [class Match](https://github.com/frederikme/TinderBotz/blob/master/tinderbotz/helpers/match.py) which is a childclass of the [class Geomatch](https://github.com/frederikme/TinderBotz/blob/master/tinderbotz/helpers/geomatch.py).
@@ -238,10 +238,25 @@ old_matches = session.getMessagedMatches()
 # or just get all matches at once
 matches = session.getAllMatches()
 ```
-**Note**: Loading your matches like this might take a while depending on how many matches you have.</br>
+**Optional parameters**</br>
+`quickload`: *boolean*</br>
+
+**Example usage**</br>
+```
+new_matches = session.getNewMatches(quickload=True)    
+old_matches = session.getMessagedMatches(quickload=False)
+
+# or just get all matches at once
+matches = session.getAllMatches(quickload=True)
+```
+**Note**: **quickload** is **True** by default when no parameter is passed. This makes sure the loading happens two times faster while still getting most of the information, but only ***a few images*** of the match are loaded. </br>
+However when **quickload** is **False**, ***ALL images*** of the match are loaded.</br>
+
+**Note**: When quickload is **False**, loading your matches might take a while depending on how many matches you have.</br>
 This is because the session will iterate through every match and all their images one by one.</br>
-The best way to reduce loading time is to store these matches at the first run as illustrated here: [Storing (geo)Matches](#storing-geomatches)</br>
-and load them from there in future runs.</br>
+
+Another option, besides quickloading, to reduce loading time is to store these matches at the first run as illustrated here: [Storing (geo)Matches](#storing-geomatches)</br>
+and then load them from there in future runs.</br>
 
 ## Getting Geomatches
 Get data *name, age, bio, images...* of the displayed geomatch and store it inside an object of the [class Geomatch()](https://github.com/frederikme/TinderBotz/blob/master/tinderbotz/helpers/geomatch.py).
