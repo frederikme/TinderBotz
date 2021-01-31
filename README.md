@@ -68,7 +68,6 @@ If you're new to coding and just want the script to automatically like, the [aut
 
 * [Python](https://www.python.org/)
 * [Selenium](https://selenium.dev)
-* [LocationGuard](https://chrome.google.com/webstore/detail/location-guard/cfohepagpmnodfdmjliccbbigdkfcgia)
 
 ### Breaking Record
 **I broke the world record most matches using this script!**</br>
@@ -108,9 +107,6 @@ pip3 install -r requirements.txt
 Features of Tinderbot as demonstrated belowed can be found here: **[Tinderbot features](https://github.com/frederikme/TinderBot/blob/master/DOCUMENTATION.md)**</br>
 
 ### Demonstration
-#### Setting a custom location
-<img src="https://user-images.githubusercontent.com/60892381/99286075-a8c9a900-2838-11eb-86b6-4b8c028bee63.gif"></src>
-
 #### Setting some Profile settings
 <img src="https://user-images.githubusercontent.com/60892381/99513887-682e7480-298b-11eb-810f-caae7424a792.gif"></src>
 
