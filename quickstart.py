@@ -58,14 +58,14 @@ if __name__ == "__main__":
 
     # Getting matches takes a while, so recommended you load as much as possible from local storage
     # get new matches, with whom you haven't interacted yet
-    new_matches = session.getNewMatches()
-    # get already interacted with matches
-    old_matches = session.getMessagedMatches()
-    # get all matches (comment out new_matches and old_matches above so it doesnt load it all for no reason)
-    matches = session.getAllMatches()
-
+    # Let's load the first 10 new matches to interact with later on.
+    new_matches = session.getNewMatches(amount=10)
+    # get already interacted with matches (matches with whom you've chatted already)
+    messaged_matches = session.getMessagedMatches()
+    
     # you can store the data and images of these matches now locally in data/matches
-    for match in matches:
+    # For now let's just store the messaged_matches
+    for match in messaged_matches:
         session.storeLocal(match)
 
     # Pick up line with their personal name so it doesn't look spammy
@@ -92,7 +92,7 @@ if __name__ == "__main__":
         session.sendSong(chatid=id, songname="")
 
         # send my instagram or you can use alternative socials like facebook, phonenumber and snapchat
-        session.sendSocials(chatid=id, media=Socials.INSTAGRAM, value="Teeti.fm")
+        session.sendSocials(chatid=id, media=Socials.INSTAGRAM, value="Fredjemees")
 
         # you can also unmatch
         #session.unMatch(chatid=id)
