@@ -14,7 +14,6 @@ Seeing these profiles and thus '*breaking the first barrier of matching*' is why
   * [Logging in to Tinder](#logging-in-to-tinder)
 * [Settings](#settings)
   * [Custom Location](#custom-location)
-  * [Realtime Location](#realtime-location)
   * [Email Notifications](#email-notifications)
   * [Distance Range](#distance-range)
   * [Age Range](#age-range)
@@ -84,24 +83,26 @@ session.loginUsingSMS("Belgium", "401234567")
 # Settings
 ## Custom Location
 Changing location used to be a paid for ***Tinder Plus*** feature. But no more!</br>
-Using the Location Guard extension for Chrome, we are now able to mask our position.</br>
+We are now able to mask our position using geopositioning inside our browser.</br>
 ```
 session.setCustomLocation(location_name)
 ```
 **Required parameters**</br>
 `location_name`: *string*</br>
 
+**Optional parameters**</br>
+`accuracy`: *string*</br>
+
+***Note:*** By default, accuracy is 100%, which is recommended.</br>
+
 **Example usage**</br>
 In this example we set the location to the city Leuven in Belgium.</br>
 ```
+session.setCustomLocation("Leuven, Belgium", accuracy="100%")
+# would be the same as simply
 session.setCustomLocation("Leuven, Belgium")
 ```
 
-## Realtime Location
-The realtime location is used by default. However if you want to swap from the custom location to your realtime location, you will need to call this function.
-```
-session.setRealtimeLocation()
-```
 
 ## Email Notifications
 You can activate the option to receive an email whenever you get a match. The email, which you've used to login with, is being used as recepient.
