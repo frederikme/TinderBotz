@@ -21,6 +21,29 @@ class MatchHelper:
             self.browser.get(self.HOME_URL)
             time.sleep(2)
 
+    def _scroll_down(self, xpath):
+        eula = self.browser.find_element_by_xpath(xpath)
+        self.browser.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight', eula)
+
+        SCROLL_PAUSE_TIME = 0.5
+
+        # Get scroll height
+        last_height = self.browser.execute_script("arguments[0].scrollHeight", eula)
+
+        while True:
+            # Scroll down to bottom
+            self.browser.execute_script("arguments[0].scrollTo(0, arguments[0].scrollHeight);", eula)
+
+            # Wait to load page
+            time.sleep(SCROLL_PAUSE_TIME)
+
+            # Calculate new scroll height and compare with last scroll height
+            new_height = self.browser.execute_script("arguments[0].scrollHeight", eula)
+            if new_height == last_height:
+                return True
+            last_height = new_height
+
+
     def getChatIds(self, new, messaged):
         chatids = []
 
@@ -38,7 +61,7 @@ class MatchHelper:
                 print("match tab could not be found, trying again")
                 self.browser.get(self.HOME_URL)
                 time.sleep(1)
-                return self.getNewMatches()
+                return self.getChatIds(new, messaged)
             except Exception as e:
                 print("An unhandled exception occured in getNewMatches:")
                 print(e)
@@ -53,13 +76,15 @@ class MatchHelper:
                 div = self.browser.find_element_by_xpath(xpath)
 
                 list_refs = div.find_elements_by_class_name('matchListItem')
-
                 for index in range(len(list_refs)):
-                    ref = list_refs[index].get_attribute('href')
-                    if "likes-you" in ref or "my-likes" in ref:
+                    try:
+                        ref = list_refs[index].get_attribute('href')
+                        if "likes-you" in ref or "my-likes" in ref:
+                            continue
+                        else:
+                            chatids.append(ref.split('/')[-1])
+                    except:
                         continue
-                    else:
-                        chatids.append(ref.split('/')[-1])
 
             except NoSuchElementException:
                 pass
@@ -96,43 +121,104 @@ class MatchHelper:
 
                 list_refs = div.find_elements_by_class_name('messageListItem')
                 for index in range(len(list_refs)):
-                    ref = list_refs[index].get_attribute('href')
-                    chatids.append(ref.split('/')[-1])
+                    try:
+                        ref = list_refs[index].get_attribute('href')
+                        chatids.append(ref.split('/')[-1])
+                    except:
+                        continue
 
             except NoSuchElementException:
                 pass
 
         return chatids
 
-    def getAllMatches(self, quickload):
+    def getAllMatches(self, quickload, amount=100000):
         print("\n\nScraping matches can take a while!\n")
-        return self.getNewMatches(quickload) + self.getMessagedMatches(quickload)
+        return self.getNewMatches(amount, quickload) + self.getMessagedMatches(amount, quickload)
 
-    def getNewMatches(self, quickload):
+    def getNewMatches(self, amount, quickload):
         matches = []
+        used_chatids = []
+        new_chatids = self.getChatIds(new=True, messaged=False)
 
-        chatids = self.getChatIds(new=True, messaged=False)
+        while True:
 
-        print("\nGetting not-interacted-with, NEW MATCHES")
-        loadingbar = LoadingBar(len(chatids), "new matches")
-        for index, chatid in enumerate(chatids):
-            matches.append(self.getMatch(chatid, quickload))
-            loadingbar.updateLoadingBar(index)
-        print("\n")
+            if len(matches) >= amount:
+                break
+
+            # shorten the list so doesn't fetch ALL matches but just the amount it needs
+            diff = len(matches) + len(new_chatids) - amount
+            print("diff")
+            print(f"amount {amount}, dif {diff}")
+            if diff > 0:
+                del new_chatids[-diff:]
+
+            print("\nGetting not-interacted-with, NEW MATCHES")
+            loadingbar = LoadingBar(len(new_chatids), "new matches")
+            for index, chatid in enumerate(new_chatids):
+                matches.append(self.getMatch(chatid, quickload))
+                loadingbar.updateLoadingBar(index)
+            print("\n")
+
+            # scroll down to get more chatids
+            xpath = '//*[@id="matchListNoMessages"]'
+            tab = self.browser.find_element_by_xpath(xpath)
+            self.browser.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight;', tab)
+            time.sleep(4)
+
+            new_chatids = self.getChatIds(new=True, messaged=False)
+            copied = new_chatids.copy()
+            for index in range(len(copied)):
+                if copied[index] in used_chatids:
+                    new_chatids.remove(copied[index])
+                else:
+                    used_chatids.append(new_chatids[index])
+
+            # no new matches are found, MAX LIMIT
+            if len(new_chatids) == 0:
+                break
 
         return matches
 
-    def getMessagedMatches(self, quickload):
+    def getMessagedMatches(self, amount, quickload):
         matches = []
+        used_chatids = []
+        new_chatids = self.getChatIds(new=False, messaged=True)
 
-        chatids = self.getChatIds(new=False, messaged=True)
+        while True:
 
-        print("\nGetting interacted-with, MESSAGED MATCHES")
-        loadingbar = LoadingBar(len(chatids), "interacted-with-matches")
-        for index, chatid in enumerate(chatids):
-            matches.append(self.getMatch(chatid, quickload))
-            loadingbar.updateLoadingBar(index)
-        print("\n")
+            if len(matches) >= amount:
+                break
+
+            # shorten the list so doesn't fetch ALL matches but just the amount it needs
+            diff = len(matches) + len(new_chatids) - amount
+            if diff > 0:
+                del new_chatids[-diff:]
+
+            print("\nGetting interacted-with, MESSAGED MATCHES")
+            loadingbar = LoadingBar(len(new_chatids), "interacted-with-matches")
+            for index, chatid in enumerate(new_chatids):
+                matches.append(self.getMatch(chatid, quickload))
+                loadingbar.updateLoadingBar(index)
+            print("\n")
+
+            # scroll down to get more chatids
+            xpath = '//*[@id="matchListWithMessages"]'
+            tab = self.browser.find_element_by_xpath(xpath)
+            self.browser.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight;', tab)
+            time.sleep(4)
+
+            new_chatids = self.getChatIds(new=False, messaged=True)
+            copied = new_chatids.copy()
+            for index in range(len(copied)):
+                if copied[index] in used_chatids:
+                    new_chatids.remove(copied[index])
+                else:
+                    used_chatids.append(new_chatids[index])
+
+            # no new matches are found, MAX LIMIT
+            if len(new_chatids) == 0:
+                break
 
         return matches
 
@@ -332,7 +418,7 @@ class MatchHelper:
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
 
-            newMatchesTab = self.browser.find_element_by_id(xpath)
+            newMatchesTab = self.browser.find_element_by_xpath(xpath)
             newMatchesTab.click()
             time.sleep(1)
 

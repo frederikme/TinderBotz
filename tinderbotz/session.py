@@ -268,17 +268,17 @@ class Session:
             self.handlePotentialPopups()
             return helper.getAllMatches(quickload)
 
-    def getNewMatches(self, quickload=True):
+    def getNewMatches(self, amount=100000, quickload=True):
         if self.isLoggedIn():
             helper = MatchHelper(browser=self.browser)
             self.handlePotentialPopups()
-            return helper.getNewMatches(quickload)
+            return helper.getNewMatches(amount, quickload)
 
-    def getMessagedMatches(self, quickload=True):
+    def getMessagedMatches(self, amount=100000, quickload=True):
         if self.isLoggedIn():
             helper = MatchHelper(browser=self.browser)
             self.handlePotentialPopups()
-            return helper.getMessagedMatches(quickload)
+            return helper.getMessagedMatches(amount, quickload)
 
     def sendMessage(self, chatid, message):
         if self.isLoggedIn():
