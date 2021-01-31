@@ -56,7 +56,7 @@ class MatchHelper:
 
                 for index in range(len(list_refs)):
                     ref = list_refs[index].get_attribute('href')
-                    if "likes-you" in ref:
+                    if "likes-you" in ref or "my-likes" in ref:
                         continue
                     else:
                         chatids.append(ref.split('/')[-1])
