@@ -239,16 +239,19 @@ old_matches = session.getMessagedMatches()
 matches = session.getAllMatches()
 ```
 **Optional parameters**</br>
+`amount`: *amount*</br>
 `quickload`: *boolean*</br>
 
 **Example usage**</br>
 ```
-new_matches = session.getNewMatches(quickload=True)    
-old_matches = session.getMessagedMatches(quickload=False)
+new_matches = session.getNewMatches(amount=100, quickload=True)    
+old_matches = session.getMessagedMatches(amount=15, quickload=False)
 
 # or just get all matches at once
 matches = session.getAllMatches(quickload=True)
 ```
+By default, all new and messaged matches are being loaded, although quite often it's more interesting to load only a handful matches. The amount of matches you want to fetch can be adjusted by specifying the amount of matches.</br>
+
 **Note**: **quickload** is **True** by default when no parameter is passed. This makes sure the loading happens two times faster while still getting most of the information, but only ***a few images*** of the match are loaded. </br>
 However when **quickload** is **False**, ***ALL images*** of the match are loaded.</br>
 
