@@ -461,15 +461,18 @@ class MatchHelper:
         if not self.isChatOpened(chatid):
             self.openChat(chatid)
 
+        age = None
+
         try:
             xpath = '//span[@itemprop="age"]'
             element = self.browser.find_element_by_xpath(xpath)
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                 (By.XPATH, xpath)))
-            return element.text
-        except Exception as e:
-            print("age")
-            print(e)
+            age = element.text
+        except:
+            pass
+
+        return age
 
     def getDistance(self, chatid):
         if not self.isChatOpened(chatid):

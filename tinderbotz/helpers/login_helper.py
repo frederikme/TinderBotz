@@ -42,8 +42,8 @@ class LoginHelper:
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                 (By.XPATH, xpath)))
 
+            time.sleep(3)
             btn = self.browser.find_element_by_xpath(xpath)
-            time.sleep(2)
             btn.click()
 
         except TimeoutException:
