@@ -1,6 +1,5 @@
 from tinderbotz.session import Session
 
-from tinderbotz.helpers.location_helper import LocationHelper
 from tinderbotz.helpers.profile_helper import ProfileHelper
 
 from tinderbotz.helpers.geomatch import Geomatch

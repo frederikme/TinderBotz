@@ -8,21 +8,19 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException,
 
 # some
 import os
-from sys import platform
 import time
 import random
+import requests
 import atexit
 
 # Tinderbotz: helper classes
 from tinderbotz.helpers.geomatch import Geomatch
 from tinderbotz.helpers.match import Match
-from tinderbotz.helpers.location_helper import LocationHelper
 from tinderbotz.helpers.profile_helper import ProfileHelper
 from tinderbotz.helpers.geomatch_helper import GeomatchHelper
 from tinderbotz.helpers.match_helper import MatchHelper
 from tinderbotz.helpers.login_helper import LoginHelper
 from tinderbotz.helpers.storage_helper import StorageHelper
-from tinderbotz.helpers.loadingbar import LoadingBar
 from tinderbotz.helpers.email_helper import EmailHelper
 
 
@@ -81,10 +79,7 @@ class Session:
                 print("Ended session: {}".format(y))
 
         # Go further with the initialisation
-        # add location guard extension as option parameter
-        print("Adding Location Guard extension ...")
         options = webdriver.ChromeOptions()
-        options.add_extension('./tinderbotz/LocationGuardExtension.crx')
         options.add_experimental_option('w3c', False)
 
         # getting chromedriver from cache or download from internet
@@ -107,13 +102,21 @@ class Session:
 
     # Setting the users location using the downloaded chrome extension Location Guard
     # Don't need to be logged in for this.
-    def setCustomLocation(self, location_name):
-        helper = LocationHelper(browser=self.browser)
-        helper.setCustomLocation(location_name)
+    def setCustomLocation(self, location_name, accuracy="100%"):
+        #helper = LocationHelper(browser=self.browser)
+        #helper.setCustomLocation(location_name)
+        url = f"https://geocode.xyz/?locate={location_name}&geoit=JSON"
 
-    def setRealtimeLocation(self):
-        helper = LocationHelper(browser=self.browser)
-        helper.setRealtimeLocation()
+        r = requests.get(url)
+        data = r.json()
+
+        params = {
+            "latitude": float(data.get('latt')),
+            "longitude": float(data.get('longt')),
+            "accuracy": int(accuracy.split('%')[0])
+        }
+
+        self.browser.execute_cdp_cmd("Page.setGeolocationOverride", params)
 
     # This will send notification when you get a match to your email used to logged in.
     def setEmailNotifications(self, boolean):
