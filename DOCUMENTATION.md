@@ -103,7 +103,6 @@ session.set_custom_location("Leuven, Belgium", accuracy="100%")
 session.set_custom_location("Leuven, Belgium")
 ```
 
-
 ## Email Notifications
 You can activate the option to receive an email whenever you get a match. The email, which you've used to login with, is being used as recepient.
 By default no emails are being sent. If you wish to receive emails you need to set this setting to **True**.
@@ -260,10 +259,16 @@ Another option, besides quickloading, to reduce loading time is to store these m
 and then load them from there in future runs.</br>
 
 ## Getting Geomatches
-Get data *name, age, bio, images...* of the displayed geomatch and store it inside an object of the [class Geomatch()](https://github.com/frederikme/TinderBotz/blob/master/tinderbotz/helpers/geomatch.py).
+Get data *name, age, bio, distance, home, study, passions, images...* of the displayed geomatch and store it inside an object of the [class Geomatch()](https://github.com/frederikme/TinderBotz/blob/master/tinderbotz/helpers/geomatch.py).
 ```
 geomatch = session.get_geomatch()
 ```
+**Optional parameters**</br>
+`quickload`: *boolean*</br>
+
+**Note**: **quickload** is **True** by default when no parameter is passed. This makes sure the loading happens two times faster while still getting most of the information, but only ***a few images*** of the geomatch are loaded. </br>
+However when **quickload** is **False**, ***ALL images*** of the geomatch are loaded.</br>
+
 ## Storing (geo)Matches
 Every profile, also known as a (geo)match, can be stored locally. </br>
 Storing data can be useful for reducing runtime, for example when needing to fetch your matches.</br>
