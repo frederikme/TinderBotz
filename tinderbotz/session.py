@@ -211,7 +211,7 @@ class Session:
                 self.session_data['superlike'] += 1
             self._print_liked_stats()
 
-    def get_geomatch(self):
+    def get_geomatch(self, quickload=True):
         if self._is_logged_in():
             helper = GeomatchHelper(browser=self.browser)
             self._handle_potential_popups()
@@ -226,7 +226,7 @@ class Session:
 
             age = helper.get_age()
             bio = helper.get_bio()
-            image_urls = helper.get_image_urls()
+            image_urls = helper.get_image_urls(quickload)
             rowdata = helper.get_row_data()
             work = rowdata.get('work')
             study = rowdata.get('study')

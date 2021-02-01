@@ -203,11 +203,22 @@ class GeomatchHelper:
         except Exception as e:
             return None
 
-    def get_image_urls(self):
+    def get_image_urls(self, quickload=True):
         if not self._is_profile_opened():
             self._open_profile()
 
         image_urls = []
+
+        # only get url of first few images, and not click all bullets to get all image
+        elements = self.browser.find_elements_by_xpath("//div[@aria-label='Profile slider']")
+        for element in elements:
+            image_url = element.value_of_css_property('background-image').split('\"')[1]
+            if image_url not in image_urls:
+                image_urls.append(image_url)
+
+        # return image urls without opening all images
+        if quickload:
+            return image_urls
 
         try:
             # There are no bullets when there is only 1 image
