@@ -59,7 +59,8 @@ if __name__ == "__main__":
     # Getting matches takes a while, so recommended you load as much as possible from local storage
     # get new matches, with whom you haven't interacted yet
     # Let's load the first 10 new matches to interact with later on.
-    new_matches = session.get_new_matches(amount=10)
+    # quickload on false will make sure ALL images are stored, but this might take a lot more time
+    new_matches = session.get_new_matches(amount=10, quickload=False)
     # get already interacted with matches (matches with whom you've chatted already)
     messaged_matches = session.get_messaged_matches()
     
@@ -100,7 +101,7 @@ if __name__ == "__main__":
     # let's scrape some geomatches now
     for _ in range(5):
         # get profile data (name, age, bio, images, ...)
-        geomatch = session.get_geomatch()
+        geomatch = session.get_geomatch(quickload=False)
         # store this data locally as json with reference to their respective (locally stored) images
         session.store_local(geomatch)
         # dislike the profile, so it will show us the next geomatch (since we got infinite amount of dislikes anyway)

@@ -21,8 +21,10 @@ if __name__ == "__main__":
 
     # start scraping as much geomatches as possible
     while True:
-        # get data of user displayed
-        geomatch = session.get_geomatch()
+        # When scraping we want ALL images and not just the first few.
+        # If you want to scrape a lot quicker, I recommend putting quickload on True
+        # But note that you'd only get 1-3 image urls instead of them all.
+        geomatch = session.get_geomatch(quickload=False)
 
         # check if crucial data is not empty (This will rarely be the case tho, but we want a 'clean' dataset
         if geomatch.get_name() is not None \
