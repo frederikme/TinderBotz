@@ -49,8 +49,8 @@ Logging in can be done in one of the following ways.
 
 ### Login by Google & Facebook (RECOMMENDED)
 ```
-session.loginUsingGoogle(email, password)
-session.loginUsingFacebook(email, password)
+session.login_using_google(email, password)
+session.login_using_facebook(email, password)
 ```
 **Required parameters**</br>
 `email`: *string*</br>
@@ -58,13 +58,13 @@ session.loginUsingFacebook(email, password)
 
 **Example usage**</br>
 ```
-session.loginUsingGoogle("myemail@gmail.com", "password123")
-session.loginUsingFacebook("myemail@gmail.com", "password123")
+session.login_using_google("myemail@gmail.com", "password123")
+session.login_using_facebook("myemail@gmail.com", "password123")
 ```
 
 ### Login by SMS
 ```
-session.loginUsingSMS(country, phone_number)
+session.login_using_sms(country, phone_number)
 ```
 **Required parameters**</br>
 `country`: *string*</br>
@@ -75,7 +75,7 @@ Let's say your phone_number is +32401234567, then </br>
 ***country*** is needed to get the right prefix, in my case +32 and</br>
 ***phone_number*** is everything after the prefix (+32).</br>
 ```
-session.loginUsingSMS("Belgium", "401234567")
+session.login_using_sms("Belgium", "401234567")
 ```
 **NOTE**: this is not my phone number :)</br>
 
@@ -85,7 +85,7 @@ session.loginUsingSMS("Belgium", "401234567")
 Changing location used to be a paid for ***Tinder Plus*** feature. But no more!</br>
 We are now able to mask our position using geopositioning inside our browser.</br>
 ```
-session.setCustomLocation(location_name)
+session.set_custom_location(location_name)
 ```
 **Required parameters**</br>
 `location_name`: *string*</br>
@@ -98,9 +98,9 @@ session.setCustomLocation(location_name)
 **Example usage**</br>
 In this example we set the location to the city Leuven in Belgium.</br>
 ```
-session.setCustomLocation("Leuven, Belgium", accuracy="100%")
+session.set_custom_location("Leuven, Belgium", accuracy="100%")
 # would be the same as simply
-session.setCustomLocation("Leuven, Belgium")
+session.set_custom_location("Leuven, Belgium")
 ```
 
 
@@ -108,7 +108,7 @@ session.setCustomLocation("Leuven, Belgium")
 You can activate the option to receive an email whenever you get a match. The email, which you've used to login with, is being used as recepient.
 By default no emails are being sent. If you wish to receive emails you need to set this setting to **True**.
 ```
-session.setEmailNotifications(boolean)
+session.set_email_notifications(boolean)
 ```
 
 **Required parameters**</br>
@@ -116,7 +116,7 @@ session.setEmailNotifications(boolean)
 
 **Example usage**</br>
 ```
-session.setEmailNotifications(True)
+session.set_email_notifications(True)
 ```
 
 ## Distance Range
@@ -124,21 +124,21 @@ The distance radius function allows you to set the maximum allowed distance to y
 This setting requires you to be logged in on Tinder.</br>
 Note: the parameter passed is the distance to you in ***kilometers***.
 ```
-session.setDistanceRadius(km)
+session.set_distance_radius(km)
 ```
 **Required parameters**</br>
 `km`: *integer*</br>
 
 **Example usage**</br>
 ```
-session.setDistanceRadius(150)
+session.set_distance_radius(150)
 ```
 
 ## Age Range
 First parameter is the minimum age, second parameter is the maximum age of the potential matches.</br>
 This setting requires you to be logged in on Tinder.</br>
 ```
-session.setAgeRange(min, max)
+session.set_age_range(min, max)
 ```
 **Required parameters**</br>
 `min`: *integer*</br>
@@ -146,7 +146,7 @@ session.setAgeRange(min, max)
 
 **Example usage**</br>
 ```
-session.setAgeRange(18, 25)
+session.set_age_range(18, 25)
 ```
 
 ## Sexuality
@@ -155,21 +155,21 @@ This setting allows you to choose which gender you get to see and thus will be m
 This setting requires you to be logged in on Tinder.</br>
 ```
 from tinderbot.helpers.constants_helper import Sexuality
-session.setSexuality(type)
+session.set_sexuality(type)
 ```
 **Required parameters**</br>
 `type`: *(enum) sexuality*</br>
 
 **Example usage**</br>
 ```
-session.setSexuality(Sexuality.EVERYONE)
+session.set_sexuality(Sexuality.EVERYONE)
 ```
 
 ## Global
 This setting allows you to match other people around the world.</br>
 This setting requires you to be logged in on Tinder.</br>
 ```
-session.setGlobal(boolean)
+session.set_global(boolean)
 ```
 **Required parameters**</br>
 `boolean`: *boolean*</br>
@@ -180,7 +180,7 @@ session.setGlobal(boolean)
 
 **Example usage**</br>
 ```
-session.setGlobal(True)
+session.set_global(True)
 ```
 
 # Actions
@@ -233,11 +233,11 @@ Your matches can be placed into two categories:
 2. Messaged matches with whom you have already interacted.
 These matches will be a list of objects of the [class Match](https://github.com/frederikme/TinderBotz/blob/master/tinderbotz/helpers/match.py) which is a childclass of the [class Geomatch](https://github.com/frederikme/TinderBotz/blob/master/tinderbotz/helpers/geomatch.py).
 ```
-new_matches = session.getNewMatches()    
-old_matches = session.getMessagedMatches()
+new_matches = session.get_new_matches()    
+old_matches = session.get_messaged_matches()
 
-# or just get all matches at once
-matches = session.getAllMatches()
+# getting all matches can be done by adding both together
+matches = new_matches + old_matches
 ```
 **Optional parameters**</br>
 `amount`: *amount*</br>
@@ -245,11 +245,8 @@ matches = session.getAllMatches()
 
 **Example usage**</br>
 ```
-new_matches = session.getNewMatches(amount=100, quickload=True)    
-old_matches = session.getMessagedMatches(amount=15, quickload=False)
-
-# or just get all matches at once
-matches = session.getAllMatches(quickload=True)
+new_matches = session.get_new_matches(amount=100, quickload=True)    
+old_matches = session.get_messaged_matches(amount=15, quickload=False)
 ```
 By default, all new and messaged matches are being loaded, although quite often it's more interesting to load only a handful matches. The amount of matches you want to fetch can be adjusted by specifying the amount of matches.</br>
 
@@ -265,7 +262,7 @@ and then load them from there in future runs.</br>
 ## Getting Geomatches
 Get data *name, age, bio, images...* of the displayed geomatch and store it inside an object of the [class Geomatch()](https://github.com/frederikme/TinderBotz/blob/master/tinderbotz/helpers/geomatch.py).
 ```
-geomatch = session.getGeomatch()
+geomatch = session.get_geomatch()
 ```
 ## Storing (geo)Matches
 Every profile, also known as a (geo)match, can be stored locally. </br>
@@ -273,22 +270,22 @@ Storing data can be useful for reducing runtime, for example when needing to fet
 ```
 matches = session.getAllMatches()
 for match in matches:
-   session.storeLocal(match)
+   session.store_local(match)
    
-geomatch = session.getGeomatch()
-session.storeLocal(geomatch)
+geomatch = session.get_geomatch()
+session.store_local(geomatch)
 ```
 ## Sending Messages
 Messages can be sent to matches.</br>
 [Scrape your matches](#getting-matches) or fetch them from your locally stored json file.</br>
  ```
-id = match.getChatID()
-name = match.getName()
+id = match.get_chat_id()
+name = match.get_name()
  
 pickup_line = "Hey {}, you got look exactly like my future wife. ;)".format(name)
 
 # send them a unique pick up line with their personal name
-session.sendMessage(chatid=id, message=pickup_line)
+session.send_message(chatid=id, message=pickup_line)
 ```
 ## Sending GIFS
 GIFS can be sent to matches.</br>
@@ -296,8 +293,8 @@ GIFS can be sent to matches.</br>
 </br>
 Sending a GIF will open the correct chat with your match, browse for the gif and send the first one that's being displayed.
 ```
-id = match.getChatID()
-session.sendGif(chatid=id, gifname="pizza")
+id = match.get_chat_id()
+session.send_gif(chatid=id, gifname="pizza")
 ```
 ## Sending Songs
 Songs can be sent to matches.</br>
@@ -305,8 +302,8 @@ Songs can be sent to matches.</br>
 </br>
 Sending a song will open the correct chat with your match, browse for the song and send the first one that's being displayed.
 ```
-id = match.getChatID()
-session.sendSong(chatid=id, songname="cutiepie")
+id = match.get_chat_id()
+session.send_song(chatid=id, songname="cutiepie")
 ```
 ## Sending Socials
 Socials can be sent to matches.</br>
@@ -314,14 +311,14 @@ Socials can be sent to matches.</br>
 </br>
 There are different types of socials. [Click here](https://github.com/frederikme/TinderBotz/blob/master/tinderbotz/helpers/constants_helper.py) to see what types of social media or available.</br> 
 ```
-id = match.getChatID()
-session.sendSocials(chatid=id, media=Socials.INSTAGRAM, value="Teeti.fm")
+id = match.get_chat_id()
+session.send_socials(chatid=id, media=Socials.INSTAGRAM, value="Teeti.fm")
 ```
 ## Unmatching
 You can unmatch a match. **BUT** think twice before you do. Once you unmatch, there is no going back.
 ```
-id = match.getChatID()
-session.unMatch(chatid=id)
+id = match.get_chat_id()
+session.unmatch(chatid=id)
 ```
 
 # ***JUST LET ME START ALREADY YES PLS TY***

@@ -18,7 +18,7 @@ if __name__ == "__main__":
     password = "password123"
     
     # login using your google account with a verified email! You can also log in using Facebook.
-    session.loginUsingGoogle(email, password)
+    session.login_using_google(email, password)
     
     # spam likes
     # amount -> amount of people you want to like

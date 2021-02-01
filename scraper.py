@@ -10,29 +10,29 @@ if __name__ == "__main__":
     session = Session()
 
     # set a custom location
-    session.setCustomLocation("Leuven, Belgium")
+    session.set_custom_location("Leuven, Belgium")
     
     # replace this with your own email and password!
     email = "example@gmail.com"
     password = "password123"
     
     # login using your google account with a verified email! Alternatively, you can use Facebook login
-    session.loginUsingGoogle(email, password)
+    session.login_using_google(email, password)
 
     # start scraping as much geomatches as possible
     while True:
         # get data of user displayed
-        geomatch = session.getGeomatch()
+        geomatch = session.get_geomatch()
 
         # check if crucial data is not empty (This will rarely be the case tho, but we want a 'clean' dataset
-        if geomatch.getName() is not None \
-                and geomatch.getImageURLS() != []:
+        if geomatch.get_name() is not None \
+                and geomatch.get_image_urls() != []:
 
             # let's store the data of the geomatch locally (this includes all images!)
-            session.storeLocal(geomatch)
+            session.store_local(geomatch)
 
             # display the saved data on your console
-            print(geomatch.getDictionary())
+            print(geomatch.get_dictionary())
 
             # account is scraped, now dislike and go next (since dislikes are infinite)
             # NOTE: if no amount is passed, it will dislike once -> same as => dislike(amount=1)

@@ -5,16 +5,15 @@ from selenium.common.exceptions import TimeoutException, ElementClickIntercepted
 from selenium.webdriver.common.keys import Keys
 import time
 
-
 class LoginHelper:
 
     delay = 7
 
     def __init__(self, browser):
         self.browser = browser
-        self.acceptCookies()
+        self._accept_cookies()
 
-    def clickLoginButton(self):
+    def _click_login_button(self):
         try:
             xpath = '//*[@type="button"]'
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
@@ -28,13 +27,13 @@ class LoginHelper:
                     break
 
         except TimeoutException:
-            self.exitByTimeOut()
+            self._exit_by_time_out()
 
         except ElementClickInterceptedException:
             pass
 
-    def loginByGoogle(self, email, password):
-        self.clickLoginButton()
+    def login_by_google(self, email, password):
+        self._click_login_button()
 
         # wait for google button to appear
         try:
@@ -47,12 +46,12 @@ class LoginHelper:
             btn.click()
 
         except TimeoutException:
-            self.exitByTimeOut()
+            self._exit_by_time_out()
 
-        if not self.changeFocusToPopUp():
+        if not self._change_focus_to_pop_up():
             print("FAILED TO CHANGE FOCUS TO POPUP")
             print("Let's try again...")
-            return self.loginByGoogle(email, password)
+            return self.login_by_google(email, password)
 
         try:
             xpath = "//input[@type='email']"
@@ -65,7 +64,7 @@ class LoginHelper:
             # sleeping 3 seconds for passwordfield to come through
             time.sleep(3)
         except TimeoutException:
-            self.exitByTimeOut()
+            self._exit_by_time_out()
 
         try:
             xpath = "//input[@type='password']"
@@ -77,13 +76,13 @@ class LoginHelper:
             pwdfield.send_keys(Keys.ENTER)
 
         except TimeoutException:
-            self.exitByTimeOut()
+            self._exit_by_time_out()
 
-        self.changeFocusToMainWindow()
-        self.handlePopups()
+        self._change_focus_to_main_window()
+        self._handle_popups()
 
-    def loginByFacebook(self, email, password):
-        self.clickLoginButton()
+    def login_by_facebook(self, email, password):
+        self._click_login_button()
 
         # wait for facebook button to appear
         try:
@@ -93,12 +92,12 @@ class LoginHelper:
 
             self.browser.find_element_by_xpath(xpath).click()
         except TimeoutException:
-            self.exitByTimeOut()
+            self._exit_by_time_out()
 
-        if not self.changeFocusToPopUp():
+        if not self._change_focus_to_pop_up():
             print("FAILED TO CHANGE FOCUS TO POPUP")
             print("Let's try again...")
-            return self.loginByFacebook(email, password)
+            return self.login_by_facebook(email, password)
 
         try:
             xpath_email = '//*[@id="email"]'
@@ -118,13 +117,13 @@ class LoginHelper:
             loginbutton.click()
 
         except TimeoutException:
-            self.exitByTimeOut()
+            self._exit_by_time_out()
 
-        self.changeFocusToMainWindow()
-        self.handlePopups()
+        self._change_focus_to_main_window()
+        self._handle_popups()
 
-    def loginBySMS(self, country, phone_number):
-        self.clickLoginButton()
+    def login_by_sms(self, country, phone_number):
+        self._click_login_button()
 
         # wait for facebook button to appear
         try:
@@ -135,9 +134,9 @@ class LoginHelper:
             btn = self.browser.find_element_by_xpath(xpath)
             btn.click()
         except TimeoutException:
-            self.exitByTimeOut()
+            self._exit_by_time_out()
 
-        self.handlePrefix(country)
+        self._handle_prefix(country)
 
         # Fill in sms
         try:
@@ -150,17 +149,17 @@ class LoginHelper:
             field.send_keys(Keys.ENTER)
 
         except TimeoutException:
-            self.exitByTimeOut()
+            self._exit_by_time_out()
 
         print("\n\nPROCEED MANUALLY BY ENTERING SMS CODE\n")
         # check every second if user has bypassed sms-code barrier
-        while not self.isLoggedIn():
+        while not self._is_logged_in():
             time.sleep(1)
 
-        self.handlePopups()
+        self._handle_popups()
 
-    def handlePrefix(self, country):
-        self.acceptCookies()
+    def _handle_prefix(self, country):
+        self._accept_cookies()
 
         xpath = '//div[@aria-describedby="phoneErrorMessage"]/div/div'
         WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
@@ -182,16 +181,16 @@ class LoginHelper:
                 continue
 
     # checks if user is logged in by checking the url
-    def isLoggedIn(self):
+    def _is_logged_in(self):
         return 'app' in self.browser.current_url
 
-    def handlePopups(self):
+    def _handle_popups(self):
         time.sleep(2)
-        self.acceptCookies()
-        self.acceptLocationNotification()
-        self.denyOverlayedNotifications()
+        self._accept_cookies()
+        self._accept_location_notification()
+        self._deny_overlayed_notifications()
 
-    def acceptLocationNotification(self):
+    def _accept_location_notification(self):
         try:
             xpath = '//*[@data-testid="allow"]'
             WebDriverWait(self.browser, self.delay).until(
@@ -206,7 +205,7 @@ class LoginHelper:
         except:
             pass
 
-    def denyOverlayedNotifications(self):
+    def _deny_overlayed_notifications(self):
         try:
             xpath = '//*[@data-testid="decline"]'
             WebDriverWait(self.browser, self.delay).until(
@@ -220,7 +219,7 @@ class LoginHelper:
         except:
             pass
 
-    def acceptCookies(self):
+    def _accept_cookies(self):
         try:
             xpath = '//*[@type="button"]'
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
@@ -239,7 +238,7 @@ class LoginHelper:
         except:
             pass
 
-    def changeFocusToPopUp(self):
+    def _change_focus_to_pop_up(self):
         max_tries = 50
         current_tries = 0
 
@@ -265,7 +264,7 @@ class LoginHelper:
         self.browser.switch_to.window(popup_window)
         return True
 
-    def changeFocusToMainWindow(self):
+    def _change_focus_to_main_window(self):
         main_window = None
         if len(self.browser.window_handles) == 1:
             main_window = self.browser.current_window_handle
@@ -279,7 +278,7 @@ class LoginHelper:
 
         self.browser.switch_to.window(main_window)
 
-    def exitByTimeOut(self):
+    def _exit_by_time_out(self):
         print("Loading an element took too much time!. Please check your internet connection.")
         print("Alternatively, you can add a sleep or higher the delay class variable.")
         exit(1)

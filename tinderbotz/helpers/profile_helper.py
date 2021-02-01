@@ -25,7 +25,7 @@ class ProfileHelper:
         except:
             pass
 
-    def setDistanceRange(self, km):
+    def set_distance_range(self, km):
         # correct out of bounds values
         if km > 160:
             final_percentage = 100
@@ -66,7 +66,7 @@ class ProfileHelper:
         print("Ended slider with {}% = {}km\n\n".format(current_percentage, current_percentage*1.6))
         time.sleep(5)
 
-    def setAgeRange(self, min, max):
+    def set_age_range(self, min, max):
         # locate elements
         xpath = '//*[@aria-label="Minimum age"]'
         WebDriverWait(self.browser, self.delay).until(
@@ -140,7 +140,7 @@ class ProfileHelper:
               (current_percentage_max / percentage_per_year) + min_age_tinder))
         time.sleep(5)
 
-    def setSexualitiy(self, type):
+    def set_sexualitiy(self, type):
         if not isinstance(type, Sexuality):
             assert False
 
@@ -163,7 +163,7 @@ class ProfileHelper:
         print("clicked on " + type.value)
         time.sleep(5)
 
-    def setGlobal(self, boolean, language=None):
+    def set_global(self, boolean, language=None):
         # check if global is already activated
         # Global is activated when the href to preferred languages is visible
         is_activated = False
@@ -171,7 +171,7 @@ class ProfileHelper:
             xpath = '//*[@href="/app/settings/global/languages"]/div'
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, xpath)))
-            languages_element = self.browser.find_element_by_xpath(xpath)
+            self.browser.find_element_by_xpath(xpath)
             is_activated = True
 
         except:

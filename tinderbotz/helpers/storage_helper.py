@@ -17,7 +17,7 @@ class StorageHelper:
 
     # Returns hash value of the image saved by the url given
     @staticmethod
-    def storeImageAs(url, directory, amount_of_attempts=1):
+    def store_image_as(url, directory, amount_of_attempts=1):
         if not os.path.exists(directory):
             os.makedirs(directory)
 
@@ -39,7 +39,7 @@ class StorageHelper:
                 sleepy_time = amount_of_attempts * 30
                 print("Attempt number {}: sleeping for {} seconds ...".format(amount_of_attempts, sleepy_time))
                 time.sleep(sleepy_time)
-                return StorageHelper.storeImageAs(url, directory, amount_of_attempts+1)
+                return StorageHelper.store_image_as(url, directory, amount_of_attempts + 1)
             else:
                 # Settle with the fact this one won't be stored
                 error = "Amount of attempts exceeded in storage_helper\n" \
@@ -90,7 +90,7 @@ class StorageHelper:
         return hashvalue
 
     @staticmethod
-    def storeMatch(match, directory, filename):
+    def store_match(match, directory, filename):
 
         if not os.path.exists(directory):
             os.makedirs(directory)
@@ -104,7 +104,7 @@ class StorageHelper:
             print("Could not read file, starting from scratch")
             data = {}
 
-        data[match.getID()] = match.getDictionary()
+        data[match.get_id()] = match.get_dictionary()
 
         with open(filepath, 'w+', encoding="utf-8") as file:
             json.dump(data, file)

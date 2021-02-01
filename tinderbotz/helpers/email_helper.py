@@ -1,13 +1,11 @@
 import smtplib
 from email.message import EmailMessage
 
-
-# TODO: Send image of matched person in email attachment :)
 class EmailHelper:
 
     # I created a gmail account for everyone to use, please don't abuse this.
     @staticmethod
-    def sendMailMatchFound(to):
+    def send_mail_match_found(to):
         match_msg = "Congratulations you've been matched with someone. Please check your profile for more details."
 
         msg = EmailMessage()

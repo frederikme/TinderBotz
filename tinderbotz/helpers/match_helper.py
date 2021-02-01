@@ -44,7 +44,7 @@ class MatchHelper:
             last_height = new_height
 
 
-    def getChatIds(self, new, messaged):
+    def get_chat_ids(self, new, messaged):
         chatids = []
 
         if new:
@@ -61,9 +61,9 @@ class MatchHelper:
                 print("match tab could not be found, trying again")
                 self.browser.get(self.HOME_URL)
                 time.sleep(1)
-                return self.getChatIds(new, messaged)
+                return self.get_chat_ids(new, messaged)
             except Exception as e:
-                print("An unhandled exception occured in getNewMatches:")
+                print("An unhandled exception occured in get_new_matches:")
                 print(e)
 
             # start scraping new matches
@@ -104,9 +104,9 @@ class MatchHelper:
                 print("match tab could not be found, trying again")
                 self.browser.get(self.HOME_URL)
                 time.sleep(1)
-                return self.getChatIds(new=new, messaged=messaged)
+                return self.get_chat_ids(new=new, messaged=messaged)
             except Exception as e:
-                print("An unhandled exception occured in getNewMatches:")
+                print("An unhandled exception occured in get_new_matches:")
                 print(e)
 
             # Start scraping the chatted matches
@@ -132,14 +132,10 @@ class MatchHelper:
 
         return chatids
 
-    def getAllMatches(self, quickload, amount=100000):
-        print("\n\nScraping matches can take a while!\n")
-        return self.getNewMatches(amount, quickload) + self.getMessagedMatches(amount, quickload)
-
-    def getNewMatches(self, amount, quickload):
+    def get_new_matches(self, amount, quickload):
         matches = []
         used_chatids = []
-        new_chatids = self.getChatIds(new=True, messaged=False)
+        new_chatids = self.get_chat_ids(new=True, messaged=False)
 
         while True:
 
@@ -148,16 +144,15 @@ class MatchHelper:
 
             # shorten the list so doesn't fetch ALL matches but just the amount it needs
             diff = len(matches) + len(new_chatids) - amount
-            print("diff")
-            print(f"amount {amount}, dif {diff}")
+
             if diff > 0:
                 del new_chatids[-diff:]
 
             print("\nGetting not-interacted-with, NEW MATCHES")
             loadingbar = LoadingBar(len(new_chatids), "new matches")
             for index, chatid in enumerate(new_chatids):
-                matches.append(self.getMatch(chatid, quickload))
-                loadingbar.updateLoadingBar(index)
+                matches.append(self.get_match(chatid, quickload))
+                loadingbar.update_loading(index)
             print("\n")
 
             # scroll down to get more chatids
@@ -166,7 +161,7 @@ class MatchHelper:
             self.browser.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight;', tab)
             time.sleep(4)
 
-            new_chatids = self.getChatIds(new=True, messaged=False)
+            new_chatids = self.get_chat_ids(new=True, messaged=False)
             copied = new_chatids.copy()
             for index in range(len(copied)):
                 if copied[index] in used_chatids:
@@ -180,10 +175,10 @@ class MatchHelper:
 
         return matches
 
-    def getMessagedMatches(self, amount, quickload):
+    def get_messaged_matches(self, amount, quickload):
         matches = []
         used_chatids = []
-        new_chatids = self.getChatIds(new=False, messaged=True)
+        new_chatids = self.get_chat_ids(new=False, messaged=True)
 
         while True:
 
@@ -198,8 +193,8 @@ class MatchHelper:
             print("\nGetting interacted-with, MESSAGED MATCHES")
             loadingbar = LoadingBar(len(new_chatids), "interacted-with-matches")
             for index, chatid in enumerate(new_chatids):
-                matches.append(self.getMatch(chatid, quickload))
-                loadingbar.updateLoadingBar(index)
+                matches.append(self.get_match(chatid, quickload))
+                loadingbar.update_loading(index)
             print("\n")
 
             # scroll down to get more chatids
@@ -208,7 +203,7 @@ class MatchHelper:
             self.browser.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight;', tab)
             time.sleep(4)
 
-            new_chatids = self.getChatIds(new=False, messaged=True)
+            new_chatids = self.get_chat_ids(new=False, messaged=True)
             copied = new_chatids.copy()
             for index in range(len(copied)):
                 if copied[index] in used_chatids:
@@ -222,9 +217,9 @@ class MatchHelper:
 
         return matches
 
-    def sendMessage(self, chatid, message):
-        if not self.isChatOpened(chatid):
-            self.openChat(chatid)
+    def send_message(self, chatid, message):
+        if not self._is_chat_opened(chatid):
+            self._open_chat(chatid)
 
         # locate the textbox and send message
         try:
@@ -245,9 +240,9 @@ class MatchHelper:
             print("SOMETHING WENT WRONG LOCATING TEXTBOX")
             print(e)
 
-    def sendGif(self, chatid, gifname):
-        if not self.isChatOpened(chatid):
-            self.openChat(chatid)
+    def send_gif(self, chatid, gifname):
+        if not self._is_chat_opened(chatid):
+            self._open_chat(chatid)
 
         try:
             xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[1]/button'
@@ -274,9 +269,9 @@ class MatchHelper:
         except Exception as e:
             print(e)
 
-    def sendSong(self, chatid, songname):
-        if not self.isChatOpened(chatid):
-            self.openChat(chatid)
+    def send_song(self, chatid, songname):
+        if not self._is_chat_opened(chatid):
+            self._open_chat(chatid)
 
         try:
             xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[2]/button'
@@ -306,16 +301,16 @@ class MatchHelper:
         except Exception as e:
             print(e)
 
-    def sendSocials(self, chatid, media, value):
-        didMatch = False
+    def send_socials(self, chatid, media, value):
+        did_match = False
         for social in (Socials):
             if social == media:
-                didMatch = True
+                did_match = True
 
-        if not didMatch: print("Media must be of type Socials"); return
+        if not did_match: print("Media must be of type Socials"); return
 
-        if not self.isChatOpened(chatid):
-            self.openChat(chatid)
+        if not self._is_chat_opened(chatid):
+            self._open_chat(chatid)
 
         try:
             xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[3]/button'
@@ -343,7 +338,7 @@ class MatchHelper:
                 confirm_btn.click()
 
                 # resend with saved value this time
-                self.sendSocials(chatid=chatid, media=media, value=value)
+                self.send_socials(chatid=chatid, media=media, value=value)
             except TimeoutException:
                 print("There was already a value assigned to your social")
 
@@ -360,9 +355,9 @@ class MatchHelper:
         except Exception as e:
             print(e)
 
-    def unMatch(self, chatid):
-        if not self.isChatOpened(chatid):
-            self.openChat(chatid)
+    def unmatch(self, chatid):
+        if not self._is_chat_opened(chatid):
+            self._open_chat(chatid)
 
         try:
             unmatch_button = self.browser.find_element_by_xpath('//button[text()="Unmatch"]')
@@ -387,8 +382,8 @@ class MatchHelper:
             print("SOMETHING WENT WRONG FINDING THE UNMATCH BUTTONS")
             print(e)
 
-    def openChat(self, chatid):
-        if self.isChatOpened(chatid): return;
+    def _open_chat(self, chatid):
+        if self._is_chat_opened(chatid): return;
 
         href = "/app/messages/{}".format(chatid)
 
@@ -399,54 +394,60 @@ class MatchHelper:
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
 
-            messagesTab = self.browser.find_element_by_xpath(xpath)
-            messagesTab.click()
+            messages_tab = self.browser.find_element_by_xpath(xpath)
+            messages_tab.click()
             time.sleep(1)
         except Exception as e:
             self.browser.get(self.HOME_URL)
-            print("openchat 1:" + str(e))
-            return self.openChat(chatid)
+            print(e)
+            return self._open_chat(chatid)
 
         try:
-            matchButton = self.browser.find_element_by_xpath('//a[@href="{}"]'.format(href))
-            self.browser.execute_script("arguments[0].click();", matchButton)
+            match_button = self.browser.find_element_by_xpath('//a[@href="{}"]'.format(href))
+            self.browser.execute_script("arguments[0].click();", match_button)
 
         except Exception as e:
-            print("openchat 2:" + str(e))
+            print(e)
             # match reference not found, so let's see if match exists in the new not yet interacted matches
             xpath = '//*[@id="match-tab"]'
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
 
-            newMatchesTab = self.browser.find_element_by_xpath(xpath)
-            newMatchesTab.click()
+            new_matches_tab = self.browser.find_element_by_xpath(xpath)
+            new_matches_tab.click()
             time.sleep(1)
 
             try:
-                matchedButton = self.browser.find_element_by_xpath('//a[@href="' + href + '"]')
-                matchedButton.click()
+                matched_button = self.browser.find_element_by_xpath('//a[@href="' + href + '"]')
+                matched_button.click()
             except Exception as e:
                 # some kind of error happened, probably cuz chatid/ref/match doesnt exist (anymore)
                 # Another error could be that the elements could not be found, cuz we're at a wrong url (potential bug)
-                print("openchat 3:" + str(e))
+                print(e)
         time.sleep(1)
 
-    def getMatch(self, chatid, quickload):
-        if not self.isChatOpened(chatid):
-            self.openChat(chatid)
+    def get_match(self, chatid, quickload):
+        if not self._is_chat_opened(chatid):
+            self._open_chat(chatid)
 
-        name = self.getName(chatid)
-        age = self.getAge(chatid)
-        distance = self.getDistance(chatid)
-        bio = self.getBio(chatid)
-        image_urls = None
-        image_urls = self.getImageURLS(chatid, quickload)
+        name = self.get_name(chatid)
+        age = self.get_age(chatid)
+        bio = self.get_bio(chatid)
+        image_urls = self.get_image_urls(chatid, quickload)
 
-        return Match(name=name, chatid=chatid, age=age, distance=distance, bio=bio, image_urls=image_urls)
+        rowdata = self.get_row_data(chatid)
+        work = rowdata.get('work')
+        study = rowdata.get('study')
+        home = rowdata.get('home')
+        distance = rowdata.get('distance')
 
-    def getName(self, chatid):
-        if not self.isChatOpened(chatid):
-            self.openChat(chatid)
+        passions = self.get_passions(chatid)
+
+        return Match(name=name, chatid=chatid, age=age, work=work, study=study, home=home, distance=distance, bio=bio, passions=passions, image_urls=image_urls)
+
+    def get_name(self, chatid):
+        if not self._is_chat_opened(chatid):
+            self._open_chat(chatid)
 
         try:
             xpath = '//h1[@itemprop="name"]'
@@ -454,12 +455,11 @@ class MatchHelper:
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
             return element.text
         except Exception as e:
-            print("name")
             print(e)
 
-    def getAge(self, chatid):
-        if not self.isChatOpened(chatid):
-            self.openChat(chatid)
+    def get_age(self, chatid):
+        if not self._is_chat_opened(chatid):
+            self._open_chat(chatid)
 
         age = None
 
@@ -468,37 +468,77 @@ class MatchHelper:
             element = self.browser.find_element_by_xpath(xpath)
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                 (By.XPATH, xpath)))
-            age = element.text
+            try:
+               age = int(element.text)
+            except ValueError:
+                age = None
         except:
             pass
 
         return age
 
-    def getDistance(self, chatid):
-        if not self.isChatOpened(chatid):
-            self.openChat(chatid)
+
+    _WORK_SVG_PATH = "M7.15 3.434h5.7V1.452a.728.728 0 0 0-.724-.732H7.874a.737.737 0 0 0-.725.732v1.982z"
+    _STUDYING_SVG_PATH = "M11.87 5.026L2.186 9.242c-.25.116-.25.589 0 .705l.474.204v2.622a.78.78 0 0 0-.344.657c0 .42.313.767.69.767.378 0 .692-.348.692-.767a.78.78 0 0 0-.345-.657v-2.322l2.097.921a.42.42 0 0 0-.022.144v3.83c0 .45.27.801.626 1.101.358.302.842.572 1.428.804 1.172.46 2.755.776 4.516.776 1.763 0 3.346-.317 4.518-.777.586-.23 1.07-.501 1.428-.803.355-.3.626-.65.626-1.1v-3.83a.456.456 0 0 0-.022-.145l3.264-1.425c.25-.116.25-.59 0-.705L12.13 5.025c-.082-.046-.22-.017-.26 0v.001zm.13.767l8.743 3.804L12 13.392 3.257 9.599l8.742-3.806zm-5.88 5.865l5.75 2.502a.319.319 0 0 0 .26 0l5.75-2.502v3.687c0 .077-.087.262-.358.491-.372.29-.788.52-1.232.68-1.078.426-2.604.743-4.29.743s-3.212-.317-4.29-.742c-.444-.161-.86-.39-1.232-.68-.273-.23-.358-.415-.358-.492v-3.687z"
+    _HOME_SVG_PATH = "M19.695 9.518H4.427V21.15h15.268V9.52zM3.109 9.482h17.933L12.06 3.709 3.11 9.482z"
+    _LOCATION_SVG_PATH = "M11.436 21.17l-.185-.165a35.36 35.36 0 0 1-3.615-3.801C5.222 14.244 4 11.658 4 9.524 4 5.305 7.267 2 11.436 2c4.168 0 7.437 3.305 7.437 7.524 0 4.903-6.953 11.214-7.237 11.48l-.2.167zm0-18.683c-3.869 0-6.9 3.091-6.9 7.037 0 4.401 5.771 9.927 6.897 10.972 1.12-1.054 6.902-6.694 6.902-10.95.001-3.968-3.03-7.059-6.9-7.059h.001z"
+
+    def get_row_data(self, chatid):
+        if not self._is_chat_opened(chatid):
+            self._open_chat(chatid)
+
+        rowdata = {}
+
+        xpath = '//div[@class="Row"]'
+        rows = self.browser.find_elements_by_xpath(xpath)
+
+        for row in rows:
+            svg = row.find_element_by_xpath(".//*[starts-with(@d, 'M')]").get_attribute('d')
+            value = row.find_element_by_xpath(".//div[2]").text
+            if svg == self._WORK_SVG_PATH:
+                rowdata['work'] = value
+            if svg == self._STUDYING_SVG_PATH:
+                rowdata['study'] = value
+            if svg == self._HOME_SVG_PATH:
+                rowdata['home'] = value
+            if svg == self._LOCATION_SVG_PATH:
+                distance = value.split(' ')[0]
+                try:
+                    distance = int(distance)
+                except TypeError:
+                    # Means the text has a value of 'Less than 1 km away'
+                    distance = 1
+                rowdata['distance'] = distance
+
+        return rowdata
+
+    def get_passions(self, chatid):
+        if not self._is_chat_opened(chatid):
+            self._open_chat(chatid)
+
+        passions = []
+
+        xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[1]/div/div/div[2]/div[1]/div/div[2]/div[4]/div'
+        elements = self.browser.find_elements_by_xpath(xpath)
+        for el in elements:
+            passions.append(el.text)
+
+        return passions
+
+    def get_bio(self, chatid):
+        if not self._is_chat_opened(chatid):
+            self._open_chat(chatid)
 
         try:
-            element = self.browser.find_element_by_xpath("//*[contains(text(), 'away')]")
-            return element.text.split(' ')[0]
-        except Exception as e:
-            print("distance")
-            print(e)
-
-    def getBio(self, chatid):
-        if not self.isChatOpened(chatid):
-            self.openChat(chatid)
-
-        try:
-            xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[2]/div[2]/div'
+            xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[1]/div/div/div[2]/div[2]/div'
             return self.browser.find_element_by_xpath(xpath).text
-        except Exception as e:
+        except:
             # no bio included?
             return None
 
-    def getImageURLS(self, chatid, quickload):
-        if not self.isChatOpened(chatid):
-            self.openChat(chatid)
+    def get_image_urls(self, chatid, quickload):
+        if not self._is_chat_opened(chatid):
+            self._open_chat(chatid)
 
         image_urls = []
 
@@ -510,10 +550,9 @@ class MatchHelper:
                 image_urls.append(image_url)
 
 
+        # return image urls without opening all images
         if quickload:
-            # return image urls without tapping for all images
             return image_urls
-
 
         try:
 
@@ -546,7 +585,7 @@ class MatchHelper:
 
         return image_urls
 
-    def isChatOpened(self, chatid):
+    def _is_chat_opened(self, chatid):
         # open the correct user if not happened yet
         if chatid in self.browser.current_url:
             return True
