@@ -82,6 +82,9 @@ class Session:
         options = webdriver.ChromeOptions()
         options.add_experimental_option('w3c', False)
 
+        options.add_experimental_option("useAutomationExtension", False)
+        options.add_experimental_option('excludeSwitches', ['enable-automation'])
+
         # Getting the chromedriver from cache or download it from internet
         print("Getting ChromeDriver ...")
         self.browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
