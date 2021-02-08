@@ -61,8 +61,6 @@ If you're new to coding and just want the script to automatically like, the [aut
 *Feel free to make a pull request and contribute to this project!*</br>
 </br>
 ***Enjoy! :)***</br>
-</br>
-**INFO: now also available as a PIP INSTALL as illustrated [here](#installation)**</br>
 
 ### Built with
 
