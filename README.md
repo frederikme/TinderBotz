@@ -156,11 +156,5 @@ If you feel like buying me a drink:
 * [Paypal](https://paypal.me/frederikmees)
 * [Buy Me A Coffee](https://www.buymeacoffee.com/frederikme)
 * Bitcoin
-    * bc1qs8jvgme05hc2ar2sr4dl0fx7g3f0rvtmy9wm8hfs39tq8ce020rsxgq3lv
-<p align="left">
-  <a href="https://user-images.githubusercontent.com/60892381/107684147-b8735500-6ca2-11eb-8d7b-7d5123b29925.png">
-    <img src="https://user-images.githubusercontent.com/60892381/107684147-b8735500-6ca2-11eb-8d7b-7d5123b29925.png" width=150 height=150>
-  </a>
-</p>
-
+    * 1NtekHsUXsm3ifDnLFeWPECYtyfBTCZduL
 
