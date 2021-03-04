@@ -3,6 +3,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import *
 import time
+from tinderbotz.helpers.xpaths import content
 
 class GeomatchHelper:
 
@@ -19,10 +20,10 @@ class GeomatchHelper:
         try:
             # need to find better way
             if 'profile' in self.browser.current_url:
-                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[4]/button'
+                xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[4]/button'
             else:
-                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[4]/button'
-
+                xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[4]/button'
+            
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                 (By.XPATH, xpath)))
@@ -39,9 +40,9 @@ class GeomatchHelper:
     def dislike(self):
         try:
             if 'profile' in self.browser.current_url:
-                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[2]/button'
+                xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[2]/button'
             else:
-                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[2]/button'
+                xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[2]/button'
 
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
@@ -58,9 +59,9 @@ class GeomatchHelper:
     def superlike(self):
         try:
             if 'profile' in self.browser.current_url:
-                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[3]/div/div/div/button'
+                xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[3]/div/div/div/button'
             else:
-                xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[3]/div/div/div/button'
+                xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[3]/div/div/div/button'
 
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
@@ -185,7 +186,7 @@ class GeomatchHelper:
 
         passions = []
 
-        xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[2]/div[1]/div/div[2]/div[4]/div'
+        xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[2]/div[1]/div/div[2]/div[4]/div'
         elements = self.browser.find_elements_by_xpath(xpath)
         for el in elements:
             passions.append(el.text)
@@ -197,7 +198,7 @@ class GeomatchHelper:
             self._open_profile()
 
         try:
-            xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[2]/div[2]/div'
+            xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[2]/div[2]/div'
             return self.browser.find_element_by_xpath(xpath).text
 
         except Exception as e:

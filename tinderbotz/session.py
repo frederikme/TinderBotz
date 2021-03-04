@@ -83,12 +83,15 @@ class Session:
         options.add_experimental_option('w3c', False)
 
         options.add_experimental_option("useAutomationExtension", False)
+        options.add_argument('--disable-blink-features=AutomationControlled')
+        options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36")
         options.add_experimental_option('excludeSwitches', ['enable-automation'])
 
         # Getting the chromedriver from cache or download it from internet
         print("Getting ChromeDriver ...")
         self.browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
         self.browser.set_window_size(1250, 750)
+
 
     # Setting a custom location
     def set_custom_location(self, location_name, accuracy="100%"):
@@ -134,17 +137,28 @@ class Session:
             helper = LoginHelper(browser=self.browser)
             helper.login_by_google(email, password)
             time.sleep(3)
+        if not self._is_logged_in():
+            print('Manual interference is required.')
+            input('press ENTER to continue')
 
     def login_using_facebook(self, email, password):
         self.email = email
         if not self._is_logged_in():
             helper = LoginHelper(browser=self.browser)
             helper.login_by_facebook(email, password)
+            time.sleep(3)
+        if not self._is_logged_in():
+            print('Manual interference is required.')
+            input('press ENTER to continue')
 
     def login_using_sms(self, country, phone_number):
         if not self._is_logged_in():
             helper = LoginHelper(browser=self.browser)
             helper.login_by_sms(country, phone_number)
+            time.sleep(3)
+        if not self._is_logged_in():
+            print('Manual interference is required.')
+            input('press ENTER to continue')
 
     def store_local(self, match):
         if isinstance(match, Match):
@@ -292,13 +306,18 @@ class Session:
     def _handle_potential_popups(self):
         delay = 0.25
 
+        modal_manager = '//div[starts-with(@id, "t-")]'
+
+        # last possible id based div
+        base_element = self.browser.find_elements_by_xpath(modal_manager)[-1]
+
         # try to deny see who liked you
         try:
-            xpath = '//*[@id="modal-manager"]/div/div/div/div[3]/button[2]'
-            WebDriverWait(self.browser, delay).until(
+            xpath = './/div/div/div/div[3]/button[2]'
+            WebDriverWait(base_element, delay).until(
                 EC.presence_of_element_located((By.XPATH, xpath)))
 
-            deny_btn = self.browser.find_element_by_xpath(xpath)
+            deny_btn = base_element.find_element_by_xpath(xpath)
             deny_btn.click()
             return "POPUP: Denied see who liked you"
 
@@ -310,29 +329,38 @@ class Session:
         # Try to dismiss a potential 'upgrade like' popup
         try:
             # locate "no thanks"-button
-            xpath = '//*[@id="modal-manager"]/div/div/button[2]'
-            self.browser.find_element_by_xpath(xpath).click()
+            xpath = './/div/div/button[2]'
+            base_element.find_element_by_xpath(xpath).click()
             return "POPUP: Denied upgrade to superlike"
         except NoSuchElementException:
             pass
 
         # try to deny 'add tinder to homescreen'
         try:
-            xpath = '//*[@id="modal-manager"]/div/div/div[2]/button[2]'
+            xpath = './/div/div/div[2]/button[2]'
 
-            add_to_home_popup = self.browser.find_element_by_xpath(xpath)
+            add_to_home_popup = base_element.find_element_by_xpath(xpath)
             add_to_home_popup.click()
             return "POPUP: Denied Tinder to homescreen"
 
         except NoSuchElementException:
             pass
 
+        # deny buying more superlikes
+        try:
+            xpath = './/div/div/div[3]/button[2]'
+            deny = base_element.find_element_by_xpath(xpath)
+            deny.click()
+            return "POPUP: Denied buying more superlikes"
+        except NoSuchElementException:
+            pass
+
         # try to dismiss match
         matched = False
         try:
-            xpath = '//*[@id="modal-manager-canvas"]/div/div/div[1]/div/div[4]/button'
+            xpath = '//button[@title="Back to Tinder"]'
 
-            match_popup = self.browser.find_element_by_xpath(xpath)
+            match_popup = base_element.find_element_by_xpath(xpath)
             match_popup.click()
             matched = True
 
@@ -353,8 +381,8 @@ class Session:
 
         # try to say 'no thanks' to buy more (super)likes
         try:
-            xpath = '//*[@id="modal-manager"]/div/div/div[3]/button[2]'
-            deny_btn = self.browser.find_element_by_xpath(xpath)
+            xpath = './/div/div/div[3]/button[2]'
+            deny_btn = base_element.find_element_by_xpath(xpath)
             deny_btn.click()
             return "POPUP: Denied buying more superlikes"
 
@@ -366,8 +394,8 @@ class Session:
 
         # Deny confirmation of email
         try:
-            xpath = '//*[@id="modal-manager"]/div/div/div[1]/div[2]/button[2]'
-            remindmelater = self.browser.find_element_by_xpath(xpath)
+            xpath = './/div/div/div[1]/div[2]/button[2]'
+            remindmelater = base_element.find_element_by_xpath(xpath)
             remindmelater.click()
 
             time.sleep(3)

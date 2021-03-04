@@ -8,6 +8,7 @@ import time
 from tinderbotz.helpers.match import Match
 from tinderbotz.helpers.constants_helper import Socials
 from tinderbotz.helpers.loadingbar import LoadingBar
+from tinderbotz.helpers.xpaths import content
 
 class MatchHelper:
 
@@ -47,35 +48,33 @@ class MatchHelper:
     def get_chat_ids(self, new, messaged):
         chatids = []
 
+        xpath = '//button[@role="tab"]'
+        try:
+            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
+        except TimeoutException:
+            print("match tab could not be found, trying again")
+            self.browser.get(self.HOME_URL)
+            time.sleep(1)
+            return self.get_chat_ids(new, messaged)
+
+        tabs = self.browser.find_elements_by_xpath(xpath)
+
         if new:
             # Make sure we're in the 'new matches' tab
-            try:
-                xpath = '//*[@id="match-tab"]'
-                # wait for element to appear
-                WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
-
-                new_matches_tab = self.browser.find_element_by_xpath(xpath)
-                new_matches_tab.click()
-                time.sleep(1)
-            except TimeoutException:
-                print("match tab could not be found, trying again")
-                self.browser.get(self.HOME_URL)
-                time.sleep(1)
-                return self.get_chat_ids(new, messaged)
-            except Exception as e:
-                print("An unhandled exception occured in get_new_matches:")
-                print(e)
+            for tab in tabs:
+                if tab.text == 'Matches':
+                    tab.click()
 
             # start scraping new matches
             try:
-                xpath = '//*[@id="matchListNoMessages"]'
+                xpath = '//div[@role="tabpanel"]'
 
                 # wait for element to appear
                 WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
 
                 div = self.browser.find_element_by_xpath(xpath)
 
-                list_refs = div.find_elements_by_class_name('matchListItem')
+                list_refs = div.find_elements_by_xpath('.//div/div/a')
                 for index in range(len(list_refs)):
                     try:
                         ref = list_refs[index].get_attribute('href')
@@ -91,35 +90,21 @@ class MatchHelper:
 
         if messaged:
             # Make sure we're in the 'messaged matches' tab
-            try:
-                xpath = '//*[@id="messages-tab"]'
-                # wait for element to appear
-                WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
-
-                messagesTab = self.browser.find_element_by_xpath(xpath)
-                messagesTab.click()
-                time.sleep(1)
-
-            except TimeoutException:
-                print("match tab could not be found, trying again")
-                self.browser.get(self.HOME_URL)
-                time.sleep(1)
-                return self.get_chat_ids(new=new, messaged=messaged)
-            except Exception as e:
-                print("An unhandled exception occured in get_new_matches:")
-                print(e)
+            for tab in tabs:
+                if tab.text == 'Messages':
+                    tab.click()
 
             # Start scraping the chatted matches
             try:
-                class_name = 'messageList'
+                xpath = '//div[@class="messageList"]'
 
                 # wait for element to appear
                 WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
-                    (By.CLASS_NAME, class_name)))
+                    (By.XPATH, xpath)))
 
-                div = self.browser.find_element_by_class_name(class_name)
+                div = self.browser.find_element_by_xpath(xpath)
 
-                list_refs = div.find_elements_by_class_name('messageListItem')
+                list_refs = div.find_elements_by_xpath('.//a')
                 for index in range(len(list_refs)):
                     try:
                         ref = list_refs[index].get_attribute('href')
@@ -156,7 +141,7 @@ class MatchHelper:
             print("\n")
 
             # scroll down to get more chatids
-            xpath = '//*[@id="matchListNoMessages"]'
+            xpath = '//div[@role="tabpanel"]'
             tab = self.browser.find_element_by_xpath(xpath)
             self.browser.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight;', tab)
             time.sleep(4)
@@ -198,7 +183,7 @@ class MatchHelper:
             print("\n")
 
             # scroll down to get more chatids
-            xpath = '//*[@id="matchListWithMessages"]'
+            xpath = '//div[@class="messageList"]'
             tab = self.browser.find_element_by_xpath(xpath)
             self.browser.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight;', tab)
             time.sleep(4)
@@ -223,7 +208,7 @@ class MatchHelper:
 
         # locate the textbox and send message
         try:
-            xpath = '//*[@id="chat-text-area"]'
+            xpath = '//textarea'
 
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH,xpath)))
@@ -245,9 +230,7 @@ class MatchHelper:
             self._open_chat(chatid)
 
         try:
-            xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[1]/button'
-
-            #xpath = '//*[@alt="GIF"]'
+            xpath = '/html/body/div[1]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[2]/button'
 
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, xpath)))
@@ -256,12 +239,12 @@ class MatchHelper:
             gif_btn.click()
             time.sleep(1.5)
 
-            search_box = self.browser.find_element_by_xpath('//*[@id="chat-text-area"]')
+            search_box = self.browser.find_element_by_xpath('//textarea')
             search_box.send_keys(gifname)
             # give chance to load gif
             time.sleep(1.5)
 
-            gif = self.browser.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div/div[1]/div[1]/div')
+            gif = self.browser.find_element_by_xpath('/html/body/div[1]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div/div[1]/div[1]/div/div/div')
             gif.click()
             # sleep so gif can be sent
             time.sleep(1.5)
@@ -274,7 +257,7 @@ class MatchHelper:
             self._open_chat(chatid)
 
         try:
-            xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[2]/button'
+            xpath = '/html/body/div[1]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[4]/div/div[3]/button'
 
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, xpath)))
@@ -283,17 +266,17 @@ class MatchHelper:
             song_btn.click()
             time.sleep(1.5)
 
-            search_box = self.browser.find_element_by_xpath('//*[@id="chat-text-area"]')
+            search_box = self.browser.find_element_by_xpath('//textarea')
             search_box.send_keys(songname)
             # give chance to load gif
             time.sleep(1.5)
 
             song = self.browser.find_element_by_xpath(
-                '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[2]/div/div[1]/div[1]/div/div[1]/div/button')
+                '/html/body/div[1]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[2]/div/div[1]/div[1]/div/div[1]/div/button')
             song.click()
             time.sleep(0.5)
 
-            confirm_btn = self.browser.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[2]/div/div[1]/div[1]/div/div[2]/button')
+            confirm_btn = self.browser.find_element_by_xpath('/html/body/div[1]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[2]/div/div[1]/div[2]/div/div[2]/button')
             confirm_btn.click()
             # sleep so song can be sent
             time.sleep(1.5)
@@ -313,7 +296,7 @@ class MatchHelper:
             self._open_chat(chatid)
 
         try:
-            xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[3]/button'
+            xpath = '/html/body/div[1]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[4]/div/div[1]/button'
 
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, xpath)))
@@ -390,12 +373,14 @@ class MatchHelper:
         # look for the match with that chatid
         # first we're gonna look for the match in the already interacted matches
         try:
-            xpath = '//*[@id="messages-tab"]'
+            xpath = '//*[@role="tab"]'
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
 
-            messages_tab = self.browser.find_element_by_xpath(xpath)
-            messages_tab.click()
+            tabs = self.browser.find_elements_by_xpath(xpath)
+            for tab in tabs:
+                if tab.text == "Messages":
+                    tab.click()
             time.sleep(1)
         except Exception as e:
             self.browser.get(self.HOME_URL)
@@ -407,18 +392,20 @@ class MatchHelper:
             self.browser.execute_script("arguments[0].click();", match_button)
 
         except Exception as e:
-            print(e)
             # match reference not found, so let's see if match exists in the new not yet interacted matches
-            xpath = '//*[@id="match-tab"]'
+            xpath = '//*[@role="tab"]'
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
 
-            new_matches_tab = self.browser.find_element_by_xpath(xpath)
-            new_matches_tab.click()
+            tabs = self.browser.find_elements_by_xpath(xpath)
+            for tab in tabs:
+                if tab.text == "Matches":
+                    tab.click()
+
             time.sleep(1)
 
             try:
-                matched_button = self.browser.find_element_by_xpath('//a[@href="' + href + '"]')
+                matched_button = self.browser.find_element_by_xpath('//a[@href="{}"]'.format(href))
                 matched_button.click()
             except Exception as e:
                 # some kind of error happened, probably cuz chatid/ref/match doesnt exist (anymore)
@@ -517,8 +504,7 @@ class MatchHelper:
             self._open_chat(chatid)
 
         passions = []
-
-        xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[1]/div/div/div[2]/div[1]/div/div[2]/div[4]/div'
+        xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[1]/div/div/div[2]/div/div/div[2]/div[2]/div'
         elements = self.browser.find_elements_by_xpath(xpath)
         for el in elements:
             passions.append(el.text)
@@ -530,7 +516,7 @@ class MatchHelper:
             self._open_chat(chatid)
 
         try:
-            xpath = '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[1]/div/div/div[2]/div[2]/div'
+            xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[1]/div/div/div[2]/div[2]/div'
             return self.browser.find_element_by_xpath(xpath).text
         except:
             # no bio included?
