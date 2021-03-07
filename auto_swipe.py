@@ -2,7 +2,7 @@
 Created by Frederikme (TeetiFM)
 
 This script is meant to be user friendly for beginning users.
-Simply replace email and password with your private information.
+Definitly take a look at quickstart.py for more features!
 '''
 
 from tinderbotz.session import Session
@@ -17,8 +17,8 @@ if __name__ == "__main__":
     email = "example@gmail.com"
     password = "password123"
     
-    # login using your google account with a verified email! You can also log in using Facebook.
-    session.login_using_google(email, password)
+    # login using your facebook account
+    session.login_using_facebook(email, password)
     
     # spam likes
     # amount -> amount of people you want to like
