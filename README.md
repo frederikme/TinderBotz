@@ -35,7 +35,8 @@
 * [Usage](#usage-of-tinderbot)
   * [Documentation](DOCUMENTATION.md)
   * [Demo](#demonstration)
-* [Avoiding the Ban](#How-to-Avoid-the-Ban)
+* [Example Data Analysis](#example-data-analysis)
+* [Avoiding the Ban](#how-to-avoid-the-ban)
 * [Support the Repository](#support-the-repository)
 
 <!-- ABOUT THE PROJECT -->
@@ -117,6 +118,20 @@ Features of Tinderbot as demonstrated belowed can be found here: **[Tinderbot fe
 #### Sending personalized messages to your matches
 <img src="https://user-images.githubusercontent.com/60892381/94997724-43ce3280-05ad-11eb-8a94-0a66f0afbf93.gif"></src>
 
+## Example Data Analysis
+When scraping geomatches or your own matches, you can start doing some pretty cool stuff with that data.
+A few examples are: 
+
+#### Worldclouds
+You can create wordclouds to visualise data such as the most popular names, or most occuring words in a bio.
+<img src="https://user-images.githubusercontent.com/60892381/110502983-02adf180-80fc-11eb-85c4-a0cee0dd63f1.jpg"></src>
+<img src="https://user-images.githubusercontent.com/60892381/110502986-03df1e80-80fc-11eb-9d86-c3cb38a553e5.jpg"></src>
+
+#### The 'Average' Person
+You can also start calculating what an 'average' tinderprofile would look like.</br>
+You can for example check the average amount of words a bio consists of or the average amount of images a user has.
+<img src="https://user-images.githubusercontent.com/60892381/94479341-f03a9e00-01d4-11eb-9a10-70a8aa8208ea.png"></src>
+
 ## How to Avoid the Ban
 This small section will explain how their bot detection works and how you can avoid getting banned.</br>
 
@@ -132,7 +147,7 @@ Try to use the code when you can see it running. In case you need to handle some
 I've heard some people had to prove they were not bots by doing some captcha and this could age very poorly when you run it overnight. Myself however, I haven't yet had 'the honour' to be redirected to such a captcha. So if you play it safe, there would be no need to panic.
 
 ### 4) Implement sleeps between swipes 
-This might sounds ridiculous, but most people take a look at the profile before they swipe it. Therefore instantly swiping right on every profile puts you in a 'non humanlike behaviour'-zone, which should be tried to be avoided. Adding a sleep between swipes can be done as described [here](https://github.com/frederikme/TinderBotz/blob/master/DOCUMENTATION.md#liking-geomatches). It is recommended to sleep at least 1 second between every swipe. If you have a rather new profile, then make it 2 or 3 (float numbers like 1.5 or also allowed).
+This might sounds ridiculous, but most people take a look at the profile before they swipe it. Therefore instantly swiping right on every profile puts you in a 'non humanlike behaviour'-zone, which should be tried to be avoided. Adding a sleep between swipes can be done as described [here](https://github.com/frederikme/TinderBotz/blob/master/DOCUMENTATION.md#liking-geomatches). It is recommended to sleep at least 1 second between every swipe. If you have a rather new profile, then make it 2 or 3 (float numbers like 1.5 are also allowed).
 
 ### 5) Implement randomness in your liking and disliking
 Same applies as above; most people dislike some profiles and like others. Not liking EVERY profile could help you stay under the radar.
@@ -141,20 +156,17 @@ Example of how to do so can be found [here](https://github.com/frederikme/Tinder
 ### 6) Make your profile look as real as possible
 Your profile cannot look in any way like those spambots. Therefore a few things can be done.
 
-### 6.1) Verify your profile with the blue badge to prove it's really you
-### 6.2) Link your Instagram and/or Spotify
-### 6.3) Write a good bio, preferably with a minimum of 100 characters
-### 6.4) Try to add as many images as possible
-From scraping a few thousand profiles, it concluded that the average amount of pictures someone posts on Tinder is around 5-6.
-If you're profile only has 1 or 2 images, it definilty looks more like a bot than a profile with multiple images.
-
+#### 6.1) Verify your profile with the blue badge to prove it's really you
+#### 6.2) Link your Instagram/Spotify/Facebook and verify your email
+#### 6.3) Write a good bio, preferably with a minimum of 100 characters
+#### 6.4) Add at least 3-4 images, preferably more
 
 ## Support the Repository
 Feel free to make a pull request and contribute to this project.</br>
 If you feel like buying me a drink:
-* [Patreon](https://www.patreon.com/frederikme)
 * [Paypal](https://paypal.me/frederikmees)
+* [Patreon](https://www.patreon.com/frederikme)
 * [Buy Me A Coffee](https://www.buymeacoffee.com/frederikme)
-* Bitcoin
+* Bitcoin 
     * 1NtekHsUXsm3ifDnLFeWPECYtyfBTCZduL
 
