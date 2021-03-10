@@ -17,7 +17,7 @@ if __name__ == "__main__":
     password = "password123"
     
     # login using your google account with a verified email! Alternatively, you can use Facebook login
-    session.login_using_google(email, password)
+    session.login_using_facebook(email, password)
 
     # start scraping as much geomatches as possible
     while True:
@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
             # account is scraped, now dislike and go next (since dislikes are infinite)
             # NOTE: if no amount is passed, it will dislike once -> same as => dislike(amount=1)
-            # NOTE: if you have TinderPlus, -Gold or -Platinum you could also 'like'
+            # NOTE: if you have TinderPlus, -Gold or -Platinum you could also use session.like()
             session.dislike()
 
         else:
