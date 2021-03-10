@@ -17,9 +17,11 @@ if __name__ == "__main__":
     password = "password123"
     
     # login using your google account with a verified email!
+    # update: SEE newest issue on loggin in with Google
     session.login_using_google(email, password)
 
     # Alternatively you can login using facebook with a connected profile!
+    # RECOMMENDED: link your tinderprofile with facebook for a smoother login process
     session.login_using_facebook(email, password)
 
     # Alternatively, you can also use your phone number to login
@@ -36,18 +38,16 @@ if __name__ == "__main__":
     # to avoid being banned:
     #   - it's best to apply a randomness in your liking by sometimes disliking.
     #   - some sleeping between two actions is recommended
-    # NOTE: these recommendations apply mostly to large amounts of swiping (+100 likes)
+    # by default the amount is 1, ratio 100% and sleep 1 second
     session.like(amount=10, ratio="72.5%", sleep=1)
     session.dislike(amount=1)
     session.superlike(amount=1)
     
     # adjust allowed distance for geomatches
-    # Note: You need to be logged in for this setting
     # Note: PARAMETER IS IN KILOMETERS!
     session.set_distance_range(km=150)
 
-    # set range of allowed ages
-    # Note: You need to be logged in for this setting
+    # set range of prefered age
     session.set_age_range(18, 55)
 
     # set interested in gender(s) -> options are: WOMEN, MEN, EVERYONE
@@ -92,7 +92,7 @@ if __name__ == "__main__":
         # send a funny song
         session.send_song(chatid=id, songname="")
 
-        # send my instagram or you can use alternative socials like facebook, phonenumber and snapchat
+        # send instagram or other socials like facebook, phonenumber and snapchat
         session.send_socials(chatid=id, media=Socials.INSTAGRAM, value="Fredjemees")
 
         # you can also unmatch
