@@ -8,10 +8,12 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException,
 
 # some other imports :-)
 import os
+import platform
 import time
 import random
 import requests
 import atexit
+
 
 # Tinderbotz: helper classes
 from tinderbotz.helpers.geomatch import Geomatch
@@ -70,13 +72,16 @@ class Session:
         options.add_experimental_option("useAutomationExtension", False)
         options.add_argument('--disable-blink-features=AutomationControlled')
 
-        if os.name=='nt':
+        if platform.system() == 'Windows':
             useragent = 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36'
-        else:
-            # mac
+        elif platform.system() == 'Linux':
+            useragent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36'
+        elif platform.system() == 'Darwin': # mac
             useragent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36'
-            # linux
-            # useragent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36'
+        else:
+            print(f'Please open an issue on github referring to this platform: {platform.system()}')
+            print('Once you open the issue and include the platform, I can add the correct user-agent.')
+            exit()
 
         options.add_argument(f"user-agent={useragent}")
         options.add_experimental_option('excludeSwitches', ['enable-automation'])
