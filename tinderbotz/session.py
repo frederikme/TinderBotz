@@ -69,7 +69,16 @@ class Session:
 
         options.add_experimental_option("useAutomationExtension", False)
         options.add_argument('--disable-blink-features=AutomationControlled')
-        options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36")
+
+        if os.name=='nt':
+            useragent = 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36'
+        else:
+            # mac
+            useragent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36'
+            # linux
+            # useragent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36'
+
+        options.add_argument(f"user-agent={useragent}")
         options.add_experimental_option('excludeSwitches', ['enable-automation'])
 
         # Getting the chromedriver from cache or download it from internet
