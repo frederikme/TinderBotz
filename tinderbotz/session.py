@@ -22,28 +22,13 @@ from tinderbotz.helpers.match_helper import MatchHelper
 from tinderbotz.helpers.login_helper import LoginHelper
 from tinderbotz.helpers.storage_helper import StorageHelper
 from tinderbotz.helpers.email_helper import EmailHelper
+from tinderbotz.helpers.constants_helper import Printouts
 
 class Session:
 
     HOME_URL = "https://www.tinder.com/app/recs"
 
     def __init__(self):
-        # clear the console based on the operating system you're using
-        os.system('cls' if os.name=='nt' else 'clear')
-
-        # Cool banner
-        title = ''' 
-         _____ _           _           _           _       
-        |_   _(_)_ __   __| | ___ _ __| |__   ___ | |_ ____
-          | | | | '_ \ / _` |/ _ \ '__| '_ \ / _ \| __|_  /
-          | | | | | | | (_| |  __/ |  | |_) | (_) | |_ / / 
-          |_| |_|_| |_|\__,_|\___|_|  |_.__/ \___/ \__/___|
-        ----------------------------------------------------'''
-        print(title)
-        print("Made by Frederikme")
-        self.started = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-        print("Started session: {}\n\n".format(self.started))
-
         self.email = None
         self.may_send_email = False
         self.session_data = {
@@ -91,6 +76,18 @@ class Session:
         print("Getting ChromeDriver ...")
         self.browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
         self.browser.set_window_size(1250, 750)
+
+        # clear the console based on the operating system you're using
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+        # Cool banner
+        print(Printouts.BANNER.value)
+
+        print(Printouts.EXPLANATION.value)
+        time.sleep(5)
+
+        self.started = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        print("Started session: {}\n\n".format(self.started))
 
 
     # Setting a custom location
