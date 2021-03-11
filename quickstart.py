@@ -17,11 +17,9 @@ if __name__ == "__main__":
     password = "password123"
     
     # login using your google account with a verified email!
-    # update: SEE newest issue on loggin in with Google
     session.login_using_google(email, password)
 
     # Alternatively you can login using facebook with a connected profile!
-    # RECOMMENDED: link your tinderprofile with facebook for a smoother login process
     session.login_using_facebook(email, password)
 
     # Alternatively, you can also use your phone number to login
