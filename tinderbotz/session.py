@@ -82,9 +82,9 @@ class Session:
 
         # Cool banner
         print(Printouts.BANNER.value)
-
+        time.sleep(2)
         print(Printouts.EXPLANATION.value)
-        time.sleep(5)
+        time.sleep(3)
 
         self.started = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         print("Started session: {}\n\n".format(self.started))
