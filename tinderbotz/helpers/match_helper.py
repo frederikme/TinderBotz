@@ -63,7 +63,12 @@ class MatchHelper:
             # Make sure we're in the 'new matches' tab
             for tab in tabs:
                 if tab.text == 'Matches':
-                    tab.click()
+                    try:
+                        tab.click()
+                    except:
+                        self.browser.get(self.HOME_URL)
+                        return self.get_chat_ids(new, messaged)
+
 
             # start scraping new matches
             try:
@@ -92,7 +97,11 @@ class MatchHelper:
             # Make sure we're in the 'messaged matches' tab
             for tab in tabs:
                 if tab.text == 'Messages':
-                    tab.click()
+                    try:
+                        tab.click()
+                    except:
+                        self.browser.get(self.HOME_URL)
+                        return self.get_chat_ids(new, messaged)
 
             # Start scraping the chatted matches
             try:

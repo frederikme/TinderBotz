@@ -16,13 +16,12 @@ class GeomatchHelper:
         if "/app/recs" not in self.browser.current_url:
             self._get_home_page()
 
-    def like(self):
+    def like(self)->bool:
         try:
             # need to find better way
             if 'profile' in self.browser.current_url:
                 xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[4]/button'
             else:
-                '//*[@id="t-429325247"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[4]/button'
                 xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[4]/button'
             
             # wait for element to appear
@@ -34,9 +33,11 @@ class GeomatchHelper:
 
             like_button.click()
             time.sleep(1)
-
+            return True
         except (TimeoutException, ElementClickInterceptedException):
             self._get_home_page()
+
+        return False
 
     def dislike(self):
         try:

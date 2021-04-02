@@ -81,11 +81,12 @@ class Session:
         # clear the console based on the operating system you're using
         os.system('cls' if os.name == 'nt' else 'clear')
 
+        print(Printouts.EXPLANATION.value)
+        time.sleep(4)
+        
         # Cool banner
         print(Printouts.BANNER.value)
-        time.sleep(2)
-        print(Printouts.EXPLANATION.value)
-        time.sleep(3)
+        time.sleep(1)
 
         self.started = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         print("Started session: {}\n\n".format(self.started))
@@ -134,7 +135,7 @@ class Session:
         if not self._is_logged_in():
             helper = LoginHelper(browser=self.browser)
             helper.login_by_google(email, password)
-            time.sleep(3)
+            time.sleep(5)
         if not self._is_logged_in():
             print('Manual interference is required.')
             input('press ENTER to continue')
@@ -144,7 +145,7 @@ class Session:
         if not self._is_logged_in():
             helper = LoginHelper(browser=self.browser)
             helper.login_by_facebook(email, password)
-            time.sleep(3)
+            time.sleep(5)
         if not self._is_logged_in():
             print('Manual interference is required.')
             input('press ENTER to continue')
@@ -153,7 +154,7 @@ class Session:
         if not self._is_logged_in():
             helper = LoginHelper(browser=self.browser)
             helper.login_by_sms(country, phone_number)
-            time.sleep(3)
+            time.sleep(5)
         if not self._is_logged_in():
             print('Manual interference is required.')
             input('press ENTER to continue')
@@ -188,11 +189,11 @@ class Session:
             print("\nLiking profiles started.")
             while amount_liked < amount:
                 if random.random() <= ratio:
-                    helper.like()
-                    amount_liked += 1
-                    # update for stats after session ended
-                    self.session_data['like'] += 1
-                    print(f"{amount_liked}/{amount} liked")
+                    if helper.like():
+                        amount_liked += 1
+                        # update for stats after session ended
+                        self.session_data['like'] += 1
+                        print(f"{amount_liked}/{amount} liked")
 
                 else:
                     helper.dislike()
@@ -399,7 +400,18 @@ class Session:
             time.sleep(3)
             # handle other potential popups
             self._handle_potential_popups()
+            return "POPUP: Deny confirmation of email"
+        except:
+            pass
 
+        # Deny add location popup
+        try:
+            xpath = ".//*[contains(text(), 'No Thanks')]"
+            nothanks = base_element.find_element_by_xpath(xpath)
+            nothanks.click()
+            time.sleep(3)
+            # handle other potential popups
+            self._handle_potential_popups()
             return "POPUP: Deny confirmation of email"
         except:
             pass
