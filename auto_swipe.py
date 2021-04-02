@@ -17,8 +17,9 @@ if __name__ == "__main__":
     email = "example@gmail.com"
     password = "password123"
     
-    # login using your facebook account
+    # login using either your facebook account or google account (delete the line of code you don't need)
     session.login_using_facebook(email, password)
+    session.login_using_google(email, password)
     
     # spam likes
     # amount -> amount of people you want to like
