@@ -1,6 +1,7 @@
 # TinderBot
 
 ## YouTube Video
+
 [![Getting +1000 Matches on Tinder in 24 Hours by Building a Tinderbot!](https://img.youtube.com/vi/qCgKlCi6YRI/0.jpg)](https://www.youtube.com/watch?v=qCgKlCi6YRI)
 
 ## Project
