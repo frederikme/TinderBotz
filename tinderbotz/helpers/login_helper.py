@@ -1,7 +1,7 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException, ElementClickInterceptedException
+from selenium.common.exceptions import TimeoutException, ElementClickInterceptedException, StaleElementReferenceException
 from selenium.webdriver.common.keys import Keys
 import time
 
@@ -15,16 +15,12 @@ class LoginHelper:
 
     def _click_login_button(self):
         try:
-            xpath = '//*[@type="button"]'
+            xpath = '//a[@href="/app/login"]'
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                 (By.XPATH, xpath)))
-            buttons = self.browser.find_elements_by_xpath(xpath)
-
-            for button in buttons:
-                text_span = button.find_element_by_xpath('.//span').text
-                if 'log in' in text_span.lower():
-                    button.click()
-                    break
+            button = self.browser.find_element_by_xpath(xpath)
+            button.click()
+            time.sleep(3)
 
         except TimeoutException:
             self._exit_by_time_out()
@@ -36,17 +32,19 @@ class LoginHelper:
         self._click_login_button()
 
         # wait for google button to appear
+        xpath = '//*[@aria-label="Log in with Google"]'
         try:
-            xpath = '//*[@aria-label="Log in with Google"]'
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                 (By.XPATH, xpath)))
 
-            time.sleep(3)
-            btn = self.browser.find_element_by_xpath(xpath)
-            btn.click()
+            self.browser.find_element_by_xpath(xpath).click()
 
         except TimeoutException:
             self._exit_by_time_out()
+        except StaleElementReferenceException:
+            # page was still loading when attempting to click facebook login
+            time.sleep(4)
+            self.browser.find_element_by_xpath(xpath).click()
 
         if not self._change_focus_to_pop_up():
             print("FAILED TO CHANGE FOCUS TO POPUP")
@@ -85,14 +83,18 @@ class LoginHelper:
         self._click_login_button()
 
         # wait for facebook button to appear
+        xpath = '//*[@aria-label="Log in with Facebook"]'
         try:
-            xpath = '//*[@aria-label="Log in with Facebook"]'
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                 (By.XPATH, xpath)))
 
             self.browser.find_element_by_xpath(xpath).click()
         except TimeoutException:
             self._exit_by_time_out()
+        except StaleElementReferenceException:
+            # page was still loading when attempting to click facebook login
+            time.sleep(4)
+            self.browser.find_element_by_xpath(xpath).click()
 
         if not self._change_focus_to_pop_up():
             print("FAILED TO CHANGE FOCUS TO POPUP")

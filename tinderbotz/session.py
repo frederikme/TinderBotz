@@ -81,9 +81,6 @@ class Session:
         # clear the console based on the operating system you're using
         os.system('cls' if os.name == 'nt' else 'clear')
 
-        print(Printouts.EXPLANATION.value)
-        time.sleep(4)
-        
         # Cool banner
         print(Printouts.BANNER.value)
         time.sleep(1)
@@ -305,7 +302,7 @@ class Session:
     def _handle_potential_popups(self):
         delay = 0.25
 
-        modal_manager = '//div[starts-with(@id, "t-")]'
+        modal_manager = '//div[starts-with(@id, "u")]'
 
         # last possible id based div
         base_element = self.browser.find_elements_by_xpath(modal_manager)[-1]
