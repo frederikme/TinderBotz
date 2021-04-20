@@ -5,22 +5,25 @@ Created by Frederikme (TeetiFM)
 from tinderbotz.session import Session
 from tinderbotz.helpers.constants_helper import *
 
+
+
 if __name__ == "__main__":
     # creates instance of session
     session = Session()
 
     # set location (Don't need to be logged in for this)
-    session.set_custom_location("Leuven, Belgium")
-    
-    # replace this with your own email and password!
-    email = "example@gmail.com"
-    password = "password123"
-    
-    # login using your google account with a verified email!
-    session.login_using_google(email, password)
+    session.set_custom_location("London, United Kingdom")
 
-    # Alternatively you can login using facebook with a connected profile!
-    session.login_using_facebook(email, password)
+    f = open("authentication/account.txt","r")
+    lines = f.readlines()
+    email, password = lines[0].strip(), lines[1].strip()
+    f.close()
+    
+    # # login using your google account with a verified email!
+    # session.login_using_google(email, password)
+
+    # # Alternatively you can login using facebook with a connected profile!
+    # session.login_using_facebook(email, password)
 
     # Alternatively, you can also use your phone number to login
     '''
@@ -28,8 +31,8 @@ if __name__ == "__main__":
     - phone_number is everything after the prefix (+32)
     NOTE: this is not my phone number :)
     '''
-    country = "Belgium"
-    phone_number = "479011124"
+    country = "United Kingdom"
+    phone_number = "7450621862"
     session.login_using_sms(country, phone_number)
 
     # spam likes, dislikes and superlikes
@@ -37,7 +40,7 @@ if __name__ == "__main__":
     #   - it's best to apply a randomness in your liking by sometimes disliking.
     #   - some sleeping between two actions is recommended
     # by default the amount is 1, ratio 100% and sleep 1 second
-    session.like(amount=10, ratio="72.5%", sleep=1)
+    session.like(amount=10, ratio="80%", sleep=1)
     session.dislike(amount=1)
     session.superlike(amount=1)
     
@@ -46,7 +49,7 @@ if __name__ == "__main__":
     session.set_distance_range(km=150)
 
     # set range of prefered age
-    session.set_age_range(18, 55)
+    session.set_age_range(18, 32)
 
     # set interested in gender(s) -> options are: WOMEN, MEN, EVERYONE
     session.set_sexuality(Sexuality.WOMEN)
@@ -70,31 +73,31 @@ if __name__ == "__main__":
     # Pick up line with their personal name so it doesn't look spammy
     pickup_line = "Hey {}! You. Me. Pizza? Or do you not like pizza?"
 
-    # loop through my new matches and send them the first message of the conversation
-    for match in new_matches:
-        # store name and chatid in variables so we can use it more simply later on
-        name = match.get_name()
-        id = match.get_chat_id()
+    # # loop through my new matches and send them the first message of the conversation
+    # for match in new_matches:
+    #     # store name and chatid in variables so we can use it more simply later on
+    #     name = match.get_name()
+    #     id = match.get_chat_id()
 
-        print(name, id)
+    #     print(name, id)
 
-        # Format the match her/his name in your pickup line for a more personal approach.
-        message = pickup_line.format(name)
+    #     # Format the match her/his name in your pickup line for a more personal approach.
+    #     message = pickup_line.format(name)
 
-        # send pick up line with their name in it to all my matches
-        session.send_message(chatid=id, message=message)
+    #     # send pick up line with their name in it to all my matches
+    #     session.send_message(chatid=id, message=message)
 
-        # send a funny gif
-        session.send_gif(chatid=id, gifname="")
+    #     # send a funny gif
+    #     session.send_gif(chatid=id, gifname="")
 
-        # send a funny song
-        session.send_song(chatid=id, songname="")
+    #     # send a funny song
+    #     session.send_song(chatid=id, songname="")
 
-        # send instagram or other socials like facebook, phonenumber and snapchat
-        session.send_socials(chatid=id, media=Socials.INSTAGRAM, value="Fredjemees")
+    #     # send instagram or other socials like facebook, phonenumber and snapchat
+    #     session.send_socials(chatid=id, media=Socials.INSTAGRAM, value="Fredjemees")
 
-        # you can also unmatch
-        #session.unmatch(chatid=id)
+    #     # you can also unmatch
+    #     #session.unmatch(chatid=id)
 
     # let's scrape some geomatches now
     for _ in range(5):
