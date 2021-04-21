@@ -102,6 +102,16 @@ class LoginHelper:
             return self.login_by_facebook(email, password)
 
         try:
+            xpath_cookies = '//*[@data-cookiebanner="accept_button"]'
+
+            WebDriverWait(self.browser, self.delay).until(
+            EC.presence_of_element_located((By.XPATH, xpath_cookies)))
+
+            self.browser.find_element_by_xpath(xpath_cookies).click()
+        except TimeoutException:
+            self._exit_by_time_out()
+
+        try:
             xpath_email = '//*[@id="email"]'
             xpath_password = '//*[@id="pass"]'
             xpath_button = '//*[@id="loginbutton"]'
