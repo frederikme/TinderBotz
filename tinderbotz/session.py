@@ -25,6 +25,7 @@ from tinderbotz.helpers.login_helper import LoginHelper
 from tinderbotz.helpers.storage_helper import StorageHelper
 from tinderbotz.helpers.email_helper import EmailHelper
 from tinderbotz.helpers.constants_helper import Printouts
+from tinderbotz.helpers.xpaths import *
 
 class Session:
 
@@ -301,8 +302,6 @@ class Session:
     # Utilities
     def _handle_potential_popups(self):
         delay = 0.25
-
-        modal_manager = '//div[starts-with(@id, "u")]'
 
         # last possible id based div
         base_element = self.browser.find_elements_by_xpath(modal_manager)[-1]

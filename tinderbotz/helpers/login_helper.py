@@ -3,6 +3,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException, ElementClickInterceptedException, StaleElementReferenceException
 from selenium.webdriver.common.keys import Keys
+from tinderbotz.helpers.xpaths import content
 import time
 
 class LoginHelper:
@@ -15,7 +16,7 @@ class LoginHelper:
 
     def _click_login_button(self):
         try:
-            xpath = '//a[@href="/app/login"]'
+            xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div/div/header/div/div[2]/div[2]/a'
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                 (By.XPATH, xpath)))
             button = self.browser.find_element_by_xpath(xpath)
