@@ -10,7 +10,7 @@ if __name__ == "__main__":
     session = Session()
 
     # set a custom location
-    session.set_custom_location("Leuven, Belgium")
+    session.set_custom_location(latitude=50.879829, longitude=4.700540)
     
     # replace this with your own email and password!
     email = "example@gmail.com"

@@ -91,16 +91,11 @@ class Session:
 
 
     # Setting a custom location
-    def set_custom_location(self, location_name, accuracy="100%"):
-        # Make a request that converts a search query into latitude and longitude values
-        url = f"https://geocode.xyz/?locate={location_name}&geoit=JSON"
-
-        r = requests.get(url)
-        data = r.json()
+    def set_custom_location(self, latitude, longitude, accuracy="100%"):
 
         params = {
-            "latitude": float(data.get('latt')),
-            "longitude": float(data.get('longt')),
+            "latitude": latitude,
+            "longitude": longitude,
             "accuracy": int(accuracy.split('%')[0])
         }
 

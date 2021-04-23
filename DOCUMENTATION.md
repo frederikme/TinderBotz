@@ -85,10 +85,11 @@ session.login_using_sms("Belgium", "401234567")
 Changing location used to be a paid for ***Tinder Plus*** feature. But no more!</br>
 We are now able to mask our position using geopositioning inside our browser.</br>
 ```
-session.set_custom_location(location_name)
+session.set_custom_location(latitude, longitude)
 ```
 **Required parameters**</br>
-`location_name`: *string*</br>
+`latitude`: *float*</br>
+`longitude`: *float*</br>
 
 **Optional parameters**</br>
 `accuracy`: *string*</br>
@@ -97,10 +98,11 @@ session.set_custom_location(location_name)
 
 **Example usage**</br>
 In this example we set the location to the city Leuven in Belgium.</br>
+You can find the latitude and longitude of a location online; for example [here](https://www.latlong.net).<br>
 ```
-session.set_custom_location("Leuven, Belgium", accuracy="100%")
+session.set_custom_location(latitude=50.879829, longitude=4.700540, accuracy="100%")
 # would be the same as simply
-session.set_custom_location("Leuven, Belgium")
+session.set_custom_location(latitude=50.879829, longitude=4.700540)
 ```
 
 ## Email Notifications
