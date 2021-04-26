@@ -129,31 +129,11 @@ class MatchHelper:
     def get_new_matches(self, amount, quickload):
         matches = []
         used_chatids = []
-        new_chatids = self.get_chat_ids(new=True, messaged=False)
-
+        iteration = 0
         while True:
-
+            iteration += 1
             if len(matches) >= amount:
                 break
-
-            # shorten the list so doesn't fetch ALL matches but just the amount it needs
-            diff = len(matches) + len(new_chatids) - amount
-
-            if diff > 0:
-                del new_chatids[-diff:]
-
-            print("\nGetting not-interacted-with, NEW MATCHES")
-            loadingbar = LoadingBar(len(new_chatids), "new matches")
-            for index, chatid in enumerate(new_chatids):
-                matches.append(self.get_match(chatid, quickload))
-                loadingbar.update_loading(index)
-            print("\n")
-
-            # scroll down to get more chatids
-            xpath = '//div[@role="tabpanel"]'
-            tab = self.browser.find_element_by_xpath(xpath)
-            self.browser.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight;', tab)
-            time.sleep(4)
 
             new_chatids = self.get_chat_ids(new=True, messaged=False)
             copied = new_chatids.copy()
@@ -167,35 +147,35 @@ class MatchHelper:
             if len(new_chatids) == 0:
                 break
 
-        return matches
-
-    def get_messaged_matches(self, amount, quickload):
-        matches = []
-        used_chatids = []
-        new_chatids = self.get_chat_ids(new=False, messaged=True)
-
-        while True:
-
-            if len(matches) >= amount:
-                break
-
             # shorten the list so doesn't fetch ALL matches but just the amount it needs
             diff = len(matches) + len(new_chatids) - amount
+
             if diff > 0:
                 del new_chatids[-diff:]
 
-            print("\nGetting interacted-with, MESSAGED MATCHES")
-            loadingbar = LoadingBar(len(new_chatids), "interacted-with-matches")
+            print(f"\nGetting not-interacted-with, NEW MATCHES, part {iteration}")
+            loadingbar = LoadingBar(len(new_chatids), "new matches")
             for index, chatid in enumerate(new_chatids):
                 matches.append(self.get_match(chatid, quickload))
                 loadingbar.update_loading(index)
             print("\n")
 
             # scroll down to get more chatids
-            xpath = '//div[@class="messageList"]'
+            xpath = '//div[@role="tabpanel"]'
             tab = self.browser.find_element_by_xpath(xpath)
             self.browser.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight;', tab)
             time.sleep(4)
+
+        return matches
+
+    def get_messaged_matches(self, amount, quickload):
+        matches = []
+        used_chatids = []
+        iteration = 0
+        while True:
+            iteration += 1
+            if len(matches) >= amount:
+                break
 
             new_chatids = self.get_chat_ids(new=False, messaged=True)
             copied = new_chatids.copy()
@@ -208,6 +188,24 @@ class MatchHelper:
             # no new matches are found, MAX LIMIT
             if len(new_chatids) == 0:
                 break
+
+            # shorten the list so doesn't fetch ALL matches but just the amount it needs
+            diff = len(matches) + len(new_chatids) - amount
+            if diff > 0:
+                del new_chatids[-diff:]
+
+            print(f"\nGetting interacted-with, MESSAGED MATCHES, part {iteration}")
+            loadingbar = LoadingBar(len(new_chatids), "interacted-with-matches")
+            for index, chatid in enumerate(new_chatids):
+                matches.append(self.get_match(chatid, quickload))
+                loadingbar.update_loading(index)
+            print("\n")
+
+            # scroll down to get more chatids
+            xpath = '//div[@class="messageList"]'
+            tab = self.browser.find_element_by_xpath(xpath)
+            self.browser.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight;', tab)
+            time.sleep(4)
 
         return matches
 
