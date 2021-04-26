@@ -110,7 +110,8 @@ class LoginHelper:
 
             self.browser.find_element_by_xpath(xpath_cookies).click()
         except TimeoutException:
-            self._exit_by_time_out()
+            # Not everyone might have the cookie banner so let's just continue then
+            pass
 
         try:
             xpath_email = '//*[@id="email"]'
