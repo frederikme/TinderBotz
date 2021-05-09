@@ -76,7 +76,7 @@ If you're new to coding and just want the script to automatically like, the [aut
 ### Breaking Record
 **I broke the world record most matches using this script!**</br>
 Reached 1000 matches in the first 24hours.</br>
-Currently at 28000 matches!</br>
+Currently at 30000 matches!</br>
 
 <p align="center">
   <a href="https://user-images.githubusercontent.com/60892381/104088880-2d014100-526a-11eb-8b6d-ad1da6567778.jpg">
