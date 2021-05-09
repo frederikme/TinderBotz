@@ -8,7 +8,7 @@ import time
 from tinderbotz.helpers.match import Match
 from tinderbotz.helpers.constants_helper import Socials
 from tinderbotz.helpers.loadingbar import LoadingBar
-from tinderbotz.helpers.xpaths import content
+from tinderbotz.helpers.xpaths import content, modal_manager
 
 class MatchHelper:
 
@@ -354,24 +354,10 @@ class MatchHelper:
             unmatch_button.click()
             time.sleep(1)
 
-            try:
-                unmatch_button = self.browser.find_element_by_xpath('//button[text()="Yes, unmatch"]')
-                unmatch_button.click()
-                time.sleep(1)
-            except:
-                # We will unmatch the person with "no reason" as declaration
-                reason_button = self.browser.find_element_by_xpath('//div[text()="No reason"]')
-                reason_button.click()
-                time.sleep(1)
 
-                # scroll down so confirm
-                html = self.browser.find_element_by_tag_name('html')
-                html.send_keys(Keys.END)
-                time.sleep(1)
-
-                confirm_button = self.browser.find_element_by_xpath(f'{content}/div/div/div[2]/button')
-                confirm_button.click()
-                time.sleep(1)
+            unmatch_button = self.browser.find_element_by_xpath(f'{modal_manager}/div/div/div[2]/button[1]')
+            unmatch_button.click()
+            time.sleep(1)
 
         except Exception as e:
             print("SOMETHING WENT WRONG FINDING THE UNMATCH BUTTONS")
