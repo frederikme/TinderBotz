@@ -74,6 +74,8 @@ class Session:
         options.add_argument('--disable-blink-features=AutomationControlled')
         options.add_experimental_option('excludeSwitches', ['enable-automation'])
 
+        options.add_argument("--lang=en-GB")
+
         # Getting the chromedriver from cache or download it from internet
         print("Getting ChromeDriver ...")
         self.browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
