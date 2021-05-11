@@ -350,7 +350,8 @@ class MatchHelper:
             self._open_chat(chatid)
 
         try:
-            unmatch_button = self.browser.find_element_by_xpath('//button[text()="Unmatch"]')
+            #'//button[text()="Unmatch"]'
+            unmatch_button = self.browser.find_element_by_xpath(f'{content}/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[2]/div/button[1]')
             unmatch_button.click()
             time.sleep(1)
 
