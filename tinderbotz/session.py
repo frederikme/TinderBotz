@@ -19,6 +19,7 @@ import atexit
 from tinderbotz.helpers.geomatch import Geomatch
 from tinderbotz.helpers.match import Match
 from tinderbotz.helpers.profile_helper import ProfileHelper
+from tinderbotz.helpers.preferences_helper import PreferencesHelper
 from tinderbotz.helpers.geomatch_helper import GeomatchHelper
 from tinderbotz.helpers.match_helper import MatchHelper
 from tinderbotz.helpers.login_helper import LoginHelper
@@ -113,20 +114,28 @@ class Session:
 
     # NOTE: Need to be logged in for this
     def set_distance_range(self, km):
-        helper = ProfileHelper(browser=self.browser)
+        helper = PreferencesHelper(browser=self.browser)
         helper.set_distance_range(km)
 
     def set_age_range(self, min, max):
-        helper = ProfileHelper(browser=self.browser)
+        helper = PreferencesHelper(browser=self.browser)
         helper.set_age_range(min, max)
 
     def set_sexuality(self, type):
-        helper = ProfileHelper(browser=self.browser)
+        helper = PreferencesHelper(browser=self.browser)
         helper.set_sexualitiy(type)
 
     def set_global(self, boolean):
-        helper = ProfileHelper(browser=self.browser)
+        helper = PreferencesHelper(browser=self.browser)
         helper.set_global(boolean)
+
+    def set_bio(self, bio):
+        helper = ProfileHelper(browser=self.browser)
+        helper.set_bio(bio)
+
+    def add_photo(self, filepath):
+        helper = ProfileHelper(browser=self.browser)
+        helper.add_photo(filepath)
 
     # Actions of the session
     def login_using_google(self, email, password):
