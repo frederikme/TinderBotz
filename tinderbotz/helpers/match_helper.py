@@ -18,9 +18,6 @@ class MatchHelper:
 
     def __init__(self, browser):
         self.browser = browser
-        if '/app/recs' not in self.browser.current_url:
-            self.browser.get(self.HOME_URL)
-            time.sleep(2)
 
     def _scroll_down(self, xpath):
         eula = self.browser.find_element_by_xpath(xpath)
@@ -291,7 +288,7 @@ class MatchHelper:
         except Exception as e:
             print(e)
 
-    def send_socials(self, chatid, media, value):
+    def send_socials(self, chatid, media):
         did_match = False
         for social in (Socials):
             if social == media:
@@ -303,34 +300,20 @@ class MatchHelper:
             self._open_chat(chatid)
 
         try:
-            xpath = '/html/body/div[1]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[4]/div/div[1]/button'
+            xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[1]/button'
 
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, xpath)))
             socials_btn = self.browser.find_element_by_xpath(xpath)
 
             socials_btn.click()
-            time.sleep(1.5)
-
-            social_btn = self.browser.find_element_by_xpath('//div[@data-cy-type="{}"]'.format(media.value))
+            time.sleep(1)
+            
+            xpath = '//img[@alt="{}"]'.format(media.value)
+            WebDriverWait(self.browser, self.delay).until(
+                EC.presence_of_element_located((By.XPATH, xpath)))
+            social_btn = self.browser.find_elements_by_xpath(xpath)[-1]
             social_btn.click()
-
-            # check if name needs to be given or not
-            try:
-                contactcard_xpath = "//input[@aria-labelledby='contact-card-input-label']"
-
-                WebDriverWait(self.browser, 2).until(EC.presence_of_element_located((By.XPATH, contactcard_xpath)))
-
-                input = self.browser.find_element_by_xpath(contactcard_xpath)
-                input.send_keys(value)
-
-                confirm_btn = self.browser.find_element_by_xpath(f'{content}/div/div/div[3]/button[1]')
-                confirm_btn.click()
-
-                # resend with saved value this time
-                self.send_socials(chatid=chatid, media=media, value=value)
-            except TimeoutException:
-                print("There was already a value assigned to your social")
 
             # locate the sendbutton and send social
             try:
@@ -344,6 +327,8 @@ class MatchHelper:
 
         except Exception as e:
             print(e)
+            self.browser.refresh()
+            self.send_socials(chatid, media)
 
     def unmatch(self, chatid):
         if not self._is_chat_opened(chatid):
@@ -436,7 +421,7 @@ class MatchHelper:
             self._open_chat(chatid)
 
         try:
-            xpath = '//h1[@itemprop="name"]'
+            xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[1]/div/div/div[2]/div[1]/div/div[1]/div[1]/h1'
             element = self.browser.find_element_by_xpath(xpath)
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
             return element.text
@@ -450,7 +435,7 @@ class MatchHelper:
         age = None
 
         try:
-            xpath = '//span[@itemprop="age"]'
+            xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[1]/div/div/div[2]/div[1]/div/div[1]/span'
             element = self.browser.find_element_by_xpath(xpath)
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                 (By.XPATH, xpath)))

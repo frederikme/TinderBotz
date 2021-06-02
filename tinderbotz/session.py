@@ -31,7 +31,7 @@ class Session:
 
     HOME_URL = "https://www.tinder.com/app/recs"
 
-    def __init__(self):
+    def __init__(self, proxy=None):
         self.email = None
         self.may_send_email = False
         self.session_data = {
@@ -75,6 +75,10 @@ class Session:
         options.add_experimental_option('excludeSwitches', ['enable-automation'])
 
         options.add_argument("--lang=en-GB")
+
+        if proxy:
+            print(f'Setting proxy: {proxy}')
+            options.add_argument(f'--proxy-server={proxy}')
 
         # Getting the chromedriver from cache or download it from internet
         print("Getting ChromeDriver ...")
@@ -284,11 +288,11 @@ class Session:
             self._handle_potential_popups()
             helper.send_song(chatid, songname)
 
-    def send_socials(self, chatid, media, value):
+    def send_socials(self, chatid, media):
         if self._is_logged_in():
             helper = MatchHelper(browser=self.browser)
             self._handle_potential_popups()
-            helper.send_socials(chatid, media, value)
+            helper.send_socials(chatid, media)
 
     def unmatch(self, chatid):
         if self._is_logged_in():

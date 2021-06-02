@@ -8,6 +8,8 @@ from tinderbotz.helpers.constants_helper import *
 if __name__ == "__main__":
     # creates instance of session
     session = Session()
+    # Or if you want to use a proxy
+    session = Session(proxy="23.23.23.23:3128") # IP:PORT or HOST:PORT
 
     # set location (Don't need to be logged in for this)
     session.set_custom_location(latitude=50.879829, longitude=4.700540)

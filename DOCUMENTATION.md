@@ -41,6 +41,13 @@ from tinderbot.session import Session
 
 session = Session()
 ```
+**Optional parameters**</br>
+`proxy`: *string*</br>
+**Example usage**</br>
+```
+session = Session(proxy="23.23.23.23:3128") # IP:PORT or HOST:PORT
+```
+
 ## Logging in to Tinder
 Logging in can be done in one of the following ways.
 1. Using your Google-account: *Your email must be verified*
