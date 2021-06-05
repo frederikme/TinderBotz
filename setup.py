@@ -4,13 +4,13 @@ from distutils.core import setup
 setup(
   name='tinderbotz',         # How you named your folder
   packages=['tinderbotz'],   # Chose the same as "name"
-  version='1.4',      # Start with a small number and increase it with every change you make
+  version='1.5',      # Start with a small number and increase it with every change you make
   license='MIT',        # Chose a license from here: https://help.github.com/articles/licensing-a-repository
   description='Tinder automated bot and data scraper',   # Give a short description about your library
   author='Frederik Mees',                   # Type in your name
   author_email='frederik.mees@gmail.com',      # Type in your E-Mail
   url='https://github.com/frederikme/TinderBot',   # Provide either the link to your github or to your website
-  download_url='https://github.com/frederikme/TinderBot/archive/1.4.tar.gz',    # I explain this later on
+  download_url='https://github.com/frederikme/TinderBotz/archive/1.5.tar.gz',    # I explain this later on
   keywords=['Tinder', 'Automation', 'bot'],   # Keywords that define your project best
   install_requires=['selenium', 'webdriver-manager'],
 
