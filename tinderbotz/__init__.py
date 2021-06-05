@@ -11,3 +11,4 @@ from tinderbotz.helpers.storage_helper import StorageHelper
 from tinderbotz.helpers.loadingbar import LoadingBar
 
 from tinderbotz.helpers.constants_helper import *
+from tinderbotz.helpers.xpaths import *
