@@ -27,6 +27,7 @@ from tinderbotz.helpers.storage_helper import StorageHelper
 from tinderbotz.helpers.email_helper import EmailHelper
 from tinderbotz.helpers.constants_helper import Printouts
 from tinderbotz.helpers.xpaths import *
+from tinderbotz.addproxy import get_proxy_extension
 
 class Session:
 
@@ -78,8 +79,20 @@ class Session:
         options.add_argument("--lang=en-GB")
 
         if proxy:
-            print(f'Setting proxy: {proxy}')
-            options.add_argument(f'--proxy-server={proxy}')
+            if '@' in proxy:
+                parts = proxy.split('@')
+
+                user = parts[0].split(':')[0]
+                pwd = parts[0].split(':')[1]
+
+                host = parts[1].split(':')[0]
+                port = parts[1].split(':')[1]
+
+                extension = get_proxy_extension(PROXY_HOST=host, PROXY_PORT=port, PROXY_USER=user, PROXY_PASS=pwd)
+                options.add_extension(extension)
+            else:
+                options.add_argument(f'--proxy-server=http://{proxy}')
+
 
         # Getting the chromedriver from cache or download it from internet
         print("Getting ChromeDriver ...")

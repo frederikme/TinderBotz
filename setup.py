@@ -9,12 +9,10 @@ setup(
   description='Tinder automated bot and data scraper',   # Give a short description about your library
   author='Frederik Mees',                   # Type in your name
   author_email='frederik.mees@gmail.com',      # Type in your E-Mail
-  url='https://github.com/frederikme/TinderBot',   # Provide either the link to your github or to your website
+  url='https://github.com/frederikme/TinderBotz',   # Provide either the link to your github or to your website
   download_url='https://github.com/frederikme/TinderBotz/archive/1.6.tar.gz',    # I explain this later on
   keywords=['Tinder', 'Automation', 'bot'],   # Keywords that define your project best
   install_requires=['selenium', 'webdriver-manager'],
-
-  package_data={'tinderbotz': ['LocationGuardExtension.crx']},
 
   classifiers=[
     'Development Status :: 3 - Alpha',      # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your loadingz
