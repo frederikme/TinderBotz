@@ -33,7 +33,7 @@ class Session:
 
     HOME_URL = "https://www.tinder.com/app/recs"
 
-    def __init__(self, proxy=None):
+    def __init__(self, proxy=None, headless=False):
         self.email = None
         self.may_send_email = False
         self.session_data = {
@@ -77,6 +77,9 @@ class Session:
         options.add_experimental_option('excludeSwitches', ['enable-automation'])
 
         options.add_argument("--lang=en-GB")
+
+        if headless:
+            options.headless = True
 
         if proxy:
             if '@' in proxy:
@@ -259,7 +262,7 @@ class Session:
             while not name and attempts < max_attempts:
                 attempts += 1
                 name = helper.get_name()
-                time.sleep(2)
+                time.sleep(1)
 
             age = helper.get_age()
             bio = helper.get_bio()
