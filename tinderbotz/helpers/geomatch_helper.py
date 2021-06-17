@@ -113,7 +113,7 @@ class GeomatchHelper:
             self._open_profile()
 
         try:
-            xpath = '//h1[@itemprop="name"]'
+            xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[2]/div/div/div[1]/div/h1'
 
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
