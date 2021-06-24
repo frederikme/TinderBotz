@@ -239,6 +239,7 @@ class Session:
 
                 # update for stats after session ended
                 self.session_data['dislike'] += 1
+                time.sleep(1)
             self._print_liked_stats()
 
     def superlike(self, amount=1):
@@ -249,6 +250,7 @@ class Session:
                 helper.superlike()
                 # update for stats after session ended
                 self.session_data['superlike'] += 1
+                time.sleep(1)
             self._print_liked_stats()
 
     def get_geomatch(self, quickload=True):

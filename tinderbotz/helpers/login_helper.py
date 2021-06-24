@@ -203,6 +203,7 @@ class LoginHelper:
         self._accept_cookies()
         self._accept_location_notification()
         self._deny_overlayed_notifications()
+        time.sleep(5)
 
     def _accept_location_notification(self):
         try:

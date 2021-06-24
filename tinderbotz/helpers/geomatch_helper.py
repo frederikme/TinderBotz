@@ -2,12 +2,13 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import *
+from selenium.webdriver.common.action_chains import ActionChains
 import time
 from tinderbotz.helpers.xpaths import content
 
 class GeomatchHelper:
 
-    delay = 3
+    delay = 5
 
     HOME_URL = "https://www.tinder.com/app/recs"
 
@@ -21,19 +22,30 @@ class GeomatchHelper:
             # need to find better way
             if 'profile' in self.browser.current_url:
                 xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[4]/button'
+
+                # wait for element to appear
+                WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+                    (By.XPATH, xpath)))
+
+                # locate like button
+                like_button = self.browser.find_element_by_xpath(xpath)
+
+                like_button.click()
+
             else:
-                xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[4]/button'
-            
-            # wait for element to appear
-            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
-                (By.XPATH, xpath)))
+                xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]'
 
-            # locate like button
-            like_button = self.browser.find_element_by_xpath(xpath)
+                WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+                    (By.XPATH, xpath)))
 
-            like_button.click()
+                card = self.browser.find_element_by_xpath(xpath)
+
+                action = ActionChains(self.browser)
+                action.drag_and_drop_by_offset(card, 200, 0).perform()
+
             time.sleep(1)
             return True
+
         except (TimeoutException, ElementClickInterceptedException):
             self._get_home_page()
 
@@ -43,18 +55,26 @@ class GeomatchHelper:
         try:
             if 'profile' in self.browser.current_url:
                 xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[2]/button'
-            else:
-                xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[2]/button'
-
-            # wait for element to appear
-            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+                # wait for element to appear
+                WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                     (By.XPATH, xpath)))
 
-            dislike_button = self.browser.find_element_by_xpath(xpath)
+                dislike_button = self.browser.find_element_by_xpath(xpath)
 
-            dislike_button.click()
+                dislike_button.click()
+            else:
+
+                xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]'
+
+                WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+                    (By.XPATH, xpath)))
+
+                card = self.browser.find_element_by_xpath(xpath)
+
+                action = ActionChains(self.browser)
+                action.drag_and_drop_by_offset(card, -200, 0).perform()
+
             time.sleep(1)
-
         except (TimeoutException, ElementClickInterceptedException):
             self._get_home_page()
 
@@ -62,16 +82,27 @@ class GeomatchHelper:
         try:
             if 'profile' in self.browser.current_url:
                 xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[3]/div/div/div/button'
+
+                # wait for element to appear
+                WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+                    (By.XPATH, xpath)))
+
+                superlike_button = self.browser.find_element_by_xpath(xpath)
+
+                superlike_button.click()
+
             else:
-                xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[3]/div/div/div/button'
+                xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]'
 
-            # wait for element to appear
-            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
-                (By.XPATH, xpath)))
+                WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+                    (By.XPATH, xpath)))
 
-            superlike_button = self.browser.find_element_by_xpath(xpath)
+                card = self.browser.find_element_by_xpath(xpath)
 
-            superlike_button.click()
+                action = ActionChains(self.browser)
+                action.drag_and_drop_by_offset(card, 0, -200).perform()
+
+            time.sleep(1)
 
         except (TimeoutException, ElementClickInterceptedException):
             self._get_home_page()
