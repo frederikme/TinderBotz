@@ -135,10 +135,11 @@ class MatchHelper:
             new_chatids = self.get_chat_ids(new=True, messaged=False)
             copied = new_chatids.copy()
             for index in range(len(copied)):
-                if copied[index] in used_chatids:
-                    new_chatids.remove(copied[index])
+                chatid = copied[index]
+                if chatid in used_chatids:
+                    new_chatids.remove(chatid)
                 else:
-                    used_chatids.append(new_chatids[index])
+                    used_chatids.append(chatid)
 
             # no new matches are found, MAX LIMIT
             if len(new_chatids) == 0:
