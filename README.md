@@ -1,8 +1,12 @@
 # TinderBot
 
-## YouTube Video
-
-[![Getting +1000 Matches on Tinder in 24 Hours by Building a Tinderbot!](https://img.youtube.com/vi/qCgKlCi6YRI/0.jpg)](https://www.youtube.com/watch?v=qCgKlCi6YRI)
+## Need immediate help?
+Managing a large open source repository alone, is much work. I try to push a large update for this repository every two months.</br>
+However, if you're in need of an immediate hotfix or help, you can send me a message on ***[Patreon](https://www.patreon.com/frederikme)***. </br>
+So if you stumble upon a problem, you can do one of the following things:
+  1. Create an issue and explain the problem -> will be taken care off in the next large update
+  2. Solve the issue yourself and create a pull request to help others
+  3. Send me a message on ***patreon*** and I'll fix it **ASAP** with a quick prioritised hotfix. 
 
 ## Project
 <!-- PROJECT LOGO -->
@@ -68,10 +72,14 @@ If you're new to coding and just want the script to automatically like, the [aut
 </br>
 ***Enjoy! :)***</br>
 
+***Youtube Video***
+[![Getting +1000 Matches on Tinder in 24 Hours by Building a Tinderbot!](https://img.youtube.com/vi/qCgKlCi6YRI/0.jpg)](https://www.youtube.com/watch?v=qCgKlCi6YRI)
+
 ### Built with
 
 * [Python](https://www.python.org/)
 * [Selenium](https://selenium.dev)
+* [Undetected-Chromedriver](https://github.com/ultrafunkamsterdam/undetected-chromedriver)
 
 ### Breaking Record
 **I broke the world record most matches using this script!**</br>
