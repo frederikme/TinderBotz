@@ -1,6 +1,7 @@
 # Selenium: automation of browser
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
+#from webdriver_manager.chrome import ChromeDriverManager
+import undetected_chromedriver.v2 as uc
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -13,6 +14,7 @@ import time
 import random
 import requests
 import atexit
+from pathlib import Path
 
 
 # Tinderbotz: helper classes
@@ -33,7 +35,7 @@ class Session:
 
     HOME_URL = "https://www.tinder.com/app/recs"
 
-    def __init__(self, proxy=None, headless=False):
+    def __init__(self, headless=False, store_session=True, proxy=None):
         self.email = None
         self.may_send_email = False
         self.session_data = {
@@ -69,13 +71,18 @@ class Session:
 
         # Go further with the initialisation
         # Setting some options of the browser here below
-        options = webdriver.ChromeOptions()
-        options.add_experimental_option('w3c', False)
 
-        options.add_experimental_option("useAutomationExtension", False)
-        options.add_argument('--disable-blink-features=AutomationControlled')
-        options.add_experimental_option('excludeSwitches', ['enable-automation'])
+        options = uc.ChromeOptions()
 
+        # Create empty profile to avoid annoying Mac Popup
+        if store_session:
+            if not os.path.isdir(f'./chrome_profile'):
+                os.mkdir(f'./chrome_profile')
+
+            Path(f'./chrome_profile/First Run').touch()
+            options.add_argument(f'--user-data-dir=./chrome_profile/')
+
+        options.add_argument('--no-first-run --no-service-autorun --password-store=basic')
         options.add_argument("--lang=en-GB")
 
         if headless:
@@ -99,7 +106,8 @@ class Session:
 
         # Getting the chromedriver from cache or download it from internet
         print("Getting ChromeDriver ...")
-        self.browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+        self.browser = uc.Chrome(options=options) #ChromeDriverManager().install(),
+        #self.browser = webdriver.Chrome(options=options)
         self.browser.set_window_size(1250, 750)
 
         # clear the console based on the operating system you're using
@@ -413,6 +421,10 @@ class Session:
             # element is not clickable, probably cuz it's out of view but still there
             self.browser.refresh()
         except NoSuchElementException:
+            pass
+        except:
+            # TBD add stale element exception for now just refresh page
+            self.browser.refresh()
             pass
 
         # Deny confirmation of email

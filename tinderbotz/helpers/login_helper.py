@@ -1,7 +1,7 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException, ElementClickInterceptedException, StaleElementReferenceException
+from selenium.common.exceptions import TimeoutException, ElementClickInterceptedException, StaleElementReferenceException, NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 from tinderbotz.helpers.xpaths import content
 import time
@@ -242,15 +242,20 @@ class LoginHelper:
             buttons = self.browser.find_elements_by_xpath(xpath)
 
             for button in buttons:
-                text_span = button.find_element_by_xpath('.//span').text
-                if 'i accept' in text_span.lower():
-                    button.click()
-                    break
-            print("COOKIES ACCEPTED.")
+                try:
+                    text_span = button.find_element_by_xpath('.//span').text
+                    if 'accept' in text_span.lower():
+                        button.click()
+                        print("COOKIES ACCEPTED.")
+                        break
+                except NoSuchElementException:
+                    pass
+
         except TimeoutException:
             print(
                 "ACCEPTING COOKIES: Loading took too much time! Element probably not presented, so we continue.")
-        except:
+        except Exception as e:
+            print("Error cookies", e)
             pass
 
     def _change_focus_to_pop_up(self):
