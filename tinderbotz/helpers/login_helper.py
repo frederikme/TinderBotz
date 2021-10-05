@@ -199,10 +199,29 @@ class LoginHelper:
         return 'app' in self.browser.current_url
 
     def _handle_popups(self):
+        for _ in range(20):
+            if not self._is_logged_in():
+                time.sleep(1.2)
+            else:
+                break
+
+        if not self._is_logged_in():
+            print('Still not logged in ... ?')
+            input('Proceed manually and press ENTER to continue\n')
+
         time.sleep(2)
         self._accept_cookies()
         self._accept_location_notification()
         self._deny_overlayed_notifications()
+
+        self.browser.execute_cdp_cmd(
+            "Browser.grantPermissions",
+            {
+                "origin": "https://www.tinder.com",
+                "permissions": ["geolocation"]
+            },
+        )
+
         time.sleep(5)
 
     def _accept_location_notification(self):
