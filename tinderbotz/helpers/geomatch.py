@@ -2,12 +2,13 @@ from tinderbotz.helpers.storage_helper import StorageHelper
 
 class Geomatch:
 
-    def __init__(self, name, age, work, study, home, bio, distance, passions, image_urls):
+    def __init__(self, name, age, work, study, home, gender, bio, distance, passions, image_urls):
         self.name = name
         self.age = age
         self.work = work
         self.study = study
         self.home = home
+        self.gender = gender
         self.passions = passions
         self.bio = bio
         self.distance = distance
@@ -32,6 +33,9 @@ class Geomatch:
     def get_home(self):
         return self.home
 
+    def get_gender(self):
+        return self.gender
+
     def get_passions(self):
         return self.passions
 
@@ -54,6 +58,7 @@ class Geomatch:
             "work": self.get_work(),
             "study": self.get_study(),
             "home": self.get_home(),
+            "gender": self.gender,
             "bio": self.get_bio(),
             "distance": self.get_distance(),
             "passions": self.get_passions(),

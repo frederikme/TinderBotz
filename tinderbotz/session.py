@@ -275,17 +275,17 @@ class Session:
                 time.sleep(1)
 
             age = helper.get_age()
-            bio = helper.get_bio()
+
+            bio, passions = helper.get_bio_and_passions()
             image_urls = helper.get_image_urls(quickload)
             rowdata = helper.get_row_data()
             work = rowdata.get('work')
             study = rowdata.get('study')
             home = rowdata.get('home')
             distance = rowdata.get('distance')
+            gender = rowdata.get('gender')
 
-            passions = helper.get_passions()
-
-            return Geomatch(name=name, age=age, work=work, study=study, home=home, distance=distance, bio=bio, passions=passions, image_urls=image_urls)
+            return Geomatch(name=name, age=age, work=work, gender=gender, study=study, home=home, distance=distance, bio=bio, passions=passions, image_urls=image_urls)
 
     def get_chat_ids(self, new=True, messaged=True):
         if self._is_logged_in():
