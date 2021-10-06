@@ -86,9 +86,9 @@ If you're new to coding and just want the script to automatically like, the [aut
 Reached 1000 matches in the first 24hours.</br>
 Currently at 30000 matches!</br>
 
-<p align="center">
+<p align="left">
   <a href="https://user-images.githubusercontent.com/60892381/104088880-2d014100-526a-11eb-8b6d-ad1da6567778.jpg">
-    <img src="https://user-images.githubusercontent.com/60892381/104088880-2d014100-526a-11eb-8b6d-ad1da6567778.jpg">
+    <img src="https://user-images.githubusercontent.com/60892381/104088880-2d014100-526a-11eb-8b6d-ad1da6567778.jpg" width="250">
   </a>
 </p>
 
