@@ -42,10 +42,16 @@ from tinderbot.session import Session
 session = Session()
 ```
 **Optional parameters**</br>
+`headless`: *boolean*</br>
+`store_session`: *boolean*</br>
 `proxy`: *string*</br>
+
 **Example usage**</br>
+***headless*** might not work properly, so recommended to leave it on False. </br>
+***store_session*** will store your cookies in a directory, so next time you don't need to login again. </br>
+***proxy*** can be added using IP:PORT or HOST:PORT </br>
 ```
-session = Session(proxy="23.23.23.23:3128") # IP:PORT or HOST:PORT
+session = Session(headless=False, store_session=True, proxy="23.23.23.23:3128") 
 ```
 
 ## Logging in to Tinder
@@ -69,7 +75,7 @@ session.login_using_google("myemail@gmail.com", "password123")
 session.login_using_facebook("myemail@gmail.com", "password123")
 ```
 
-### Login by SMS
+### Login by SMS (DEPRECATED)
 ```
 session.login_using_sms(country, phone_number)
 ```
@@ -344,4 +350,4 @@ If you feel like you just want to dive right into the code and get started right
 4. Run the code.
 
 If you want to scrape as much *geomatches* as possible,</br>
-then [scraper.py](https://github.com/frederikme/TinderBotz/blob/master/scraper.py) will be suiting your needs better.
+then [scraper.py](https://github.com/frederikme/TinderBotz/blob/master/scraper.py) will suit your needs better.
