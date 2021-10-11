@@ -173,6 +173,4 @@ If you feel like buying me a drink:
 * [Paypal](https://paypal.me/frederikmees)
 * [Patreon](https://www.patreon.com/frederikme)
 * [Buy Me A Coffee](https://www.buymeacoffee.com/frederikme)
-* Bitcoin 
-    * 1NtekHsUXsm3ifDnLFeWPECYtyfBTCZduL
 
