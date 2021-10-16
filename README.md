@@ -1,12 +1,9 @@
 # TinderBot
-
+**Consider giving a ⭐ if you like the project!**
 ## Need immediate help?
-Managing a large open source repository alone, is much work. I try to push a large update for this repository every two months.</br>
-However, if you're in need of an immediate hotfix or help, you can send me a message on ***[Patreon](https://www.patreon.com/frederikme)***. </br>
-So if you stumble upon a problem, you can do one of the following things:
-  1. Create an issue and explain the problem -> will be taken care off in the next large update
-  2. Solve the issue yourself and create a pull request to help others
-  3. Send me a message on ***patreon*** and I'll fix it **ASAP** with a quick prioritised hotfix. 
+Managing a large open source repository alone, is much work.</br>
+I try to push a large update for this repository every two months in which all open issues will be fixed.</br>
+However, if you'd like an immediate hotfix or help, you can send me a message on ***[Patreon](https://www.patreon.com/frederikme)***. </br>
 
 ## Project
 <!-- PROJECT LOGO -->
