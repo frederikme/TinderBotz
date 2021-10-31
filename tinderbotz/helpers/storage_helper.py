@@ -82,8 +82,10 @@ class StorageHelper:
         im = Image.open('{}/{}/{}.jpg'.format(os.getcwd(), directory, temp_name))
         hashvalue = hashlib.md5(im.tobytes()).hexdigest()
 
-        os.rename('{}/{}/{}.jpg'.format(os.getcwd(), directory, temp_name),
-                  '{}/{}/{}.jpg'.format(os.getcwd(), directory, hashvalue))
+        # check if image already exists
+        if not os.path.isfile('{}/{}/{}.jpg'.format(os.getcwd(), directory, hashvalue)):
+            os.rename('{}/{}/{}.jpg'.format(os.getcwd(), directory, temp_name),
+                      '{}/{}/{}.jpg'.format(os.getcwd(), directory, hashvalue))
 
         print("Image saved as {}/{}/{}.jpg".format(os.getcwd(), directory, hashvalue))
 
