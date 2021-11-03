@@ -1,11 +1,5 @@
 # TinderBot
 **Consider giving a ⭐ if you like the project!**
-## Need immediate help?
-Managing a large open source repository alone, is much work.</br>
-I try to push a large update for this repository every two months in which all open issues will be fixed.</br>
-However, if you'd like an immediate hotfix or help, you can send me a message on ***[Patreon](https://www.patreon.com/frederikme)***. </br>
-## Interested in a Tutorial?
-I've gotten about 5 emails the past month asking for tutorials both for Tinderbotz as for a tutorial on scraping with python and selenium to build your own (tinder)bots. I'll open an issue as a poll and if there is enough 'demand' for such tutorials, I will create some tutorials and place them on YouTube.
 ## Project
 <!-- PROJECT LOGO -->
 <br />
