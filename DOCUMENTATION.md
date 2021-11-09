@@ -31,7 +31,7 @@ Seeing these profiles and thus '*breaking the first barrier of matching*' is why
   * [Sending Songs](#sending-songs)
   * [Sending Socials](#sending-socials)
   * [Unmatching](#unmatching)
-* [JUST LET ME START ALREADY YES PLS TY](#just-let-me-start-already-yes-pls-ty)
+* [Getting Started](#just-let-me-start-already-yes-pls-ty)
 
 # Creating a Session
 First thing you'll have to do is import Session from tinderbot.session and create an active session.</br>
