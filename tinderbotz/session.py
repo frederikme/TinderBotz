@@ -35,7 +35,7 @@ class Session:
 
     HOME_URL = "https://www.tinder.com/app/recs"
 
-    def __init__(self, headless=False, store_session=True, proxy=None):
+    def __init__(self, headless=False, store_session=True, proxy=None, user_data=False):
         self.email = None
         self.may_send_email = False
         self.session_data = {
@@ -76,11 +76,13 @@ class Session:
 
         # Create empty profile to avoid annoying Mac Popup
         if store_session:
-            if not os.path.isdir(f'./chrome_profile'):
-                os.mkdir(f'./chrome_profile')
+            if not user_data:
+            	user_data =  f"{Path().absolute()}/chrome_profile/"
+            if not os.path.isdir(user_data):
+                os.mkdir(user_data)
 
-            Path(f'./chrome_profile/First Run').touch()
-            options.add_argument(f'--user-data-dir=./chrome_profile/')
+            Path(f'{user_data}First Run').touch()
+            options.add_argument(f"--user-data-dir={user_data}")
 
         options.add_argument('--no-first-run --no-service-autorun --password-store=basic')
         options.add_argument("--lang=en-GB")
