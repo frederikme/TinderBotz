@@ -51,7 +51,7 @@ I managed to succesfully create a bot that could: </br>
 * Setting a custom location for **FREE** (which is normally a paid-for-***Tinder Plus***-feature)
 * Setting profile settings and preferences, such as distance radius, minimum and maximum age, sexuality.
 * Accept all notifications and dismiss pop-ups
-* Swiping x amount of profiles left or right
+* Swiping x number of profiles left or right
 * Scraping data of the profiles displayed, including, yet not limited to, name, age, bio, images, ...
 * Sending personalized messages to your matches
 * Sending you social media cards, like Instagram, Snapchat, Phonenumber and Facebook
@@ -127,7 +127,7 @@ You can create wordclouds to visualise data such as the most popular names, or m
 
 #### The 'Average' Person
 You can also start calculating what an 'average' tinderprofile would look like.</br>
-You can for example check the average amount of words a bio consists of or the average amount of images a user has.
+You can for example check the average number of words a bio consists of or the average number of images a user has.
 <img src="https://user-images.githubusercontent.com/60892381/94479341-f03a9e00-01d4-11eb-9a10-70a8aa8208ea.png"></src>
 
 ## How to Avoid the Ban
