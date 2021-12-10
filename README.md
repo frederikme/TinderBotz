@@ -39,6 +39,7 @@
 * [Example Data Analysis](#example-data-analysis)
 * [Avoiding the Ban](#how-to-avoid-the-ban)
 * [Support the Repository](#support-the-repository)
+* [Other Tinder Repositories](#other-tinder-repositories)
 
 <!-- ABOUT THE PROJECT -->
 ## About the Project
@@ -165,3 +166,8 @@ If you feel like buying me a drink:
 * [Paypal](https://paypal.me/frederikmees)
 * [Patreon](https://www.patreon.com/frederikme)
 * [Buy Me A Coffee](https://www.buymeacoffee.com/frederikme)
+
+## Other Tinder Repositories
+![Imgur](https://imgur.com/hSVjccD.jpg)
+- [Analysis of Tinder Likes from "Likes Sent"](https://github.com/acarter881/tinder_likes_data) <br>
+This repository uses Selenium, pandas, BeautifulSoup, Excel, and more to glean meaningful insights from Tinder profile cards.
