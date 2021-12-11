@@ -40,6 +40,7 @@
 * [Avoiding the Ban](#how-to-avoid-the-ban)
 * [Support the Repository](#support-the-repository)
 * [Other Tinder Repositories](#other-tinder-repositories)
+* [Disclaimer](#disclaimer)
 
 <!-- ABOUT THE PROJECT -->
 ## About the Project
@@ -171,3 +172,12 @@ If you feel like buying me a drink:
 ![Imgur](https://imgur.com/hSVjccD.jpg)
 - [Analysis of Tinder Likes from "Likes Sent"](https://github.com/acarter881/tinder_likes_data) <br>
 This repository uses Selenium, pandas, BeautifulSoup, Excel, and more to glean meaningful insights from Tinder profile cards.
+
+## Disclaimer
+Using automated software on Tinder is against community guidelines and might get your account banned.</br>
+
+Also for the section **data mining**: scraping profiles is not only against Tinder's policies, but it's also against the law in many places.</br>
+People on Tinder did not give their permission to be stored by any other entity than Tinder itself and people have the right to be forgotten. (see: [GDPR in Europe](https://ec.europa.eu/info/law/law-topic/data-protection/data-protection-eu_en))</br>
+
+So here's a reminder that this software is for **educational purposes only** and it cannot be held accountable for any consequences you may face by having used this tool. Neither personal (banned account) nor judicial (lawsuits for privacy violations).
+
