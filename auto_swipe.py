@@ -14,8 +14,8 @@ if __name__ == "__main__":
     session = Session()
     
     # replace this with your own email and password!
-    email = "example@gmail.com"
-    password = "password123"
+    email = "hassanali20alip@gmail.com"
+    password = "hassanali123"
     
     # login using either your facebook account or google account (delete the line of code you don't need)
     session.login_using_facebook(email, password)
