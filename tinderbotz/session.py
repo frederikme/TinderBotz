@@ -83,7 +83,8 @@ class Session:
 
             Path(f'{user_data}First Run').touch()
             options.add_argument(f"--user-data-dir={user_data}")
-
+        
+        options.add_argument("--start-maximized")
         options.add_argument('--no-first-run --no-service-autorun --password-store=basic')
         options.add_argument("--lang=en-GB")
 
@@ -110,7 +111,7 @@ class Session:
         print("Getting ChromeDriver ...")
         self.browser = uc.Chrome(options=options) #ChromeDriverManager().install(),
         #self.browser = webdriver.Chrome(options=options)
-        self.browser.set_window_size(1250, 750)
+        #self.browser.set_window_size(1250, 750)
 
         # clear the console based on the operating system you're using
         os.system('cls' if os.name == 'nt' else 'clear')
