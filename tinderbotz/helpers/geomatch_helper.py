@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import *
 from selenium.webdriver.common.action_chains import ActionChains
 import time
+import re
 from tinderbotz.helpers.xpaths import content
 
 class GeomatchHelper:
@@ -349,6 +350,71 @@ class GeomatchHelper:
             print(e)
 
         return image_urls
+
+    @staticmethod
+    def de_emojify(text):
+        """Remove emojis from a string
+        Args:
+            text (string): string with emojis or not
+        Returns:
+            string: recompile string without emojis
+        """
+        regrex_pattern = re.compile(
+            pattern="["
+                    u"\U0001F600-\U0001F64F"  # emoticons
+                    u"\U0001F300-\U0001F5FF"  # symbols & pictographs
+                    u"\U0001F680-\U0001F6FF"  # transport & map symbols
+                    u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
+                    "]+",
+            flags=re.UNICODE,
+        )
+        return regrex_pattern.sub(r'', text)
+
+    def get_insta(self, text):
+        """Take the bio and read line by line to match if the description
+        contain an instagram user.
+        Args:
+            text (string): string with emojis or not
+        Returns:
+            ig (string): return valid instagram user.
+        """
+        if not text:
+            return None
+        valid_pattern = [
+            "@",
+            "ig-",
+            "ig",
+            "ig:",
+            "ing",
+            "ing:",
+            "instag",
+            "instag:",
+            "insta:",
+            "insta",
+            "inst",
+            "inst:",
+            "instagram",
+            "instagram:",
+        ]
+        description = text.rstrip().lower().strip()
+        description = description.split()
+        for x in range(len(description)):
+            ig = self.de_emojify(description[x])
+            if '@' in ig:
+                return ig.replace('@', '')
+            elif ig in valid_pattern:
+                if ':' in description[x + 1]:
+                    return description[x + 2]
+                else:
+                    return description[x + 1]
+            else:
+                try:
+                    ig = ig.split(':', 1)
+                    if ig[0] in valid_pattern:
+                        return ig[-1]
+                except:
+                    return None
+        return None
 
     def _get_home_page(self):
         self.browser.get(self.HOME_URL)
