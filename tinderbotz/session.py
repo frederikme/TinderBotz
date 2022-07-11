@@ -213,7 +213,7 @@ class Session:
         
         initial_sleep = sleep
         ratio = float(ratio.split('%')[0]) / 100
-        
+
         if self._is_logged_in():
             helper = GeomatchHelper(browser=self.browser)
             amount_liked = 0
