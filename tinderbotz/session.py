@@ -210,10 +210,11 @@ class Session:
         StorageHelper.store_match(match=match, directory='data/{}'.format(filename), filename=filename)
 
     def like(self, amount=1, ratio='100%', sleep=1, randomize_sleep = True):
+        
         initial_sleep = sleep
         ratio = float(ratio.split('%')[0]) / 100
         
-        if self._is_logged_in():            
+        if self._is_logged_in():
             helper = GeomatchHelper(browser=self.browser)
             amount_liked = 0
             # handle one time up front, from then on check after every action instead of before
