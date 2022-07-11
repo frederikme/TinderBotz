@@ -1,4 +1,4 @@
-selenium
+selenium==4.2.0
 undetected-chromedriver
 webdriver-manager
 Pillow
