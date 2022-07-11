@@ -199,11 +199,13 @@ session.set_global(True)
 
 # Actions
 ## Liking Geomatches
-Liking method has 3 optional parameters.</br>
+Liking method has 4 optional parameters.</br>
 The amount, which is by default equal to 1, specifies how many times the like button should be pressed.</br>
 The ratio, which is by default 100%, is the chance the bot should press like or else dislike.</br>
 The sleep, which is by default 0 seconds, is the amount of seconds the bot should sleep between likes.</br>
-These last 2 should make sure you don't get banned. :)
+The randomize_sleep, which is by default True, if set to True, adds randomization to the provided time between likes.</br>
+
+These last 3 should make sure you don't get banned. :)
 ```
 session.like()
 ```
