@@ -209,24 +209,25 @@ class Session:
         # store its userdata
         StorageHelper.store_match(match=match, directory='data/{}'.format(filename), filename=filename)
 
-    def like(self, amount=1, ratio='100%', sleep=1):
-
+    def like(self, amount=1, ratio='100%', sleep=1, randomize_sleep = True):
+        initial_sleep = sleep
         ratio = float(ratio.split('%')[0]) / 100
-
-        if self._is_logged_in():
+        if self._is_logged_in():            
             helper = GeomatchHelper(browser=self.browser)
             amount_liked = 0
             # handle one time up front, from then on check after every action instead of before
             self._handle_potential_popups()
             print("\nLiking profiles started.")
             while amount_liked < amount:
+                # randomize sleep
+                if randomize_sleep:
+                    sleep = random.uniform(0.5, 2.3) * initial_sleep
                 if random.random() <= ratio:
                     if helper.like():
                         amount_liked += 1
                         # update for stats after session ended
                         self.session_data['like'] += 1
-                        print(f"{amount_liked}/{amount} liked")
-
+                        print(f"{amount_liked}/{amount} liked, sleep: {sleep}")
                 else:
                     helper.dislike()
                     # update for stats after session ended
