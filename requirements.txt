@@ -1,4 +1,4 @@
-selenium
-undetected-chromedriver
-webdriver-manager
-Pillow
+selenium==4.2.0
+undetected-chromedriver==3.0.3
+webdriver-manager==3.5.4
+Pillow==9.0.1
