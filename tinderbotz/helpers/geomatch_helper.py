@@ -29,7 +29,7 @@ class GeomatchHelper:
                     (By.XPATH, xpath)))
 
                 # locate like button
-                like_button = self.browser.find_element_by_xpath(xpath)
+                like_button = self.browser.find_element(By.XPATH, xpath)
 
                 like_button.click()
 
@@ -39,7 +39,7 @@ class GeomatchHelper:
                 WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                     (By.XPATH, xpath)))
 
-                card = self.browser.find_element_by_xpath(xpath)
+                card = self.browser.find_element(By.XPATH, xpath)
 
                 action = ActionChains(self.browser)
                 action.drag_and_drop_by_offset(card, 200, 0).perform()
@@ -60,7 +60,7 @@ class GeomatchHelper:
                 WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                     (By.XPATH, xpath)))
 
-                dislike_button = self.browser.find_element_by_xpath(xpath)
+                dislike_button = self.browser.find_element(By.XPATH, xpath)
 
                 dislike_button.click()
             else:
@@ -70,7 +70,7 @@ class GeomatchHelper:
                 WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                     (By.XPATH, xpath)))
 
-                card = self.browser.find_element_by_xpath(xpath)
+                card = self.browser.find_element(By.XPATH, xpath)
 
                 action = ActionChains(self.browser)
                 action.drag_and_drop_by_offset(card, -200, 0).perform()
@@ -88,7 +88,7 @@ class GeomatchHelper:
                 WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                     (By.XPATH, xpath)))
 
-                superlike_button = self.browser.find_element_by_xpath(xpath)
+                superlike_button = self.browser.find_element(By.XPATH, xpath)
 
                 superlike_button.click()
 
@@ -98,7 +98,7 @@ class GeomatchHelper:
                 WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                     (By.XPATH, xpath)))
 
-                card = self.browser.find_element_by_xpath(xpath)
+                card = self.browser.find_element(By.XPATH, xpath)
 
                 action = ActionChains(self.browser)
                 action.drag_and_drop_by_offset(card, 0, -200).perform()
@@ -119,7 +119,7 @@ class GeomatchHelper:
             for button in buttons:
                 # some buttons might not have a span as subelement
                 try:
-                    text_span = button.find_element_by_xpath('.//span').text
+                    text_span = button.find_element(By.XPATH, './/span').text
                     if 'open profile' in text_span.lower():
                         button.click()
                         break
@@ -336,7 +336,7 @@ class GeomatchHelper:
         except TimeoutException:
             # there is only 1 image, so no bullets to iterate through
             try:
-                element = self.browser.find_element_by_xpath("//div[@aria-label='Profile slider']")
+                element = self.browser.find_element(By.XPATH, "//div[@aria-label='Profile slider']")
                 image_url = element.value_of_css_property('background-image').split('\"')[1]
                 if image_url not in image_urls:
                     image_urls.append(image_url)

@@ -6,6 +6,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, ElementNotVisibleException
+from selenium.webdriver.common.by import By
+
 
 # some other imports :-)
 import os
@@ -344,7 +346,7 @@ class Session:
         delay = 0.25
 
         # last possible id based div
-        base_element = self.browser.find_elements_by_xpath(modal_manager)[-1]
+        base_element = self.browser.find_element(By.XPATH, modal_manager)
 
         # try to deny see who liked you
         try:
@@ -352,7 +354,7 @@ class Session:
             WebDriverWait(base_element, delay).until(
                 EC.presence_of_element_located((By.XPATH, xpath)))
 
-            deny_btn = base_element.find_element_by_xpath(xpath)
+            deny_btn = base_element.find_element(By.XPATH, xpath)
             deny_btn.click()
             return "POPUP: Denied see who liked you"
 
@@ -365,7 +367,7 @@ class Session:
         try:
             # locate "no thanks"-button
             xpath = './/div/div/button[2]'
-            base_element.find_element_by_xpath(xpath).click()
+            base_element.find_element(By.XPATH, xpath).click()
             return "POPUP: Denied upgrade to superlike"
         except NoSuchElementException:
             pass
@@ -374,7 +376,7 @@ class Session:
         try:
             xpath = './/div/div/div[2]/button[2]'
 
-            add_to_home_popup = base_element.find_element_by_xpath(xpath)
+            add_to_home_popup = base_element.find_element(By.XPATH, xpath)
             add_to_home_popup.click()
             return "POPUP: Denied Tinder to homescreen"
 
@@ -384,7 +386,7 @@ class Session:
         # deny buying more superlikes
         try:
             xpath = './/div/div/div[3]/button[2]'
-            deny = base_element.find_element_by_xpath(xpath)
+            deny = base_element.find_element(By.XPATH, xpath)
             deny.click()
             return "POPUP: Denied buying more superlikes"
         except NoSuchElementException:
@@ -395,7 +397,7 @@ class Session:
         try:
             xpath = '//button[@title="Back to Tinder"]'
 
-            match_popup = base_element.find_element_by_xpath(xpath)
+            match_popup = base_element.find_element(By.XPATH, xpath)
             match_popup.click()
             matched = True
 
@@ -417,7 +419,7 @@ class Session:
         # try to say 'no thanks' to buy more (super)likes
         try:
             xpath = './/div/div/div[3]/button[2]'
-            deny_btn = base_element.find_element_by_xpath(xpath)
+            deny_btn = base_element.find_element(By.XPATH, xpath)
             deny_btn.click()
             return "POPUP: Denied buying more superlikes"
 
@@ -434,7 +436,7 @@ class Session:
         # Deny confirmation of email
         try:
             xpath = './/div/div/div[1]/div[2]/button[2]'
-            remindmelater = base_element.find_element_by_xpath(xpath)
+            remindmelater = base_element.find_element(By.XPATH, xpath)
             remindmelater.click()
 
             time.sleep(3)
@@ -447,7 +449,7 @@ class Session:
         # Deny add location popup
         try:
             xpath = ".//*[contains(text(), 'No Thanks')]"
-            nothanks = base_element.find_element_by_xpath(xpath)
+            nothanks = base_element.find_element(By.XPATH, xpath)
             nothanks.click()
             time.sleep(3)
             # handle other potential popups
