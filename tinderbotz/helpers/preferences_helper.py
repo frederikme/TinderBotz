@@ -21,7 +21,7 @@ class PreferencesHelper:
             xpath = '//*[@href="/app/profile"]'
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, xpath)))
-            browser.find_element_by_xpath(xpath).click()
+            browser.find_element(By.XPATH, xpath).click()
         except:
             pass
 
@@ -42,7 +42,7 @@ class PreferencesHelper:
             try:
                 WebDriverWait(self.browser, self.delay).until(
                     EC.presence_of_element_located((By.XPATH, xpath)))
-                link = self.browser.find_element_by_xpath(xpath)
+                link = self.browser.find_element(By.XPATH, xpath)
                 break
             except TimeoutException:
                 continue
@@ -71,12 +71,12 @@ class PreferencesHelper:
         xpath = '//*[@aria-label="Minimum age"]'
         WebDriverWait(self.browser, self.delay).until(
             EC.presence_of_element_located((By.XPATH, xpath)))
-        btn_minage = self.browser.find_element_by_xpath(xpath)
+        btn_minage = self.browser.find_element(By.XPATH, xpath)
 
         xpath = '//*[@aria-label="Maximum age"]'
         WebDriverWait(self.browser, self.delay).until(
             EC.presence_of_element_located((By.XPATH, xpath)))
-        btn_maxage = self.browser.find_element_by_xpath(xpath)
+        btn_maxage = self.browser.find_element(By.XPATH, xpath)
 
         min_age_tinder = int(btn_maxage.get_attribute('aria-valuemin'))
         max_age_tinder = int(btn_maxage.get_attribute('aria-valuemax'))
@@ -147,7 +147,7 @@ class PreferencesHelper:
         xpath = '//*[@href="/app/settings/gender"]/div/div/div/div'
         WebDriverWait(self.browser, self.delay).until(
             EC.presence_of_element_located((By.XPATH, xpath)))
-        element = self.browser.find_element_by_xpath(xpath)
+        element = self.browser.find_element(By.XPATH, xpath)
         element.click()
 
         xpath = '//*[@aria-pressed="false"]'.format(type.value)
@@ -156,7 +156,7 @@ class PreferencesHelper:
         elements = self.browser.find_elements_by_xpath(xpath)
 
         for element in elements:
-            if element.find_element_by_xpath('.//div/label').text == type.value:
+            if element.find_element(By.XPATH, './/div/label').text == type.value:
                 element.click()
                 break
 
@@ -171,7 +171,7 @@ class PreferencesHelper:
             xpath = '//*[@href="/app/settings/global/languages"]/div'
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, xpath)))
-            self.browser.find_element_by_xpath(xpath)
+            self.browser.find_element(By.XPATH, xpath)
             is_activated = True
 
         except:
@@ -179,7 +179,7 @@ class PreferencesHelper:
 
         if boolean != is_activated:
             xpath = '//*[@name="global"]'
-            element = self.browser.find_element_by_xpath(xpath)
+            element = self.browser.find_element(By.XPATH, xpath)
             element.click()
 
         if is_activated and language:

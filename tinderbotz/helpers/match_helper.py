@@ -20,7 +20,7 @@ class MatchHelper:
         self.browser = browser
 
     def _scroll_down(self, xpath):
-        eula = self.browser.find_element_by_xpath(xpath)
+        eula = self.browser.find_element(By.XPATH, xpath)
         self.browser.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight', eula)
 
         SCROLL_PAUSE_TIME = 0.5
@@ -74,7 +74,7 @@ class MatchHelper:
                 # wait for element to appear
                 WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
 
-                div = self.browser.find_element_by_xpath(xpath)
+                div = self.browser.find_element(By.XPATH, xpath)
 
                 list_refs = div.find_elements_by_xpath('.//div/div/a')
                 for index in range(len(list_refs)):
@@ -108,7 +108,7 @@ class MatchHelper:
                 WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                     (By.XPATH, xpath)))
 
-                div = self.browser.find_element_by_xpath(xpath)
+                div = self.browser.find_element(By.XPATH, xpath)
 
                 list_refs = div.find_elements_by_xpath('.//a')
                 for index in range(len(list_refs)):
@@ -160,7 +160,7 @@ class MatchHelper:
 
             # scroll down to get more chatids
             xpath = '//div[@role="tabpanel"]'
-            tab = self.browser.find_element_by_xpath(xpath)
+            tab = self.browser.find_element(By.XPATH, xpath)
             self.browser.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight;', tab)
             time.sleep(4)
 
@@ -201,7 +201,7 @@ class MatchHelper:
 
             # scroll down to get more chatids
             xpath = '//div[@class="messageList"]'
-            tab = self.browser.find_element_by_xpath(xpath)
+            tab = self.browser.find_element(By.XPATH, xpath)
             self.browser.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight;', tab)
             time.sleep(4)
 
@@ -218,7 +218,7 @@ class MatchHelper:
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH,xpath)))
 
-            textbox = self.browser.find_element_by_xpath(xpath)
+            textbox = self.browser.find_element(By.XPATH, xpath)
             textbox.send_keys(message)
             textbox.send_keys(Keys.ENTER)
 
@@ -239,17 +239,17 @@ class MatchHelper:
 
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, xpath)))
-            gif_btn = self.browser.find_element_by_xpath(xpath)
+            gif_btn = self.browser.find_element(By.XPATH, xpath)
 
             gif_btn.click()
             time.sleep(1.5)
 
-            search_box = self.browser.find_element_by_xpath('//textarea')
+            search_box = self.browser.find_element(By.XPATH, '//textarea')
             search_box.send_keys(gifname)
             # give chance to load gif
             time.sleep(1.5)
 
-            gif = self.browser.find_element_by_xpath('/html/body/div[1]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div/div[1]/div[1]/div/div/div')
+            gif = self.browser.find_element(By.XPATH, '/html/body/div[1]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div/div[1]/div[1]/div/div/div')
             gif.click()
             # sleep so gif can be sent
             time.sleep(1.5)
@@ -266,22 +266,22 @@ class MatchHelper:
 
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, xpath)))
-            song_btn = self.browser.find_element_by_xpath(xpath)
+            song_btn = self.browser.find_element(By.XPATH, xpath)
 
             song_btn.click()
             time.sleep(1.5)
 
-            search_box = self.browser.find_element_by_xpath('//textarea')
+            search_box = self.browser.find_element(By.XPATH, '//textarea')
             search_box.send_keys(songname)
             # give chance to load gif
             time.sleep(1.5)
 
-            song = self.browser.find_element_by_xpath(
+            song = self.browser.find_element(By.XPATH, 
                 '/html/body/div[1]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[2]/div/div[1]/div[1]/div/div[1]/div/button')
             song.click()
             time.sleep(0.5)
 
-            confirm_btn = self.browser.find_element_by_xpath('/html/body/div[1]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[2]/div/div[1]/div[2]/div/div[2]/button')
+            confirm_btn = self.browser.find_element(By.XPATH, '/html/body/div[1]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/div/div[2]/div/div[1]/div[2]/div/div[2]/button')
             confirm_btn.click()
             # sleep so song can be sent
             time.sleep(1.5)
@@ -305,7 +305,7 @@ class MatchHelper:
 
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, xpath)))
-            socials_btn = self.browser.find_element_by_xpath(xpath)
+            socials_btn = self.browser.find_element(By.XPATH, xpath)
 
             socials_btn.click()
             time.sleep(1)
@@ -318,7 +318,7 @@ class MatchHelper:
 
             # locate the sendbutton and send social
             try:
-                self.browser.find_element_by_xpath("//button[@type='submit']").click()
+                self.browser.find_element(By.XPATH, "//button[@type='submit']").click()
                 print("Succesfully send social card")
                 # sleep so message can be sent
                 time.sleep(1.5)
@@ -337,12 +337,12 @@ class MatchHelper:
 
         try:
             #'//button[text()="Unmatch"]'
-            unmatch_button = self.browser.find_element_by_xpath(f'{content}/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[2]/div/button[1]')
+            unmatch_button = self.browser.find_element(By.XPATH, f'{content}/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[2]/div/button[1]')
             unmatch_button.click()
             time.sleep(1)
 
 
-            unmatch_button = self.browser.find_element_by_xpath(f'{modal_manager}/div/div/div[2]/button[1]')
+            unmatch_button = self.browser.find_element(By.XPATH, f'{modal_manager}/div/div/div[2]/button[1]')
             unmatch_button.click()
             time.sleep(1)
 
@@ -373,7 +373,7 @@ class MatchHelper:
             return self._open_chat(chatid)
 
         try:
-            match_button = self.browser.find_element_by_xpath('//a[@href="{}"]'.format(href))
+            match_button = self.browser.find_element(By.XPATH, '//a[@href="{}"]'.format(href))
             self.browser.execute_script("arguments[0].click();", match_button)
 
         except Exception as e:
@@ -390,7 +390,7 @@ class MatchHelper:
             time.sleep(1)
 
             try:
-                matched_button = self.browser.find_element_by_xpath('//a[@href="{}"]'.format(href))
+                matched_button = self.browser.find_element(By.XPATH, '//a[@href="{}"]'.format(href))
                 matched_button.click()
             except Exception as e:
                 # some kind of error happened, probably cuz chatid/ref/match doesnt exist (anymore)
@@ -424,7 +424,7 @@ class MatchHelper:
 
         try:
             xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[1]/div/div/div[2]/div[1]/div/div[1]/div[1]/h1'
-            element = self.browser.find_element_by_xpath(xpath)
+            element = self.browser.find_element(By.XPATH, xpath)
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
             return element.text
         except Exception as e:
@@ -438,7 +438,7 @@ class MatchHelper:
 
         try:
             xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[1]/div/div/div[2]/div[1]/div/div[1]/span'
-            element = self.browser.find_element_by_xpath(xpath)
+            element = self.browser.find_element(By.XPATH, xpath)
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                 (By.XPATH, xpath)))
             try:
@@ -515,7 +515,7 @@ class MatchHelper:
 
         try:
             xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[1]/div/div/div[2]/div[2]/div'
-            return self.browser.find_element_by_xpath(xpath).text
+            return self.browser.find_element(By.XPATH, xpath).text
         except:
             # no bio included?
             return None

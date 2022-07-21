@@ -22,7 +22,7 @@ class ProfileHelper:
             xpath = '//*[@href="/app/profile"]'
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, xpath)))
-            browser.find_element_by_xpath(xpath).click()
+            browser.find_element(By.XPATH, xpath).click()
         except:
             pass
 
@@ -34,7 +34,7 @@ class ProfileHelper:
         try:
             WebDriverWait(self.browser, self.delay).until(
                     EC.presence_of_element_located((By.XPATH, xpath)))
-            self.browser.find_element_by_xpath(xpath).click()
+            self.browser.find_element(By.XPATH, xpath).click()
             time.sleep(1)
         except Exception as e:
             print(e)
@@ -44,7 +44,7 @@ class ProfileHelper:
         try:
             WebDriverWait(self.browser, self.delay).until(
                     EC.presence_of_element_located((By.XPATH, xpath)))
-            self.browser.find_element_by_xpath(xpath).click()
+            self.browser.find_element(By.XPATH, xpath).click()
             time.sleep(1)
         except Exception as e:
             print(e)
@@ -58,7 +58,7 @@ class ProfileHelper:
         try:
             WebDriverWait(self.browser, self.delay).until(
                     EC.presence_of_element_located((By.XPATH, xpath)))
-            btn = self.browser.find_element_by_xpath(xpath)
+            btn = self.browser.find_element(By.XPATH, xpath)
             self.browser.execute_script("arguments[0].scrollIntoView();", btn)
             btn.click()
         except Exception as e:
@@ -68,7 +68,7 @@ class ProfileHelper:
         try:
             WebDriverWait(self.browser, self.delay).until(
                     EC.presence_of_element_located((By.XPATH, xpath_input)))
-            self.browser.find_element_by_xpath(xpath_input).send_keys(filepath)
+            self.browser.find_element(By.XPATH, xpath_input).send_keys(filepath)
         except Exception as e:
             print(e)
 
@@ -76,7 +76,7 @@ class ProfileHelper:
         try:
             WebDriverWait(self.browser, self.delay).until(
                     EC.presence_of_element_located((By.XPATH, xpath_choose)))
-            self.browser.find_element_by_xpath(xpath_choose).click()
+            self.browser.find_element(By.XPATH, xpath_choose).click()
         except Exception as e:
             print(e)
 
@@ -88,7 +88,7 @@ class ProfileHelper:
         try:
             WebDriverWait(self.browser, self.delay).until(
                     EC.presence_of_element_located((By.XPATH, xpath)))
-            text_area = self.browser.find_element_by_xpath(xpath)
+            text_area = self.browser.find_element(By.XPATH, xpath)
 
             for _ in range(500):
                 text_area.send_keys(Keys.BACKSPACE)
