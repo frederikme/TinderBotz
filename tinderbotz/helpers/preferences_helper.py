@@ -153,7 +153,7 @@ class PreferencesHelper:
         xpath = '//*[@aria-pressed="false"]'.format(type.value)
         WebDriverWait(self.browser, self.delay).until(
             EC.presence_of_element_located((By.XPATH, xpath)))
-        elements = self.browser.find_elements_by_xpath(xpath)
+        elements = self.browser.find_elements(By.XPATH, xpath)
 
         for element in elements:
             if element.find_element(By.XPATH, './/div/label').text == type.value:
@@ -192,6 +192,6 @@ class PreferencesHelper:
             xpath = "//*[contains(text(), {})]".format(language)
             WebDriverWait(self.browser, self.delay).until(
                     EC.presence_of_element_located((By.XPATH, xpath)))
-            self.browser.find_elements_by_xpath(xpath).click()
+            self.browser.find_elements(By.XPATH, xpath).click()
             '''
             time.sleep(5)

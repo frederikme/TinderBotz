@@ -69,6 +69,9 @@ class Session:
                 print("Started session: {}".format(self.started))
                 y = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
                 print("Ended session: {}".format(y))
+            
+            # Close browser properly
+            self.browser.quit()
 
         # Go further with the initialisation
         # Setting some options of the browser here below
@@ -85,7 +88,7 @@ class Session:
             Path(f'{user_data}First Run').touch()
             options.add_argument(f"--user-data-dir={user_data}")
 
-        options.add_argument("--start-maximized")
+        #options.add_argument("--start-maximized")
         options.add_argument('--no-first-run --no-service-autorun --password-store=basic')
         options.add_argument("--lang=en-GB")
 
@@ -114,7 +117,7 @@ class Session:
         # self.browser.set_window_size(1250, 750)
 
         # clear the console based on the operating system you're using
-        os.system('cls' if os.name == 'nt' else 'clear')
+        #os.system('cls' if os.name == 'nt' else 'clear')
 
         # Cool banner
         print(Printouts.BANNER.value)
@@ -237,7 +240,7 @@ class Session:
                     # update for stats after session ended
                     self.session_data['dislike'] += 1
 
-                self._handle_potential_popups()
+                #self._handle_potential_popups()
                 time.sleep(sleep)
 
             self._print_liked_stats()
@@ -251,7 +254,7 @@ class Session:
 
                 # update for stats after session ended
                 self.session_data['dislike'] += 1
-                time.sleep(1)
+                #time.sleep(1)
             self._print_liked_stats()
 
     def superlike(self, amount=1):
@@ -272,15 +275,16 @@ class Session:
 
             name = None
             attempts = 0
-            max_attempts = 20
+            max_attempts = 3
             while not name and attempts < max_attempts:
                 attempts += 1
                 name = helper.get_name()
+                self._handle_potential_popups() # Popup handling on first geomatch
                 time.sleep(1)
 
             age = helper.get_age()
 
-            bio, passions = helper.get_bio_and_passions()
+            bio, passions, lifestyle, basics, anthem, looking_for = helper.get_bio_and_passions()
             image_urls = helper.get_image_urls(quickload)
             instagram = helper.get_insta(bio)
             rowdata = helper.get_row_data()
@@ -291,7 +295,7 @@ class Session:
             gender = rowdata.get('gender')
 
             return Geomatch(name=name, age=age, work=work, gender=gender, study=study, home=home, distance=distance,
-                            bio=bio, passions=passions, image_urls=image_urls, instagram=instagram)
+                            bio=bio, passions=passions, lifestyle=lifestyle, basics=basics, anthem=anthem, looking_for=looking_for, image_urls=image_urls, instagram=instagram)
 
     def get_chat_ids(self, new=True, messaged=True):
         if self._is_logged_in():
@@ -350,7 +354,7 @@ class Session:
 
         # try to deny see who liked you
         try:
-            xpath = './/div/div/div/div[3]/button[2]'
+            xpath = './/main/div/div/div[3]/button[2]'
             WebDriverWait(base_element, delay).until(
                 EC.presence_of_element_located((By.XPATH, xpath)))
 
@@ -366,7 +370,7 @@ class Session:
         # Try to dismiss a potential 'upgrade like' popup
         try:
             # locate "no thanks"-button
-            xpath = './/div/div/button[2]'
+            xpath = './/main/div/button[2]'
             base_element.find_element(By.XPATH, xpath).click()
             return "POPUP: Denied upgrade to superlike"
         except NoSuchElementException:
@@ -374,7 +378,7 @@ class Session:
 
         # try to deny 'add tinder to homescreen'
         try:
-            xpath = './/div/div/div[2]/button[2]'
+            xpath = './/main/div/div[2]/button[2]'
 
             add_to_home_popup = base_element.find_element(By.XPATH, xpath)
             add_to_home_popup.click()
@@ -385,7 +389,7 @@ class Session:
 
         # deny buying more superlikes
         try:
-            xpath = './/div/div/div[3]/button[2]'
+            xpath = './/main/div/div[3]/button[2]'
             deny = base_element.find_element(By.XPATH, xpath)
             deny.click()
             return "POPUP: Denied buying more superlikes"
@@ -418,7 +422,7 @@ class Session:
 
         # try to say 'no thanks' to buy more (super)likes
         try:
-            xpath = './/div/div/div[3]/button[2]'
+            xpath = './/main/div/div[3]/button[2]'
             deny_btn = base_element.find_element(By.XPATH, xpath)
             deny_btn.click()
             return "POPUP: Denied buying more superlikes"
@@ -435,7 +439,7 @@ class Session:
 
         # Deny confirmation of email
         try:
-            xpath = './/div/div/div[1]/div[2]/button[2]'
+            xpath = './/main/div/div[1]/div[2]/button[2]'
             remindmelater = base_element.find_element(By.XPATH, xpath)
             remindmelater.click()
 

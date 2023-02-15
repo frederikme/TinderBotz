@@ -3,9 +3,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import *
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 import time
 import re
 from tinderbotz.helpers.xpaths import content
+from datetime import datetime
 
 class GeomatchHelper:
 
@@ -21,30 +23,32 @@ class GeomatchHelper:
     def like(self)->bool:
         try:
             # need to find better way
-            if 'profile' in self.browser.current_url:
-                xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[4]/button'
+            #if 'profile' in self.browser.current_url:
+            #    xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[4]/button'
 
                 # wait for element to appear
-                WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
-                    (By.XPATH, xpath)))
+            #    WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+            #        (By.XPATH, xpath)))
 
                 # locate like button
-                like_button = self.browser.find_element(By.XPATH, xpath)
+            #    like_button = self.browser.find_element(By.XPATH, xpath)
 
-                like_button.click()
+            #    like_button.click()
 
-            else:
-                xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]'
+            #else:
+            #    xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]'
 
-                WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
-                    (By.XPATH, xpath)))
+            #    WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+            #        (By.XPATH, xpath)))
 
-                card = self.browser.find_element(By.XPATH, xpath)
+             #   card = self.browser.find_element(By.XPATH, xpath)
 
-                action = ActionChains(self.browser)
-                action.drag_and_drop_by_offset(card, 200, 0).perform()
+            #    action = ActionChains(self.browser)
+           #    action.drag_and_drop_by_offset(card, 200, 0).perform()
 
-            time.sleep(1)
+            action = ActionChains(self.browser)
+            action.send_keys(Keys.ARROW_RIGHT).perform()
+            #time.sleep(1)
             return True
 
         except (TimeoutException, ElementClickInterceptedException):
@@ -54,28 +58,31 @@ class GeomatchHelper:
 
     def dislike(self):
         try:
-            if 'profile' in self.browser.current_url:
-                xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[2]/button'
+            #if 'profile' in self.browser.current_url:
+            #    xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[2]/div/div/div[2]/button'
                 # wait for element to appear
-                WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
-                    (By.XPATH, xpath)))
+            #    WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+            #        (By.XPATH, xpath)))
 
-                dislike_button = self.browser.find_element(By.XPATH, xpath)
+            #    dislike_button = self.browser.find_element(By.XPATH, xpath)
 
-                dislike_button.click()
-            else:
+            #    dislike_button.click()
+            #else:
 
-                xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]'
+            #    xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]'
 
-                WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
-                    (By.XPATH, xpath)))
+            #    WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+            #        (By.XPATH, xpath)))
 
-                card = self.browser.find_element(By.XPATH, xpath)
+            #    card = self.browser.find_element(By.XPATH, xpath)
 
-                action = ActionChains(self.browser)
-                action.drag_and_drop_by_offset(card, -200, 0).perform()
+            #    action = ActionChains(self.browser)
+            #    action.drag_and_drop_by_offset(card, -200, 0).perform()
+            
+            action = ActionChains(self.browser)
+            action.send_keys(Keys.ARROW_LEFT).perform()
 
-            time.sleep(1)
+            #time.sleep(1)
         except (TimeoutException, ElementClickInterceptedException):
             self._get_home_page()
 
@@ -111,22 +118,26 @@ class GeomatchHelper:
     def _open_profile(self, second_try=False):
         if self._is_profile_opened(): return;
         try:
-            xpath = '//button'
-            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
-                (By.XPATH, xpath)))
-            buttons = self.browser.find_elements_by_xpath(xpath)
+            #xpath = '//button'
+            #WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
+            #    (By.XPATH, xpath)))
+            #buttons = self.browser.find_elements(By.XPATH, xpath)
 
-            for button in buttons:
-                # some buttons might not have a span as subelement
-                try:
-                    text_span = button.find_element(By.XPATH, './/span').text
-                    if 'open profile' in text_span.lower():
-                        button.click()
-                        break
-                except:
-                    continue
+            #for button in buttons:
+            #    # some buttons might not have a span as subelement
+            #    try:
+            #        text_span = button.find_element(By.XPATH, './/span').text
+            #        if 'open profile' in text_span.lower():
+            #            button.click()
+            #            break
+            #    except:
+            #        continue
 
-            time.sleep(1)
+            # New Implementation
+            action = ActionChains(self.browser)
+            action.send_keys(Keys.ARROW_UP).perform()
+
+            #time.sleep(1)
 
         except (ElementClickInterceptedException, TimeoutException):
             if not second_try:
@@ -244,54 +255,64 @@ class GeomatchHelper:
             self._open_profile()
 
         bio = None
-        is_bio = True
+        looking_for = None
 
-        passions = []
-        is_passions = True
+        infoItems = {
+            "passions": [],
+            "lifestyle": [],
+            "basics": []
+        }
 
-        xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[2]/div[3]/h2'
-        passions_xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[2]/div[3]/div/div/div'
+        anthem = None
 
+        lifestyle = []
+
+
+        # Bio
         try:
-            if not 'passions' in self.browser.find_element(By.XPATH, xpath).text.lower():
+            bio = self.browser.find_element(By.CSS_SELECTOR, 'div[class*="Px(16px) Py(12px) Us(t)"').text
 
-                xpath2 = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[2]/div[2]/h2'
-                if not 'passions' in self.browser.find_element(By.XPATH, xpath2).text.lower():
-                    is_passions = False
+        except Exception as e:
+            pass
+
+        # Looking for
+        try:
+            looking_for_el = self.browser.find_element(By.CSS_SELECTOR, 'div[class="Px(16px) My(12px)"]>div[class="D(b)"]')
+            looking_for = looking_for_el.find_element(By.CSS_SELECTOR, 'div[class="Typs(subheading-1) CenterAlign"]').text
+
+        except Exception as e:
+            pass
+
+        # Basics, Lifestyle and Passions
+        try:
+            sections = self.browser.find_elements(By.CSS_SELECTOR, "div[class='Px(16px) Py(12px)']")
+            for section in sections:
+                headline = section.find_element(By.TAG_NAME, "h2").text.lower()
+                
+                if headline in infoItems.keys():
+                    infoElements = section.find_elements(By.CSS_SELECTOR, "div[class^='Bdrs(100px)']")
+                    for infoElement in infoElements:
+                        infoItems[headline].append(infoElement.text)
+                elif headline == 'my anthem':
+                    song = section.find_element(By.CSS_SELECTOR, "div[class$='C($c-ds-text-primary)']").text
+                    artist = section.find_element(By.CSS_SELECTOR, "div[class$='C($c-ds-text-secondary)']").text
+                    anthem = {
+                        "song": song,
+                        "artist": artist
+                    }
                 else:
-                    passions_xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[2]/div[2]/div/div/div'
-                    is_bio = False
-        except:
-            try:
-                xpath2 = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[2]/div[2]/h2'
-                if not 'passions' in self.browser.find_element(By.XPATH, xpath2).text.lower():
-                    is_passions = False
-                else:
-                    passions_xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[2]/div[2]/div/div/div'
-                    is_bio = False
-            except:
-                passions_xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[2]/div[2]/div/div/div'
+                    print("Unknown Sect Headline:", headline)
 
-        if is_bio:
-            try:
-                xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[2]/div[2]/div'
 
-                bio = self.browser.find_element(By.XPATH, xpath).text
-                if 'recent instagram photos' in bio.lower():
-                    bio = None
+            #if ('Passions' in passions_el.find_element(By.TAG_NAME, "h2").text):
+            #    #print("Passions Text", passions_el.text)
+            #    elements = passions_el.find_element(By.TAG_NAME, 'div').find_element(By.TAG_NAME, 'div').find_elements(By.TAG_NAME, 'div')
+            #    for el in elements:
+            #        passions.append(el.text)
+        except Exception as e:
+            pass
 
-            except Exception as e:
-                pass
-
-        if is_passions:
-            try:
-                elements = self.browser.find_elements(By.XPATH, passions_xpath)
-                for el in elements:
-                    passions.append(el.text)
-            except Exception as e:
-                pass
-
-        return bio, passions
+        return bio, infoItems["passions"], infoItems["lifestyle"], infoItems["basics"], anthem, looking_for
 
     def get_image_urls(self, quickload=True):
         if not self._is_profile_opened():
@@ -300,7 +321,7 @@ class GeomatchHelper:
         image_urls = []
 
         # only get url of first few images, and not click all bullets to get all image
-        elements = self.browser.find_elements_by_xpath("//div[@aria-label='Profile slider']")
+        elements = self.browser.find_elements(By.XPATH, "//div[@aria-label='Profile slider']")
         for element in elements:
             image_url = element.value_of_css_property('background-image').split('\"')[1]
             if image_url not in image_urls:
@@ -324,7 +345,7 @@ class GeomatchHelper:
                 btn.click()
                 time.sleep(1)
 
-                elements = self.browser.find_elements_by_xpath("//div[@aria-label='Profile slider']")
+                elements = self.browser.find_elements(By.XPATH, "//div[@aria-label='Profile slider']")
                 for element in elements:
                     image_url = element.value_of_css_property('background-image').split('\"')[1]
                     if image_url not in image_urls:
@@ -403,10 +424,13 @@ class GeomatchHelper:
             if '@' in ig:
                 return ig.replace('@', '')
             elif ig in valid_pattern:
-                if ':' in description[x + 1]:
-                    return description[x + 2]
-                else:
-                    return description[x + 1]
+                try:
+                    if ':' in description[x + 1]:
+                        return description[x + 2]
+                    else:
+                        return description[x + 1]
+                except:
+                    return None
             else:
                 try:
                     ig = ig.split(':', 1)

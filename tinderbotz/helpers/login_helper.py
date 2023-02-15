@@ -181,7 +181,7 @@ class LoginHelper:
         btn = self.browser.find_element(By.XPATH, xpath)
         btn.click()
 
-        els = self.browser.find_elements_by_xpath('//div')
+        els = self.browser.find_elements(By.XPATH, '//div')
         for el in els:
             try:
                 span = el.find_element(By.XPATH, './/span')
@@ -214,13 +214,13 @@ class LoginHelper:
         self._accept_location_notification()
         self._deny_overlayed_notifications()
 
-        self.browser.execute_cdp_cmd(
-            "Browser.grantPermissions",
-            {
-                "origin": "https://www.tinder.com",
-                "permissions": ["geolocation"]
-            },
-        )
+        #self.browser.execute_cdp_cmd(
+        #    "Browser.grantPermissions",
+        #    {
+        #        "origin": "https://www.tinder.com",
+        #        "permissions": ["geolocation"]
+        #    },
+        #)
 
         time.sleep(5)
 
@@ -258,7 +258,7 @@ class LoginHelper:
             xpath = '//*[@type="button"]'
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
                 (By.XPATH, xpath)))
-            buttons = self.browser.find_elements_by_xpath(xpath)
+            buttons = self.browser.find_elements(By.XPATH, xpath)
 
             for button in buttons:
                 try:

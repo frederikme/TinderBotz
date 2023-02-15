@@ -54,7 +54,7 @@ class MatchHelper:
             time.sleep(1)
             return self.get_chat_ids(new, messaged)
 
-        tabs = self.browser.find_elements_by_xpath(xpath)
+        tabs = self.browser.find_elements(By.XPATH, xpath)
 
         if new:
             # Make sure we're in the 'new matches' tab
@@ -76,7 +76,7 @@ class MatchHelper:
 
                 div = self.browser.find_element(By.XPATH, xpath)
 
-                list_refs = div.find_elements_by_xpath('.//div/div/a')
+                list_refs = div.find_elements(By.XPATH, './/div/div/a')
                 for index in range(len(list_refs)):
                     try:
                         ref = list_refs[index].get_attribute('href')
@@ -110,7 +110,7 @@ class MatchHelper:
 
                 div = self.browser.find_element(By.XPATH, xpath)
 
-                list_refs = div.find_elements_by_xpath('.//a')
+                list_refs = div.find_elements(By.XPATH, './/a')
                 for index in range(len(list_refs)):
                     try:
                         ref = list_refs[index].get_attribute('href')
@@ -313,7 +313,7 @@ class MatchHelper:
             xpath = '//img[@alt="{}"]'.format(media.value)
             WebDriverWait(self.browser, self.delay).until(
                 EC.presence_of_element_located((By.XPATH, xpath)))
-            social_btn = self.browser.find_elements_by_xpath(xpath)[-1]
+            social_btn = self.browser.find_elements(By.XPATH, xpath)[-1]
             social_btn.click()
 
             # locate the sendbutton and send social
@@ -362,7 +362,7 @@ class MatchHelper:
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
 
-            tabs = self.browser.find_elements_by_xpath(xpath)
+            tabs = self.browser.find_elements(By.XPATH, xpath)
             for tab in tabs:
                 if tab.text == "Messages":
                     tab.click()
@@ -382,7 +382,7 @@ class MatchHelper:
             # wait for element to appear
             WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
 
-            tabs = self.browser.find_elements_by_xpath(xpath)
+            tabs = self.browser.find_elements(By.XPATH, xpath)
             for tab in tabs:
                 if tab.text == "Matches":
                     tab.click()
@@ -503,7 +503,7 @@ class MatchHelper:
 
         passions = []
         xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div/div[2]/div/div[1]/div/div/div[2]/div/div/div[2]/div[2]/div'
-        elements = self.browser.find_elements_by_xpath(xpath)
+        elements = self.browser.find_elements(By.XPATH, xpath)
         for el in elements:
             passions.append(el.text)
 
@@ -527,7 +527,7 @@ class MatchHelper:
         image_urls = []
 
         # only get url of first few images, and not click all bullets to get all image
-        elements = self.browser.find_elements_by_xpath("//div[@aria-label='Profile slider']")
+        elements = self.browser.find_elements(By.XPATH, "//div[@aria-label='Profile slider']")
         for element in elements:
             image_url = element.value_of_css_property('background-image').split('\"')[1]
             if image_url not in image_urls:
@@ -551,7 +551,7 @@ class MatchHelper:
                 btn.click()
                 time.sleep(1)
 
-                elements = self.browser.find_elements_by_xpath("//div[@aria-label='Profile slider']")
+                elements = self.browser.find_elements(By.XPATH, "//div[@aria-label='Profile slider']")
                 for element in elements:
                     image_url = element.value_of_css_property('background-image').split('\"')[1]
                     if image_url not in image_urls:
