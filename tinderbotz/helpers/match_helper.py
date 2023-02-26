@@ -521,24 +521,23 @@ class MatchHelper:
             return None
 
     def get_image_urls(self, chatid, quickload):
-        if not self._is_chat_opened(chatid):
-            self._open_chat(chatid)
-
-        image_urls = []
-
-        # only get url of first few images, and not click all bullets to get all image
-        elements = self.browser.find_elements(By.XPATH, "//div[@aria-label='Profile slider']")
-        for element in elements:
-            image_url = element.value_of_css_property('background-image').split('\"')[1]
-            if image_url not in image_urls:
-                image_urls.append(image_url)
-
-
-        # return image urls without opening all images
-        if quickload:
-            return image_urls
-
         try:
+            if not self._is_chat_opened(chatid):
+                self._open_chat(chatid)
+
+            image_urls = []
+
+            # only get url of first few images, and not click all bullets to get all image
+            elements = self.browser.find_elements(By.XPATH, "//div[@aria-label='Profile slider']")
+            for element in elements:
+                image_url = element.value_of_css_property('background-image').split('\"')[1]
+                if image_url not in image_urls:
+                    image_urls.append(image_url)
+
+
+            # return image urls without opening all images
+            if quickload:
+                return image_urls
 
             classname = 'bullet'
             # wait for element to appear
