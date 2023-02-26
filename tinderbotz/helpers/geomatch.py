@@ -2,7 +2,7 @@ from tinderbotz.helpers.storage_helper import StorageHelper
 
 class Geomatch:
 
-    def __init__(self, name, age, work, study, home, gender, bio, lifestyle, basics, anthem, looking_for, distance, passions, image_urls, instagram):
+    def __init__(self, name, age, work, study, home, gender, bio, lifestyle, basics, anthem, looking_for = None, distance = None, passions = None, image_urls = None, instagram = None):
         self.name = name
         self.age = age
         self.work = work
@@ -22,6 +22,25 @@ class Geomatch:
         # create a unique id for this person
         self.id = "{}{}_{}".format(name, age, StorageHelper.id_generator(size=4))
         self.images_by_hashes = []
+
+    def get_images_ai_data(self):
+        images_ai_data = []
+        for image in self.image_urls:
+            for image_ai_data in self._get_image_ai_data(image):
+                images_ai_data.append(image_ai_data)
+        return images_ai_data
+
+    def _get_image_ai_data(self, image_url):
+        from PIL import Image
+        from deepface import DeepFace
+        from io import BytesIO
+        import requests
+        import cv2
+        import numpy as np
+        resp = requests.get(image_url, stream=True).raw
+        image = np.asarray(bytearray(resp.read()), dtype="uint8")
+        image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+        return DeepFace.analyze(image, enforce_detection=False)
 
     def get_name(self):
         return self.name

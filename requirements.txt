@@ -2,3 +2,6 @@ selenium==4.7.2
 undetected-chromedriver==3.2.1
 webdriver-manager==3.5.4
 Pillow==9.3.0
+deepface
+cv2
+numpy
