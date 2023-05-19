@@ -1,7 +1,7 @@
-selenium==4.7.2
-undetected-chromedriver==3.2.1
-webdriver-manager==3.5.4
-Pillow==9.3.0
+selenium==4.8.3 
+undetected-chromedriver==3.4.6 
+webdriver-manager==  3.8.6 
+Pillow==9.5.0
 deepface
-cv2
+opencv-python
 numpy
