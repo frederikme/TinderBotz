@@ -1,6 +1,6 @@
 # Tinder bot 
 
-![Alt Text](photo.jpg)
+![Alt Text](photo.png)
 
 
 
