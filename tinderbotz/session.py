@@ -1,7 +1,7 @@
 # Selenium: automation of browser
 from selenium import webdriver
 # from webdriver_manager.chrome import ChromeDriverManager
-import undetected_chromedriver.v2 as uc
+import undetected_chromedriver as uc
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -47,6 +47,8 @@ class Session:
         }
 
         start_session = time.time()
+
+        self.started = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
         # this function will run when the session ends
         @atexit.register
@@ -122,8 +124,7 @@ class Session:
         # Cool banner
         print(Printouts.BANNER.value)
         time.sleep(1)
-
-        self.started = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        
         print("Started session: {}\n\n".format(self.started))
 
     # Setting a custom location
