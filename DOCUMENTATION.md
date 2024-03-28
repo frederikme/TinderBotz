@@ -134,18 +134,18 @@ session.set_email_notifications(True)
 ```
 
 ## Distance Range
-The distance radius function allows you to set the maximum allowed distance to your potential matches.</br>
+The distance range function allows you to set the maximum allowed distance to your potential matches.</br>
 This setting requires you to be logged in on Tinder.</br>
 Note: the parameter passed is the distance to you in ***kilometers***.
 ```
-session.set_distance_radius(km)
+session.set_distance_range(km)
 ```
 **Required parameters**</br>
 `km`: *integer*</br>
 
 **Example usage**</br>
 ```
-session.set_distance_radius(150)
+session.set_distance_range(150)
 ```
 
 ## Age Range
